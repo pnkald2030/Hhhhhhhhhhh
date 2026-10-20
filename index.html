@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>كيمو - دليل اليمن التجاري</title>
-    <!-- استدعاء خط عربي فني متناسق مع مظهر الصورة -->
     <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- مكتبة PapaParse لقراءة ملفات CSV بسهولة من Google Sheets -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     
     <style>
@@ -19,319 +17,268 @@
             --card-bg: #ffffff;
             --text-main: #2d3748;
             --text-muted: #718096;
-            --star-color: #fbbc04; /* لون نجمات خرائط جوجل الأصفر المميز */
+            --star-color: #fbbc04;
             --danger-color: #e11d48;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; -webkit-tap-highlight-color: transparent; }
+        html, body { background-color: var(--bg-color); min-height: 100vh; width: 100%; overflow-x: hidden; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 100vw; background-color: #f8fafc; min-height: 100vh; position: relative; padding-bottom: 80px; overflow-x: hidden; }
+        @media (min-width: 481px) { .app-container { max-width: 450px; box-shadow: 0 0 25px rgba(0,0,0,0.1); } }
 
-        html, body {
-            background-color: var(--bg-color);
-            min-height: 100vh;
-            width: 100%;
-            overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-        }
+        header { background: #fff; padding: 8px 14px; display: flex; flex-direction: column; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .header-top-row { width: 100%; display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .logo-center-box { text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+        .kemo-logo-mark { display: flex; align-items: center; justify-content: center; gap: 5px; line-height: 1; }
+        .kemo-logo-pin { color: var(--primary-color); font-size: 25px; }
+        .kemo-artistic-name { font-family: 'Reem Kufi', sans-serif; font-size: 27px; font-weight: 900; color: var(--secondary-color); }
+        .logo-center-box > span { font-size: 8.5px; color: var(--text-muted); font-weight: 700; }
 
-        .app-container {
-            width: 100%;
-            max-width: 100vw;
-            background-color: #f8fafc;
-            min-height: 100vh;
-            position: relative;
-            padding-bottom: 80px;
-            overflow-x: hidden;
-        }
-
-        @media (min-width: 481px) {
-            .app-container {
-                max-width: 450px;
-                box-shadow: 0 0 25px rgba(0,0,0,0.1);
-            }
-        }
-
-        /* الهيدر العلوي */
-        header {
-            background: #fff;
-            padding: 8px 14px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .header-top-row {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .header-icon {
-            font-size: 14px;
-            color: var(--secondary-color);
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: #f1f5f9;
-            position: relative;
-            transition: background 0.2s;
-        }
-
-        .header-icon.logged-in {
-            background: #e6f4ed;
-            color: var(--primary-color);
-            border: 1px solid #b7e3cf;
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: 1px;
-            right: 1px;
-            background: var(--danger-color);
-            color: white;
-            font-size: 7.5px;
-            font-weight: bold;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* تصميم اسم "كيمو" برمجياً */
-        .logo-center-box {
-            text-align: center;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2px;
-        }
-
-        .kemo-logo-mark {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            line-height: 1;
-        }
-        .kemo-logo-pin {
-            color: var(--primary-color);
-            font-size: 25px;
-            filter: drop-shadow(0 1px 1px rgba(0,0,0,.12));
-        }
-        .kemo-artistic-name {
-            font-family: 'Reem Kufi', sans-serif;
-            font-size: 27px;
-            font-weight: 900;
-            color: var(--secondary-color);
-            letter-spacing: -1px;
-            line-height: 1.1;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.08);
-            position: relative;
-        }
-        .logo-center-box > span {
-            font-size: 8.5px;
-            color: var(--text-muted);
-            font-weight: 700;
-            margin-top: 1px;
-        }
-
-        /* البانر الأخضر */
-        .hero-banner {
-            background: linear-gradient(135deg, #0b8457 0%, #065e3d 100%);
-            color: white;
-            padding: 12px 14px;
-            border-radius: 0 0 16px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
+        .hero-banner { background: linear-gradient(135deg, #0b8457 0%, #065e3d 100%); color: white; padding: 12px 14px; border-radius: 0 0 16px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
         .hero-title { font-size: 13.5px; font-weight: 800; line-height: 1.2; }
         .hero-subtitle { font-size: 9.5px; opacity: 0.9; margin-top: 2px; }
 
-        .add-business-btn {
-            background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%);
-            color: #0f172a;
-            border: none;
-            padding: 7px 10px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: 800;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            box-shadow: 0 3px 8px rgba(251, 133, 0, 0.35);
-            white-space: nowrap;
-        }
+        .add-business-btn { background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%); color: #0f172a; border: none; padding: 7px 10px; border-radius: 10px; font-size: 10px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 3px 8px rgba(251, 133, 0, 0.35); white-space: nowrap; }
 
-        /* البحث والفلاتر */
         .search-section { padding: 0 10px 8px 10px; }
-        .search-card {
-            background: white;
-            border-radius: 14px;
-            padding: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
+        .search-card { background: white; border-radius: 14px; padding: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 6px; }
+        .search-input-wrapper { display: flex; align-items: center; padding: 2px 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; gap: 6px; }
+        .search-input { border: none; outline: none; width: 100%; padding: 6px; font-size: 11px; color: var(--text-main); background: transparent; text-align: right; }
+        .search-btn { background: var(--primary-color); color: white; border: none; padding: 6px 12px; border-radius: 8px; font-weight: bold; font-size: 11px; cursor: pointer; }
 
-        .search-input-wrapper {
-            display: flex;
-            align-items: center;
-            padding: 2px 8px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            gap: 6px;
-        }
-
-        .search-input {
-            border: none;
-            outline: none;
-            width: 100%;
-            padding: 6px;
-            font-size: 11px;
-            color: var(--text-main);
-            background: transparent;
-            text-align: right;
-        }
-
-        .search-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 11px;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .filters-row {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-        }
-
-        .near-me-btn {
-            flex: 1;
-            background: #e6f4ed;
-            color: var(--primary-color);
-            border: 1px solid #b7e3cf;
-            padding: 6px 4px;
-            border-radius: 8px;
-            font-size: 9.5px;
-            font-weight: 800;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3px;
-            white-space: nowrap;
-        }
-
-        .select-box {
-            flex: 1;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 6px 3px;
-            font-size: 9.5px;
-            color: var(--text-main);
-            outline: none;
-            font-family: 'Tajawal', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            text-overflow: ellipsis;
-        }
-
-        /* كبسولات الأقسام وأيقونات دائرية */
         .categories-scroll-wrapper { padding: 4px 6px 8px 6px; width: 100%; box-sizing: border-box; }
-        .categories-row {
-            display: grid;
-            grid-template-columns: repeat(6, minmax(0, 1fr));
-            gap: 4px;
-            width: 100%;
-            overflow: hidden;
-            padding: 0 0 6px;
-            box-sizing: border-box;
-        }
-        .category-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 4px;
-            cursor: pointer;
-            min-width: 0;
-            width: 100%;
-        }
+        .categories-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; width: 100%; padding: 0 0 6px; }
+        .category-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
+        .category-label { font-size: clamp(8px, 2.4vw, 10px); font-weight: 700; color: var(--secondary-color); background: #ffffff; padding: 3px 1px; width: 100%; text-align: center; border-radius: 20px; border: 1px solid #e2e8f0; }
+        .category-icon { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; color: white; }
+        .cat-all { background: var(--secondary-color); }
+        .cat-hotel { background: #00b894; }
+        .cat-food { background: #e17055; }
+        .cat-market { background: #e84393; }
+        .cat-hospital { background: #0984e3; }
 
-        .category-label { 
-            font-size: clamp(8px, 2.4vw, 10px);
-            font-weight: 700;
-            color: var(--secondary-color);
-            background: #ffffff;
-            padding: 3px 1px;
-            width: 100%;
-            box-sizing: border-box;
-            text-align: center;
-            border-radius: 20px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            white-space: normal;
-            line-height: 1.2;
-            min-height: 24px;
-            display: flex; align-items: center; justify-content: center;
-            transition: 0.2s;
-        }
+        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 4px 12px 6px 12px; }
+        .section-title { font-size: 12px; font-weight: 800; color: var(--secondary-color); }
+
+        .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 10px 12px 10px; }
+        .empty-state { grid-column: span 2; text-align: center; padding: 30px 15px; background: white; border-radius: 12px; color: var(--text-muted); font-size: 11px; }
+
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column; }
+        .card-img-wrapper { position: relative; height: 95px; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .badge-location { position: absolute; top: 6px; right: 6px; background: rgba(0, 0, 0, 0.65); color: white; padding: 2px 6px; border-radius: 8px; font-size: 8.5px; }
+        .card-body { padding: 8px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-size: 11.5px; font-weight: 800; color: var(--secondary-color); margin-bottom: 2px; }
+        .card-sub { font-size: 9.5px; color: var(--text-muted); margin-bottom: 4px; }
+        .card-rating { display: flex; align-items: center; gap: 4px; font-size: 10.5px; margin-bottom: 6px; font-weight: 700; color: #3c4043; }
+        .g-stars { display: flex; gap: 1px; color: #fbbc04; font-size: 10px; }
+        .card-btn { margin-top: auto; width: 100%; background: #0b8457; color: white; border: none; padding: 6px; border-radius: 10px; font-size: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 4px; text-decoration: none; }
+
+        .whatsapp-float { position: fixed; bottom: 75px; left: 14px; background-color: #25d366; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 999; text-decoration: none; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.65); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 12px; }
+        .modal-overlay.active { display: flex; }
+        .modal-content { background: white; width: 100%; max-width: 410px; border-radius: 16px; padding: 16px; max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal-close-btn { position: absolute; top: 10px; left: 10px; background: #f1f5f9; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; }
+        .form-group { display: flex; flex-direction: column; gap: 3px; margin-bottom: 9px; }
+        .form-label { font-size: 10px; font-weight: 700; color: var(--secondary-color); }
+        .form-input, .form-select { width: 100%; padding: 7px 9px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 10px; outline: none; }
+        .submit-form-btn { background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%); color: white; border: none; padding: 8px; border-radius: 8px; font-size: 10.5px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <div class="header-top-row">
+                <div style="width: 32px;"></div>
+                <div class="logo-center-box">
+                    <div class="kemo-logo-mark"><i class="fa-solid fa-location-dot kemo-logo-pin"></i><div class="kemo-artistic-name">كيمو</div></div>
+                    <span>الدليل اليمني للأنشطة التجارية</span>
+                </div>
+                <div style="width: 32px;"></div>
+            </div>
+        </header>
+
+        <div id="mainView">
+            <section class="hero-banner">
+                <button class="add-business-btn" onclick="openAddBusinessModal()">
+                    <i class="fa-solid fa-plus-circle"></i>
+                    <span>إضافة نشاطك</span>
+                </button>
+                <div class="hero-text-content" style="text-align: right;">
+                    <h2 class="hero-title">دليل الأنشطة التجارية اليمني</h2>
+                    <p class="hero-subtitle">تصفح واكتشف أفضل المحلات والخدمات</p>
+                </div>
+            </section>
+
+            <section class="search-section">
+                <div class="search-card">
+                    <div class="search-input-wrapper">
+                        <button class="search-btn" onclick="renderBusinesses()">بحث</button>
+                        <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن متجر، خدمة، مطعم...">
+                        <i class="fa-solid fa-magnifying-glass" style="color: #a0aec0; font-size: 12px;"></i>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categories-scroll-wrapper">
+                <div class="categories-row">
+                    <div class="category-item" onclick="filterByCategory('الكل')"><div class="category-icon cat-all"><i class="fa-solid fa-border-all"></i></div><span class="category-label">الكل</span></div>
+                    <div class="category-item" onclick="filterByCategory('فنادق')"><div class="category-icon cat-hotel"><i class="fa-solid fa-hotel"></i></div><span class="category-label">فنادق</span></div>
+                    <div class="category-item" onclick="filterByCategory('مطاعم')"><div class="category-icon cat-food"><i class="fa-solid fa-utensils"></i></div><span class="category-label">مطاعم</span></div>
+                    <div class="category-item" onclick="filterByCategory('سوبر ماركت')"><div class="category-icon cat-market"><i class="fa-solid fa-cart-shopping"></i></div><span class="category-label">سوبر ماركت</span></div>
+                    <div class="category-item" onclick="filterByCategory('مستشفيات')"><div class="category-icon cat-hospital"><i class="fa-solid fa-hospital"></i></div><span class="category-label">مستشفيات</span></div>
+                </div>
+            </section>
+
+            <div class="section-header">
+                <h3 class="section-title" id="sectionTitle">اكتشف المحلات والخدمات الرائدة</h3>
+            </div>
+
+            <section class="cards-grid" id="cardsGrid">
+                <div class="empty-state">جاري تحميل الأنشطة...</div>
+            </section>
+        </div>
+
+        <a href="https://wa.me/967771594022" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+
+    <!-- نافذة إضافة نشاط من الموقع مباشرة -->
+    <div class="modal-overlay" id="addBusinessModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeAddBusinessModal()">&times;</button>
+            <h3 style="text-align:center; font-size:14px; margin-bottom:10px; color:var(--secondary-color);">إضافة نشاطك التجاري للموقع</h3>
+            
+            <form id="addBusinessForm" onsubmit="submitNewBusinessToSheet(event)">
+                <div class="form-group"><label class="form-label">اسم صاحب النشاط *</label><input type="text" class="form-input" id="ownerName" required></div>
+                <div class="form-group"><label class="form-label">اسم النشاط التجاري *</label><input type="text" class="form-input" id="businessTitle" required></div>
+                <div class="form-group"><label class="form-label">الفئة *</label>
+                    <select class="form-select" id="businessCategory">
+                        <option value="مطاعم">مطاعم</option>
+                        <option value="فنادق">فنادق</option>
+                        <option value="سوبر ماركت">سوبر ماركت</option>
+                        <option value="مستشفيات">مستشفيات</option>
+                        <option value="خدمات أخرى">خدمات أخرى</option>
+                    </select>
+                </div>
+                <div class="form-group"><label class="form-label">المدينة / المحافظة *</label><input type="text" class="form-input" id="businessCity" required></div>
+                <div class="form-group"><label class="form-label">رقم الواتساب *</label><input type="tel" class="form-input" id="businessPhone" required></div>
+                <div class="form-group"><label class="form-label">وصف مختصر *</label><input type="text" class="form-input" id="businessDesc" required></div>
+                <button type="submit" class="submit-form-btn" id="submitBtn">إرسال ونشر النشاط فوراً</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3c77T6AA9_ZIFoRF22GRq70PmGwkuap5fqSKC_HWCw8fxe3gPglm4pTBPw2jlohl_xcuHSzK13Dqa/pub?output=csv";
         
-        .category-item:hover .category-label, .category-item.active .category-label {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
+        // رابط الـ Web App الخاص بك المُدخل تلقائياً
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyw_rcCAZGNidD6YSF-sMpjvu1xsr-_sc0AdkqxELZWQ-jqLEZUt-YaNCfgvJ6wXSMr/exec";
+
+        let businessesList = [];
+
+        function loadDataFromSheet() {
+            Papa.parse(CSV_URL, {
+                download: true,
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    businessesList = results.data.map((row, index) => ({
+                        id: index + 1,
+                        ownerName: row.ownerName || "غير محدد",
+                        title: row.title || row.name || "نشاط تجاري",
+                        category: row.category || "مطاعم",
+                        city: row.city || "صنعاء",
+                        phone: row.phone || "771594022",
+                        desc: row.desc || "نشاط تجاري مميز",
+                        img: row.img || "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80"
+                    }));
+                    renderBusinesses('الكل');
+                }
+            });
         }
 
-        .category-icon {
-            width: clamp(25px, 7.5vw, 32px);
-            height: clamp(25px, 7.5vw, 32px);
-            flex: 0 0 auto;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: white;
-            b
+        function renderBusinesses(filterCat = 'الكل') {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';
+            let filtered = businessesList.filter(b => filterCat === 'الكل' || b.category === filterCat);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="empty-state">لا توجد أنشطة مضافة بعد.</div>';
+                return;
+            }
+
+            filtered.forEach(b => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-img-wrapper">
+                        <img src="${b.img}" class="card-img" alt="${b.title}">
+                        <span class="badge-location"><i class="fa-solid fa-location-dot"></i> ${b.city}</span>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">${b.title}</h4>
+                        <div class="card-sub"><i class="fa-solid fa-tag"></i> ${b.category}</div>
+                        <div class="card-rating">
+                            <div class="g-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <span>5.0</span>
+                        </div>
+                        <a href="https://wa.me/967${b.phone}" target="_blank" class="card-btn">
+                            <i class="fa-brands fa-whatsapp"></i> تواصل واتساب
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterByCategory(cat) {
+            document.getElementById('sectionTitle').textContent = cat === 'الكل' ? 'اكتشف المحلات والخدمات الرائدة' : `الأقسام: ${cat}`;
+            renderBusinesses(cat);
+        }
+
+        function openAddBusinessModal() { document.getElementById('addBusinessModal').classList.add('active'); }
+        function closeAddBusinessModal() { document.getElementById('addBusinessModal').classList.remove('active'); }
+
+        function submitNewBusinessToSheet(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.textContent = "جاري الإرسال وحفظ البيانات...";
+            btn.disabled = true;
+
+            const formData = {
+                ownerName: document.getElementById('ownerName').value,
+                title: document.getElementById('businessTitle').value,
+                category: document.getElementById('businessCategory').value,
+                city: document.getElementById('businessCity').value,
+                phone: document.getElementById('businessPhone').value,
+                desc: document.getElementById('businessDesc').value
+            };
+
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
+                alert("تم إضافة نشاطك بنجاح إلى جدول البيانات! انتظر دقيقة ثم قم بتحديث الصفحة.");
+                closeAddBusinessModal();
+                document.getElementById('addBusinessForm').reset();
+                btn.textContent = "إرسال ونشر النشاط فوراً";
+                btn.disabled = false;
+                loadDataFromSheet();
+            })
+            .catch(err => {
+                console.error(err);
+                alert("حدث خطأ أثناء الإرسال.");
+                btn.textContent = "إرسال ونشر النشاط فوراً";
+                btn.disabled = false;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadDataFromSheet);
+    </script>
+</body>
+</html>
