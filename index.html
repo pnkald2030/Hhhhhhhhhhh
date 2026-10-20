@@ -7,8 +7,6 @@
     <!-- استدعاء خط عربي فني متناسق مع مظهر الصورة -->
     <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- مكتبة PapaParse لقراءة ملفات الـ CSV من Google Sheets -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     
     <style>
         :root {
@@ -160,6 +158,13 @@
             color: var(--text-muted);
             font-weight: 700;
             margin-top: 1px;
+        }
+
+        .logo-center-box span {
+            font-size: 8.5px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-top: 2px;
         }
 
         /* البانر الأخضر */
@@ -700,6 +705,7 @@
                             <option value="سقطرى">سقطرى</option><option value="الجوف">الجوف</option><option value="عمران">عمران</option>
                             <option value="صعدة">صعدة</option><option value="حجة">حجة</option><option value="المحويت">المحويت</option>
                             <option value="ريمة">ريمة</option><option value="البيضاء">البيضاء</option><option value="الضالع">الضالع</option>
+                            <option value="عمران">عمران</option>
                         </select>
 
                         <select class="select-box" id="districtSelect" onchange="filterByLocation()">
@@ -754,9 +760,7 @@
             </div>
 
             <!-- شبكة الكروت -->
-            <section class="cards-grid" id="cardsGrid">
-                <div class="empty-state">جاري تحميل الأنشطة من Google Sheets...</div>
-            </section>
+            <section class="cards-grid" id="cardsGrid"></section>
         </div>
 
         <!-- لوحة تحكم المشرف kemo -->
@@ -900,7 +904,6 @@
                     <div><label>الفئة</label><input id="adminEditCategory"></div>
                     <div><label>المحافظة / المدينة</label><input id="adminEditCity"></div>
                     <div><label>المديرية / الحي</label><input id="adminEditDistrict"></div>
-                    <div><label>ساعات العمل</label><input id="adminEditHours" placeholder="مثال: من 8 صباحاً إلى 10 مساءً"></div>
                     <div><label>الوصف</label><textarea id="adminEditDesc" rows="3"></textarea></div>
                     <div><label>الخدمات / المنيو</label><textarea id="adminEditMenu" rows="3"></textarea></div>
                     <div><label>رابط الصورة الرئيسية (اختياري)</label><input id="adminEditImage" placeholder="اتركه كما هو إن لم ترغب بالتغيير"></div>
@@ -932,7 +935,7 @@
                 <div>١. أكمل بيانات النشاط وارفع صورته.</div>
                 <div>٢. أرسل الطلب للمشرف للمراجعة.</div>
                 <div>٣. يظهر النشاط للزوار بعد الموافقة.</div>
-                <div style="margin-top:5px;color:#92400e;font-weight:700;">تنبيه: يتم إرسال نشاطك مباشرة إلى جدول Google Sheets الخاص بك ليظهر على الموقع فور اعتماده!</div>
+                <div style="margin-top:5px;color:#92400e;font-weight:700;">تنبيه: استخدم رقم هاتف يمني صحيحًا واحفظ كلمة المرور؛ هذه النسخة التجريبية تحفظ البيانات على الجهاز فقط.</div>
             </div>
 
             <form id="addBusinessForm" onsubmit="submitNewBusiness(event)">
@@ -973,6 +976,7 @@
                             <option value="سقطرى">سقطرى</option><option value="الجوف">الجوف</option><option value="عمران">عمران</option>
                             <option value="صعدة">صعدة</option><option value="حجة">حجة</option><option value="المحويت">المحويت</option>
                             <option value="ريمة">ريمة</option><option value="البيضاء">البيضاء</option><option value="الضالع">الضالع</option>
+                            <option value="عمران">عمران</option>
                         </select>
                         <input type="text" class="form-input" id="formDistrict" placeholder="المديرية / الحي / القرية / الشارع" style="flex: 1.5;" required list="yemenPlacesList">
                         <datalist id="yemenPlacesList"></datalist>
@@ -1081,29 +1085,24 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">8. ساعات العمل (اختياري)</label>
-                    <input type="text" class="form-input" id="businessHours" placeholder="مثال: من 8 صباحاً حتى 10 مساءً (السبت - الخميس)">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">9. صور إضافية (اختياري - حتى 5 صور كحد أقصى)</label>
+                    <label class="form-label">8. صور إضافية (اختياري - حتى 5 صور كحد أقصى)</label>
                     <input type="file" class="form-file-input" id="extraImages" accept="image/*" multiple onchange="handleExtraImages(event)">
                     <span style="font-size: 8.5px; color: var(--text-muted); margin-top: 2px;" id="extraImagesCount">تم اختيار 0 من 5 صور كحد أقصى</span>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">10. وصف مختصر لنشاطك التجاري (اختياري)</label>
+                    <label class="form-label">9. وصف مختصر لنشاطك التجاري (اختياري)</label>
                     <textarea class="form-textarea" id="businessDesc" rows="2" placeholder="نبذة عن خدماتك..."></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">11. قائمة الخدمات (المنيو) (اختياري)</label>
+                    <label class="form-label">10. قائمة الخدمات (المنيو) (اختياري)</label>
                     <textarea class="form-textarea" id="formMenu" rows="2" placeholder="أدخل قائمة الخدمات أو المنيو..."></textarea>
                 </div>
 
                 <div class="form-btn-row">
                     <button type="button" class="btn-cancel" onclick="closeAddBusinessModal()">إلغاء</button>
-                    <button type="submit" class="submit-form-btn" id="submitBtn">تأكيد وإرسال الطلب لـ Google Sheets</button>
+                    <button type="submit" class="submit-form-btn">تأكيد وإرسال الطلب</button>
                 </div>
             </form>
         </div>
@@ -1183,26 +1182,84 @@
     </div>
 
     <script>
-        // رابط الـ CSV المباشر من Google Sheets الخاص بك
-        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ3c77T6AA9_ZIFoRF22GRq70PmGwkuap5fqSKC_HWCw8fxe3gPglm4pTBPw2jlohl_xcuHSzK13Dqa/pub?output=csv";
-        
-        // رابط الـ Web App الخاص بك لربط نموذج الإضافة بـ Google Sheets
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyw_rcCAZGNidD6YSF-sMpjvu1xsr-_sc0AdkqxELZWQ-jqLEZUt-YaNCfgvJ6wXSMr/exec";
+        const MY_PHONE_NUMBER = "00967771594022";
 
+        function loadAppData() {
+            const savedBusinesses = localStorage.getItem('kemo_businesses');
+            const savedNotifs = localStorage.getItem('kemo_notifications');
+            const savedRequests = localStorage.getItem('kemo_namePhoneRequests');
+            const savedManagers = localStorage.getItem('kemo_admin_users');
+
+            return {
+                businesses: savedBusinesses ? JSON.parse(savedBusinesses) : [
+                    {
+                        id: 1,
+                        ownerName: "علي باوزير",
+                        ownerGender: "ذكر",
+                        showOwnerName: true,
+                        title: "مطعم البيت اليمني",
+                        category: "مطاعم",
+                        city: "صنعاء",
+                        district: "شارع حدة",
+                        phone: "771594022",
+                        pass: "123456",
+                        desc: "أفضل المأكولات الشعبية والمندي.",
+                        menu: "مندي لحم، حنيذ، عوافي، صالونة",
+                        img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80",
+                        extraImgs: ["https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80"],
+                        status: "approved",
+                        likes: 14,
+                        ratings: [5, 4, 5, 5]
+                    },
+                    {
+                        id: 2,
+                        ownerName: "سارة العدني",
+                        ownerGender: "أنثى",
+                        showOwnerName: false,
+                        title: "فندق جراند بلازا",
+                        category: "فنادق",
+                        city: "عدن",
+                        district: "خور مكسر",
+                        phone: "771594022",
+                        pass: "123456",
+                        desc: "إقامة فاخرة بإطلالة ساحرة على البحر.",
+                        menu: "غرفة مفردة، جناح ملكي، فطور مجاني",
+                        img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80",
+                        extraImgs: [],
+                        status: "approved",
+                        likes: 22,
+                        ratings: [4, 4, 5]
+                    }
+                ],
+                notifications: savedNotifs ? JSON.parse(savedNotifs) : [],
+                namePhoneRequests: savedRequests ? JSON.parse(savedRequests) : [],
+                adminUsers: savedManagers ? JSON.parse(savedManagers) : [{ id: 'owner-kemo', name: 'Kemo', username: '2001', phone: '', gender: 'ذكر', password: '203096203096', role: 'owner', permissions: { approve: true, editBusiness: true, deleteBusiness: true, loginBusiness: true, addManagers: true, deleteManagers: true } }]
+            };
+        }
+
+        let appData = loadAppData();
+        // تحديث اسم دخول حساب المالك الأساسي من kemo إلى 2001، بما في ذلك البيانات المحفوظة سابقًا.
+        if (Array.isArray(appData.adminUsers)) {
+            const ownerAccount = appData.adminUsers.find(a => a && a.role === 'owner');
+            if (ownerAccount && (ownerAccount.username || '').toLowerCase() === 'kemo') {
+                ownerAccount.username = '2001';
+            }
+        }
         let state = {
             currentUser: null,
-            adminUsers: [{ id: 'owner-kemo', name: 'Kemo', username: '2001', phone: '', gender: 'ذكر', password: '203096203096', role: 'owner', permissions: { approve: true, editBusiness: true, deleteBusiness: true, loginBusiness: true, addManagers: true, deleteManagers: true } }],
+            adminUsers: appData.adminUsers || [],
             impersonatingAdmin: null,
             resetPhoneTarget: null,
             resetGeneratedCode: null,
             resetStep: 1,
-            businesses: [],
-            notifications: [],
-            namePhoneRequests: []
+            businesses: appData.businesses,
+            notifications: appData.notifications,
+            namePhoneRequests: appData.namePhoneRequests
         };
 
         function saveAppData() {
             try {
+                localStorage.setItem('kemo_businesses', JSON.stringify(state.businesses));
                 localStorage.setItem('kemo_notifications', JSON.stringify(state.notifications));
                 localStorage.setItem('kemo_namePhoneRequests', JSON.stringify(state.namePhoneRequests));
                 localStorage.setItem('kemo_admin_users', JSON.stringify(state.adminUsers));
@@ -1211,48 +1268,12 @@
                 return true;
             } catch (error) {
                 console.error('تعذر حفظ بيانات كيمو:', error);
+                alert('تعذر حفظ البيانات. قد تكون مساحة التخزين ممتلئة؛ جرّب تقليل حجم الصور.');
                 return false;
             }
         }
 
-        // جلب البيانات مباشرة من Google Sheets عبر PapaParse
-        function loadDataFromSheet() {
-            Papa.parse(CSV_URL, {
-                download: true,
-                header: true,
-                skipEmptyLines: true,
-                complete: function(results) {
-                    const rows = results.data;
-                    state.businesses = rows.map((row, index) => ({
-                        id: index + 1,
-                        ownerName: row.ownerName || "غير محدد",
-                        ownerGender: "ذكر",
-                        showOwnerName: true,
-                        title: row.title || row.name || "نشاط تجاري",
-                        category: row.category || "مطاعم",
-                        city: row.city || "صنعاء",
-                        district: row.district || "الشارع العام",
-                        phone: row.phone || "771594022",
-                        pass: "123456",
-                        desc: row.desc || "نشاط تجاري مميز في الدليل اليمني.",
-                        hours: row.hours || "يومياً من 8:00 صباحاً حتى 10:00 مساءً",
-                        menu: row.menu || "خدمات متنوعة",
-                        img: row.img || "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80",
-                        extraImgs: [],
-                        status: "approved",
-                        likes: Number(row.likes) || 10,
-                        ratings: [5, 4, 5]
-                    }));
-                    renderBusinesses();
-                    populateDistricts();
-                },
-                error: function(err) {
-                    console.error("خطأ في جلب بيانات الجدول:", err);
-                    document.getElementById('cardsGrid').innerHTML = '<div class="empty-state">تعذّر جلب البيانات من Google Sheets. تأكد من نشر جدول البيانات بصيغة CSV.</div>';
-                }
-            });
-        }
-
+        // التقييمات والإعجابات المحلية تمنع التكرار على الجهاز نفسه فقط؛ الحماية العامة تحتاج خادماً.
         function readLocalMap(key) {
             try { return JSON.parse(localStorage.getItem(key) || '{}') || {}; }
             catch (_) { return {}; }
@@ -1263,6 +1284,7 @@
         let tempExtraImages = [];
 
         function validateYemeniPhone(phoneStr) {
+            // قبول 9 أرقام إنجليزية فقط، دون مسافات أو رموز أو أرقام عربية.
             return /^[0-9]{9}$/.test(String(phoneStr)) && /^(70|71|73|77|78)[0-9]{7}$/.test(String(phoneStr));
         }
         function validateEnglishPassword(value) {
@@ -1305,6 +1327,15 @@
                 document.getElementById('extraImagesCount').textContent = "تم اختيار 0 من 5 صور كحد أقصى";
                 return;
             }
+
+            const oversized = Array.from(files).some(file => !file.type.startsWith('image/') || file.size > 2 * 1024 * 1024);
+            if (oversized) {
+                alert('اختر صوراً فقط، وألا يتجاوز حجم الصورة الواحدة 2 ميجابايت.');
+                event.target.value = '';
+                tempExtraImages = [];
+                document.getElementById('extraImagesCount').textContent = 'تم اختيار 0 من 5 صور كحد أقصى';
+                return;
+            }
             tempExtraImages = [];
             let loadedCount = 0;
             for (let i = 0; i < files.length; i++) {
@@ -1331,6 +1362,11 @@
             }
             b.likes = (Number(b.likes) || 0) + 1;
             localLikes[key] = true;
+            state.notifications.push({
+                id: Date.now(),
+                targetBusinessId: b.id,
+                text: `إشعار لمتجر (${b.title}): حصل على إعجاب جديد! ❤️ (الإجمالي: ${b.likes})`
+            });
             saveAppData();
             updateNotifBadge();
             renderBusinesses();
@@ -1338,11 +1374,12 @@
         }
 
         function calculateAverageRating(ratings) {
-            if (!ratings || ratings.length === 0) return { avg: "5.0", count: 1 };
+            if (!ratings || ratings.length === 0) return { avg: "0.0", count: 0 };
             const sum = ratings.reduce((a, b) => a + b, 0);
             return { avg: (sum / ratings.length).toFixed(1), count: ratings.length };
         }
 
+        // توليد النجمات بنسق خرائط جوجل
         function generateGoogleStarsHtml(avgRating) {
             const num = parseFloat(avgRating) || 0;
             let html = '<div class="g-stars">';
@@ -1358,13 +1395,48 @@
         }
 
         function startForgotPasswordFlow() {
-            alert('استعادة كلمة المرور عبر واتساب غير مفعّلة في نسخة العرض المباشر.');
+            alert('استعادة كلمة المرور عبر واتساب غير مفعّلة بأمان في نسخة HTML الحالية. لا يمكن إرسال رمز تحقق حقيقي من المتصفح وحده. عند ربط الموقع بخادم يمكن إضافة استعادة آمنة.');
         }
 
         function verifyAndResetPassword(e) {
             e.preventDefault();
-            alert("تم إتمام العملية بنجاح.");
-            closeForgotPassModal();
+            if (state.resetStep === 1) {
+                const enteredCode = document.getElementById('verificationCodeInput').value.trim();
+                if (enteredCode !== state.resetGeneratedCode) {
+                    alert("الكود المدخل غير صحيح. حاول مرة أخرى.");
+                    return;
+                }
+                alert("تم تأكيد الكود بنجاح! يرجى إدخال كلمة المرور الجديدة.");
+                state.resetStep = 2;
+                document.getElementById('codeGroup').style.display = 'none';
+                document.getElementById('newPassGroup').style.display = 'block';
+                document.getElementById('confirmPassGroup').style.display = 'block';
+                document.getElementById('forgotSubtitle').textContent = "قم بكتابة كلمة المرور الجديدة وتأكيدها";
+                document.getElementById('forgotBtnText').textContent = "تغيير كلمة المرور والدخول";
+            } else {
+                const newPass = document.getElementById('newPasswordInput').value.trim();
+                const confirmPass = document.getElementById('confirmPasswordInput').value.trim();
+
+                if (!newPass || newPass.length < 4) {
+                    alert("كلمة المرور يجب ألا تقل عن 4 خانات.");
+                    return;
+                }
+                if (newPass !== confirmPass) {
+                    alert("كلمة المرور وتأكيدها غير متطابقين!");
+                    return;
+                }
+
+                const vendor = state.businesses.find(b => b.phone === state.resetPhoneTarget);
+                if (vendor) {
+                    vendor.pass = newPass;
+                    state.currentUser = vendor;
+                    saveAppData();
+                    updateUIHeader();
+                    alert("تم تغير كلمة المرور والدخول بنجاح!");
+                    closeForgotPassModal();
+                    showHomeScreen();
+                }
+            }
         }
 
         function closeForgotPassModal() {
@@ -1389,7 +1461,7 @@
           "المهرة": ["الغيضة","حوف","قشن","سيحوت","نشطون","حات","شحن","منعر"],
           "سقطرى": ["حديبو","قلنسية","موري","ديحمض","حالة","قاضب"],
           "الجوف": ["الحزم","الخلق","المتون","برط العنان","خب والشعف","المصلوب","الغيل"],
-          "عمران": ["مدينة عمران","ريدة","خمر","حوث","حرف سفيان","ثلا"],
+          "عمران": ["مدينة عمران","ريدة","خمر","حوث","حرف سفيان","ثلا"," trans".replace(" trans","")],
           "صعدة": ["مدينة صعدة","سحار","رازح","باقم","قطابر","منبه","غمر","حيدان","كتاف"],
           "حجة": ["مدينة حجة","عبس","حرض","ميدي","بكيل المير","كشر","أفلح الشام","المحابشة","الشاهل"],
           "المحويت": ["مدينة المحويت","شبام كوكبان","الرجم","ملحان","حفاش","الطويلة"],
@@ -1439,6 +1511,17 @@
             YEMEN_CATEGORIES.forEach(category => categorySelect.add(new Option(category, category)));
             if (YEMEN_CATEGORIES.includes(selected)) categorySelect.value = selected;
           }
+          const formSelect=document.getElementById('formCategory');
+          if(formSelect && !document.getElementById('formCategorySearch')) {
+            const search=document.createElement('input'); search.type='search'; search.id='formCategorySearch'; search.className='form-input';
+            search.placeholder='ابحث عن الفئة التجارية...'; search.style.marginBottom='7px';
+            search.addEventListener('input',()=>{
+              const q=search.value.trim().toLocaleLowerCase('ar'); const current=formSelect.value;
+              Array.from(formSelect.options).forEach((opt,index)=>{ if(index===0){opt.hidden=false;return;} opt.hidden=!opt.text.toLocaleLowerCase('ar').includes(q); });
+              if(current && formSelect.selectedOptions[0]?.hidden) formSelect.value='';
+            });
+            formSelect.parentNode.insertBefore(search,formSelect);
+          }
           renderMoreCategories('');
         }
         function toggleMoreCategories(){
@@ -1457,6 +1540,7 @@
             const glyph=glyphMap[category]||'fa-store'; const i=document.createElement('i'); i.className='fa-solid '+glyph; icon.appendChild(i); btn.append(label,icon);
             btn.onclick=()=>{filterByCategory(category); const panel=document.getElementById('moreCategoriesPanel'); if(panel) panel.style.display='none';}; list.appendChild(btn);
           });
+          if(!list.children.length) list.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:10px;color:var(--text-muted)">لا توجد فئة مطابقة</div>';
         }
 
         function populateYemenLocationOptions() {
@@ -1493,8 +1577,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             populateYemenLocationOptions();
             populateYemenCategoryOptions();
-            loadDataFromSheet();
+            renderBusinesses();
             updateUIHeader();
+            populateDistricts();
         });
 
         function populateDistricts() {
@@ -1566,7 +1651,7 @@
                 if (filterCat !== 'الكل' && b.category !== filterCat) return;
                 if (selectedCity && b.city !== selectedCity) return;
                 if (selectedDistrict && b.district !== selectedDistrict) return;
-                if (searchQuery && ![b.title, b.category, b.city, b.district, b.desc, b.menu, b.hours].some(value => String(value || '').toLocaleLowerCase('ar').includes(searchQuery))) return;
+                if (searchQuery && ![b.title, b.category, b.city, b.district, b.desc, b.menu].some(value => String(value || '').toLocaleLowerCase('ar').includes(searchQuery))) return;
 
                 matchedCount++;
                 const ratingInfo = calculateAverageRating(b.ratings);
@@ -1617,23 +1702,33 @@
 
             let ownerDisplayHtml = '';
             if (b.showOwnerName || isAdminUser() || (state.currentUser && state.currentUser.id === b.id)) {
-                ownerDisplayHtml = `<div class="detail-owner-field"><strong>اسم صاحب النشاط:</strong> ${escapeHtml(b.ownerName || '')}</div>`;
+                ownerDisplayHtml = `<div class="detail-owner-field"><strong>اسم صاحب النشاط:</strong> ${escapeHtml(b.ownerName || '')}${isAdminUser() ? ` <span class="owner-gender-private">(النوع: ${escapeHtml(b.ownerGender || 'غير محدد')})</span>` : ''}</div>`;
+            }
+
+            let extraImagesHtml = '';
+            if (b.extraImgs && b.extraImgs.length > 0) {
+                extraImagesHtml = `<div style="display:flex; gap:6px; overflow-x:auto; margin-top:8px; padding-bottom:4px;">`;
+                b.extraImgs.forEach(imgUrl => {
+                    extraImagesHtml += `<img src="${imgUrl}" style="width:70px; height:70px; object-fit:cover; border-radius:8px; border:1px solid #cbd5e1;" alt="صورة إضافية">`;
+                });
+                extraImagesHtml += `</div>`;
             }
 
             const ratingInfo = calculateAverageRating(b.ratings);
+
             const detailsBody = document.getElementById('businessDetailsBody');
             const cleanPhone = String(b.phone || '').replace(/[^0-9]/g, '').replace(/^00967/, '').replace(/^967/, '');
             const mapQuery = encodeURIComponent([b.title, b.district, b.city, 'اليمن'].filter(Boolean).join(' '));
-
             detailsBody.innerHTML = `
                 <div class="detail-image-section"><img src="${b.img}" style="width: 100%; height: 112px; object-fit: cover; border-radius: 10px;" alt="${escapeHtml(b.title || 'صورة النشاط')}"></div>
                 <section class="detail-section detail-title-section"><h3>${escapeHtml(b.title || '')}</h3></section>
                 <section class="detail-section detail-location-section"><i class="fa-solid fa-tag"></i> ${escapeHtml(b.category || '')}<br><i class="fa-solid fa-location-dot"></i> ${escapeHtml(b.city || '')}${b.district ? ' - ' + escapeHtml(b.district) : ''}</section>
                 ${ownerDisplayHtml ? `<section class="detail-section">${ownerDisplayHtml}</section>` : ''}
-                ${b.hours ? `<section class="detail-section"><strong><i class="fa-regular fa-clock"></i> ساعات العمل</strong><div>${escapeHtml(b.hours)}</div></section>` : ''}
                 ${b.desc ? `<section class="detail-section detail-description"><strong>الوصف</strong><div>${escapeHtml(b.desc)}</div></section>` : ''}
+                ${extraImagesHtml ? `<section class="detail-section detail-images"><strong>صور النشاط</strong>${extraImagesHtml}</section>` : ''}
                 ${b.menu ? `<section class="detail-section detail-menu"><strong>الخدمات / المنيو</strong><div>${escapeHtml(b.menu)}</div></section>` : ''}
                 
+                <!-- نظام تقييم جوجل مابس التفاعلي المطابق لخرائط جوجل -->
                 <div class="google-rating-box">
                     <div style="font-size: 11px; font-weight: bold; color: #70757a; margin-bottom: 2px;">تقييمات زوار دليل كيمو</div>
                     <div class="g-map-score">
@@ -1641,6 +1736,16 @@
                         <div style="font-size: 16px;">${generateGoogleStarsHtml(ratingInfo.avg)}</div>
                     </div>
                     <div style="font-size: 9.5px; color: #70757a; margin-bottom: 4px;">(${ratingInfo.count} تقييم)</div>
+                    
+                    <div class="g-map-stars-interactive" id="googleRatingStarsContainer">
+                        <i class="fa-solid fa-star" onmouseover="highlightGoogleStars(1)" onmouseout="resetGoogleStarsHighlight(${localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg))})" onclick="rateBusiness(${b.id}, 1)" aria-label="نجمة واحدة" role="button" tabindex="0"></i>
+                        <i class="fa-solid fa-star" onmouseover="highlightGoogleStars(2)" onmouseout="resetGoogleStarsHighlight(${localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg))})" onclick="rateBusiness(${b.id}, 2)" aria-label="2 نجوم" role="button" tabindex="0"></i>
+                        <i class="fa-solid fa-star" onmouseover="highlightGoogleStars(3)" onmouseout="resetGoogleStarsHighlight(${localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg))})" onclick="rateBusiness(${b.id}, 3)" aria-label="3 نجوم" role="button" tabindex="0"></i>
+                        <i class="fa-solid fa-star" onmouseover="highlightGoogleStars(4)" onmouseout="resetGoogleStarsHighlight(${localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg))})" onclick="rateBusiness(${b.id}, 4)" aria-label="4 نجوم" role="button" tabindex="0"></i>
+                        <i class="fa-solid fa-star" onmouseover="highlightGoogleStars(5)" onmouseout="resetGoogleStarsHighlight(${localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg))})" onclick="rateBusiness(${b.id}, 5)" aria-label="5 نجوم" role="button" tabindex="0"></i>
+                    </div>
+                    <span style="font-size: 8.5px; color: var(--text-muted); display:block; margin-top:5px;">اختر من نجمة إلى خمس نجوم. يمكنك تعديل تقييمك لاحقاً من هذا الجهاز</span>
+                    <div id="ratingFeedback" aria-live="polite" style="font-size:10px;color:var(--primary-color);font-weight:700;margin-top:5px;">${localRatingVotes[String(b.id)] ? `تقييمك الحالي: ${localRatingVotes[String(b.id)].score} من 5` : ''}</div>
                 </div>
 
                 <div class="business-contact-actions" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
@@ -1650,9 +1755,59 @@
                     <a href="tel:+967${cleanPhone}" class="submit-form-btn" style="display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;background:var(--primary-color);">
                         <i class="fa-solid fa-phone"></i> اتصال هاتفي
                     </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank" rel="noopener" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;color:var(--text-main);border:1px solid var(--border-color,#dbe3ea);border-radius:10px;font-size:11px;font-weight:bold;text-decoration:none;background:var(--card-bg,#fff);">
+                        <i class="fa-solid fa-map-location-dot"></i> البحث عن الموقع على خرائط Google
+                    </a>
                 </div>
             `;
             document.getElementById('businessDetailsModal').classList.add('active');
+            updateGoogleStarsDisplay(localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg)));
+        }
+
+        function highlightGoogleStars(count) {
+            updateGoogleStarsDisplay(count);
+        }
+
+        function resetGoogleStarsHighlight(avgCount) {
+            updateGoogleStarsDisplay(avgCount);
+        }
+
+        function updateGoogleStarsDisplay(count) {
+            const container = document.getElementById('googleRatingStarsContainer');
+            if (!container) return;
+            const stars = container.querySelectorAll('i');
+            stars.forEach((star, index) => {
+                if (index < count) {
+                    star.classList.add('filled');
+                } else {
+                    star.classList.remove('filled');
+                }
+            });
+        }
+
+        function rateBusiness(id, stars) {
+            const b = state.businesses.find(item => item.id === id);
+            const score = Number(stars);
+            if (!b || !Number.isInteger(score) || score < 1 || score > 5) return;
+            if (!Array.isArray(b.ratings)) b.ratings = [];
+
+            const key = String(id);
+            const previousVote = localRatingVotes[key];
+            if (previousVote && Number.isInteger(previousVote.index) && previousVote.index >= 0 && previousVote.index < b.ratings.length) {
+                b.ratings[previousVote.index] = score;
+                localRatingVotes[key] = { index: previousVote.index, score };
+            } else {
+                b.ratings.push(score);
+                localRatingVotes[key] = { index: b.ratings.length - 1, score };
+            }
+            saveAppData();
+            updateGoogleStarsDisplay(score);
+            renderBusinesses();
+            openBusinessDetails(id);
+            const message = previousVote ? 'تم تحديث تقييمك بنجاح' : 'شكراً لك! تم تسجيل تقييمك';
+            const status = document.getElementById('ratingFeedback');
+            if (status) status.textContent = `${message}: ${score} من 5 نجوم.`;
+            else alert(`${message}: ${score} من 5 نجوم.`);
         }
 
         function closeBusinessDetailsModal() {
@@ -1667,8 +1822,12 @@
             renderBusinesses(cat);
         }
 
-        function openCitiesModal() { document.getElementById('citiesModal').classList.add('active'); }
-        function closeCitiesModal() { document.getElementById('citiesModal').classList.remove('active'); }
+        function openCitiesModal() {
+            document.getElementById('citiesModal').classList.add('active');
+        }
+        function closeCitiesModal() {
+            document.getElementById('citiesModal').classList.remove('active');
+        }
         function selectCityFromModal(cityName) {
             document.getElementById('citySelect').value = cityName;
             closeCitiesModal();
@@ -1677,90 +1836,174 @@
         }
 
         function getLocationAndFilter() {
-            alert('تم تفعيل فحص النطاق الجغرافي.');
+            if (!navigator.geolocation) {
+                alert('متصفحك لا يدعم تحديد الموقع.');
+                return;
+            }
+            navigator.geolocation.getCurrentPosition((position) => {
+                const userLat = position.coords.latitude;
+                const userLon = position.coords.longitude;
+                const withCoordinates = state.businesses.filter(b => b.status === 'approved' && Number.isFinite(Number(b.lat)) && Number.isFinite(Number(b.lon)));
+                if (!withCoordinates.length) {
+                    alert('تم تحديد موقعك، لكن الأنشطة الحالية لا تحتوي على إحداثيات جغرافية لاحتساب الأقرب. اختر المدينة أو المنطقة من الفلاتر.');
+                    return;
+                }
+                const distanceKm = (lat1, lon1, lat2, lon2) => {
+                    const rad = d => d * Math.PI / 180;
+                    const dLat = rad(lat2 - lat1), dLon = rad(lon2 - lon1);
+                    const a = Math.sin(dLat / 2) ** 2 + Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(dLon / 2) ** 2;
+                    return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                };
+                withCoordinates.sort((a, b) => distanceKm(userLat, userLon, Number(a.lat), Number(a.lon)) - distanceKm(userLat, userLon, Number(b.lat), Number(b.lon)));
+                const grid = document.getElementById('cardsGrid');
+                grid.innerHTML = '';
+                document.getElementById('sectionTitle').textContent = 'الأنشطة الأقرب إلى موقعك';
+                withCoordinates.slice(0, 20).forEach(b => {
+                    const distance = distanceKm(userLat, userLon, Number(b.lat), Number(b.lon));
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.onclick = () => openBusinessDetails(b.id);
+                    card.innerHTML = `<div class="card-img-wrapper"><img src="${b.img}" class="card-img" alt="${b.title}"><span class="badge-location">${b.city}</span></div><div class="card-body"><h4 class="card-title">${b.title}</h4><div class="card-sub">${b.category} · ${b.district || b.city}</div><div class="card-sub">يبعد تقريباً ${distance.toFixed(1)} كم</div><button class="card-btn" onclick="event.stopPropagation();openBusinessDetails(${b.id})">عرض التفاصيل</button></div>`;
+                    grid.appendChild(card);
+                });
+            }, () => alert('تعذر تحديد الموقع. تأكد من تفعيل GPS ومنح المتصفح الإذن.'), { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
         }
 
-        // إرسال البيانات مباشرة من الموقع إلى Google Sheets عبر الـ Web App
         function submitNewBusiness(e) {
             e.preventDefault();
             const ownerName = document.getElementById('ownerName').value.trim();
+            const ownerGender = document.querySelector('input[name="ownerGender"]:checked').value;
             const businessName = document.getElementById('businessName').value.trim();
             const category = document.getElementById('formCategory').value;
             const city = document.getElementById('formCity').value;
             const district = document.getElementById('formDistrict').value.trim();
+            const pass = document.getElementById('vendorPassword').value.trim();
+            const passConfirm = document.getElementById('vendorPasswordConfirm').value.trim();
             const phone = document.getElementById('whatsappNumber').value.trim();
-            const desc = document.getElementById('businessDesc').value.trim() || 'نشاط تجاري مميز';
+            const desc = document.getElementById('businessDesc').value.trim() || 'لا يوجد وصف';
+            const menu = document.getElementById('formMenu').value.trim();
             const logoInput = document.getElementById('logoImage');
-            const btn = document.getElementById('submitBtn');
 
-            if (!ownerName || !businessName || !phone || !city || !category) {
-                alert("يرجى تعبئة جميع الحقول الإجبارية!");
+            if (!ownerName || !businessName) {
+                alert("اسم صاحب النشاط واسم النشاط حقول إجبارية ولا يمكن تركها فارغة!");
                 return;
             }
 
             if (!validateYemeniPhone(phone)) {
-                alert("رقم الهاتف غير صحيح! يجب أن يتكون من 9 أرقام ويبدأ بـ 70 أو 71 أو 73 أو 77 أو 78.");
+                alert("رقم الهاتف غير صحيح! يجب أن يتكون من 9 أرقام ويبدأ بحدود شبكات اليمن الصحيحة (70, 71, 73, 77, 78).");
                 return;
             }
 
-            btn.textContent = "جاري الإرسال وحفظ البيانات في Google Sheets...";
-            btn.disabled = true;
+            const phoneAlreadyUsed = state.businesses.some(b => String(b.phone) === phone);
+            if (phoneAlreadyUsed) {
+                alert("رقم الهاتف مسجل بالفعل في طلب أو نشاط آخر. استخدم رقمًا مختلفًا أو تواصل مع المشرف.");
+                return;
+            }
+
+            if (pass.length < 4) {
+                alert("كلمة المرور يجب ألا تقل عن 4 أحرف أو أرقام إنجليزية.");
+                return;
+            }
+
+            if (!logoInput.files || logoInput.files.length === 0) {
+                alert("شعار / صورة النشاط الأساسية إجبارية!");
+                return;
+            }
+
+            if (!validateEnglishPassword(pass) || !validateEnglishPassword(passConfirm)) {
+                alert("كلمة المرور يجب أن تحتوي على أحرف إنجليزية أو أرقام إنجليزية فقط، دون مسافات أو أحرف عربية.");
+                return;
+            }
+
+            if (pass !== passConfirm) {
+                alert("خطأ: كلمة المرور وتأكيد كلمة المرور غير متطابقين!");
+                return;
+            }
 
             const reader = new FileReader();
             reader.onload = function(event) {
                 const logoBase64 = event.target.result;
 
-                const formData = {
-                    ownerName: ownerName,
+                const newBiz = {
+                    id: Date.now(),
+                    ownerName,
+                    ownerGender,
+                    showOwnerName: true,
                     title: businessName,
-                    category: category,
-                    city: city,
-                    district: district,
-                    phone: phone,
-                    desc: desc,
-                    img: logoBase64
+                    category,
+                    city,
+                    district,
+                    phone,
+                    pass,
+                    desc,
+                    menu,
+                    img: logoBase64,
+                    extraImgs: [...tempExtraImages],
+                    status: "pending",
+                    likes: 0,
+                    ratings: []
                 };
 
-                fetch(WEB_APP_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                })
-                .then(() => {
-                    alert("تم إرسال نشاطك بنجاح إلى جدول البيانات (Google Sheets)! انتظر دقيقة ثم قم بتحديث الصفحة.");
-                    closeAddBusinessModal();
-                    document.getElementById('addBusinessForm').reset();
-                    btn.textContent = "تأكيد وإرسال الطلب لـ Google Sheets";
-                    btn.disabled = false;
-                    loadDataFromSheet();
-                })
-                .catch(err => {
-                    console.error("خطأ أثناء الإرسال:", err);
-                    alert("حدث خطأ أثناء الإرسال لجدول البيانات.");
-                    btn.textContent = "تأكيد وإرسال الطلب لـ Google Sheets";
-                    btn.disabled = false;
+                state.businesses.push(newBiz);
+                state.notifications.push({
+                    id: Date.now(),
+                    type: "new_business",
+                    businessId: newBiz.id,
+                    text: `طلب إضافة نشاط تجاري جديد: (${businessName}) للمالك (${ownerName})`
                 });
-            };
 
-            if (logoInput.files && logoInput.files[0]) {
-                reader.readAsDataURL(logoInput.files[0]);
-            } else {
-                reader.onload({ target: { result: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80" } });
-            }
+                saveAppData();
+                tempExtraImages = [];
+                updateNotifBadge();
+                closeAddBusinessModal();
+                document.getElementById('addBusinessForm').reset();
+                document.getElementById('extraImagesCount').textContent = "تم اختيار 0 من 5 صور كحد أقصى";
+                alert("تم استلام طلبك في هذه النسخة التجريبية وإرساله إلى قائمة مراجعة المشرف على هذا الجهاز. لن يظهر النشاط للزوار إلا بعد الموافقة. ملاحظة: البيانات ليست مشتركة عبر الإنترنت بعد.");
+            };
+            reader.readAsDataURL(logoInput.files[0]);
         }
+
+        try { localStorage.setItem('kemo_admin_users', JSON.stringify(appData.adminUsers || [])); } catch (error) { console.warn('تعذر حفظ اسم مستخدم المالك الجديد:', error); }
 
         function handleLogin(e) {
             e.preventDefault();
-            alert("تم تسجيل الدخول بنجاح.");
-            closeLoginModal();
+            const loginName = document.getElementById('loginPhone').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+
+            const normalizedLogin = loginName.toLowerCase();
+            const enteredPhone = /^[0-9]+$/.test(loginName) ? loginName.replace(/^00967/, '').replace(/^967/, '').replace(/^0/, '') : '';
+            if (!validateEnglishPassword(pass)) { alert('كلمة المرور تقبل الأحرف الإنجليزية والأرقام الإنجليزية فقط.'); return; }
+            
+            const admin = state.adminUsers.find(a => (a.username || '').toLowerCase() === normalizedLogin || (a.phone && String(a.phone).replace(/\D/g, '').replace(/^00967/, '').replace(/^967/, '').replace(/^0/, '') === enteredPhone));
+            
+            if (admin && admin.password === pass) {
+                state.currentUser = admin.role === 'owner' ? 'admin' : admin;
+                updateUIHeader(); 
+                closeLoginModal(); 
+                showAdminPanel(); // <-- التوجيه التلقائي للوحة تحكم المشرف عند تسجيل دخول المدير أو المشرف
+                alert(`مرحباً ${admin.name}، تم تسجيل الدخول بنجاح.`); 
+                return;
+            }
+
+            const phone = enteredPhone;
+            const vendor = validateYemeniPhone(phone) ? state.businesses.find(b => String(b.phone) === phone && b.pass === pass && b.status === 'approved') : null;
+            if (vendor) {
+                state.currentUser = vendor;
+                updateUIHeader();
+                alert(`أهلاً بك يا ${vendor.ownerName}. تم تسجيل الدخول بنجاح!`);
+                closeLoginModal();
+                showHomeScreen();
+                return;
+            }
+
+            alert("رقم الهاتف أو كلمة المرور غير صحيحة.");
         }
 
         function handleLogout() {
             state.currentUser = null;
             updateUIHeader();
             showHomeScreen();
-            alert("تم تسجيل الخروج.");
+            alert("تم تسجيل الخروج بنجاح.");
         }
 
         function switchAdminTab(tabName) {
@@ -1786,27 +2029,465 @@
             } else if (tabName === 'managers') {
                 document.getElementById('adminTabManagers').classList.add('active');
                 document.getElementById('adminSectionManagers').style.display = 'block';
+                renderManagers();
             }
         }
 
         function showAdminPanel() {
+            document.getElementById('adminImpersonationBanner').style.display = state.impersonatingAdmin ? 'block' : 'none';
             document.getElementById('mainView').style.display = 'none';
             document.getElementById('vendorView').style.display = 'none';
             document.getElementById('adminView').style.display = 'block';
+            renderAdminData();
+        }
+
+        function renderAdminData() {
+            const namePhoneList = document.getElementById('adminNamePhoneRequestsList');
+            namePhoneList.innerHTML = '';
+            if (state.namePhoneRequests.length === 0) {
+                namePhoneList.innerHTML = '<div style="font-size:10px; color:#64748b; background:white; padding:8px; border-radius:8px;">لا توجد طلبات تغيير اسم أو رقم هاتف حالياً.</div>';
+            } else {
+                state.namePhoneRequests.forEach(req => {
+                    const item = document.createElement('div');
+                    item.className = 'list-item';
+                    item.innerHTML = `
+                        <div style="font-size:11px; font-weight:800; color:var(--secondary-color);">طلب تعديل بيانات: (${req.businessTitle})</div>
+                        <div style="font-size:9.5px; color:#334155; margin: 3px 0;">نوع الطلب: ${req.requestType} | الاسم الجديد: ${req.newOwnerName} | الرقم: ${req.newPhone}</div>
+                        <div style="margin-top:6px; display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+                            <a href="https://wa.me/967${req.newPhone}?text=مرحباً،%20تم%20مراجعة%20طلبك" target="_blank" class="btn-action-small" style="background:#25d366; color:white; text-decoration:none;">
+                                <i class="fa-brands fa-whatsapp"></i> تواصل واتساب
+                            </a>
+                            <button class="btn-action-small btn-approve" onclick="approveNamePhoneRequest(${req.id})">تأكيد / قبول</button>
+                            <button class="btn-action-small btn-reject" onclick="rejectNamePhoneRequest(${req.id})">حذف / إلغاء</button>
+                        </div>
+                    `;
+                    namePhoneList.appendChild(item);
+                });
+            }
+
+            const newBizList = document.getElementById('adminNewBusinessRequestsList');
+            newBizList.innerHTML = '';
+            const pending = state.businesses.filter(b => b.status === 'pending');
+
+            if (pending.length === 0) {
+                newBizList.innerHTML = '<div style="font-size:10px; color:#64748b; background:white; padding:8px; border-radius:8px;">لا توجد طلبات إضافة نشاط تجاري جديدة.</div>';
+            } else {
+                pending.forEach(b => {
+                    const item = document.createElement('div');
+                    item.className = 'list-item';
+                    item.innerHTML = `
+                        <div style="font-size:11px; font-weight:800; color:var(--secondary-color);">${b.title} (${b.category})</div>
+                        <div style="font-size:9.5px; color:#64748b; margin: 3px 0;">المالك: ${b.ownerName} | الهاتف: ${b.phone} | المدينة: ${b.city}</div>
+                        <div style="margin-top:6px; display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+                            <a href="https://wa.me/967${b.phone}?text=مرحباً%20${encodeURIComponent(b.ownerName)}،%20بخصوص%20طلب%20إضافة%20نشاطك" target="_blank" class="btn-action-small" style="background:#25d366; color:white; text-decoration:none;">
+                                <i class="fa-brands fa-whatsapp"></i> تواصل واتساب
+                            </a>
+                            <button class="btn-action-small btn-approve" onclick="approveBusiness(${b.id})">تأكيد / قبول</button>
+                            <button class="btn-action-small btn-reject" onclick="rejectBusiness(${b.id})">حذف / إلغاء</button>
+                        </div>
+                    `;
+                    newBizList.appendChild(item);
+                });
+            }
+
+            const allBizList = document.getElementById('adminAllBusinessesList');
+            allBizList.innerHTML = '';
+            state.businesses.forEach(b => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+                item.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <div style="font-size:11px; font-weight:800; color:var(--secondary-color);">${b.title} (${b.category})</div>
+                            <div style="font-size:9.5px; color:#64748b;">المالك: ${b.ownerName} | الإعجابات: ❤️ ${b.likes || 0} | الزوار: 👁️ 150+</div>
+                        </div>
+                        <span style="font-size:9px; font-weight:bold; padding:2px 6px; border-radius:6px; background:${b.status==='approved'?'#e6f4ed':'#fee2e2'}; color:${b.status==='approved'?'#0b8457':'#e11d48'};">${b.status==='approved'?'مقبول':'معلق'}</span>
+                    </div>
+                    <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+                        <a href="https://wa.me/967${b.phone}?text=مرحباً%20${encodeURIComponent(b.ownerName)}" target="_blank" class="btn-action-small" style="background:#25d366; color:white; text-decoration:none;">
+                            <i class="fa-brands fa-whatsapp"></i> واتساب
+                        </a>
+                        <button class="btn-action-small btn-approve" onclick="adminEditVendorProfile(${b.id})" style="background:#0984e3;">تعديل بيانات العميل</button>
+                        <button class="btn-action-small btn-reject" onclick="adminDeleteBusiness(${b.id})">حذف النشاط</button>
+                        <button class="btn-action-small" style="background:#64748b;color:white;" onclick="impersonateBusiness(${b.id})">دخول لحساب</button>
+                    </div>
+                `;
+                allBizList.appendChild(item);
+            });
+        }
+
+        function toggleManagerForm(show, id=null) {
+            if (show && !requirePermission('addManagers', 'ليست لديك صلاحية إضافة المشرفين.')) return;
+            const wrap=document.getElementById('managerFormWrap'); wrap.style.display=show?'block':'none';
+            if (!show) { document.getElementById('managerForm').reset(); document.getElementById('managerEditId').value=''; return; }
+            if (id) {
+                const a=state.adminUsers.find(x=>x.id===id); if(!a || a.role==='owner') return;
+                document.getElementById('managerFormTitle').textContent='تعديل بيانات المشرف';
+                document.getElementById('managerEditId').value=a.id;
+                document.getElementById('managerName').value=a.name||''; document.getElementById('managerPhone').value=a.phone||'';
+                document.getElementById('managerUsername').value=a.username||''; document.getElementById('managerGender').value=a.gender||'ذكر';
+                document.getElementById('managerPassword').value=''; document.getElementById('managerPassword').required=false;
+                document.getElementById('managerPassHint').textContent='(اتركها فارغة للإبقاء على الحالية)';
+                const p=a.permissions||{}; [['permApprove','approve'],['permEditBusiness','editBusiness'],['permDeleteBusiness','deleteBusiness'],['permLoginBusiness','loginBusiness'],['permAddManagers','addManagers'],['permDeleteManagers','deleteManagers']].forEach(([el,k])=>document.getElementById(el).checked=!!p[k]);
+            } else {
+                document.getElementById('managerForm').reset(); document.getElementById('managerEditId').value='';
+                document.getElementById('managerFormTitle').textContent='إضافة مشرف جديد'; document.getElementById('managerPassword').required=true;
+                document.getElementById('managerPassHint').textContent='*';
+            }
+        }
+        function saveManagerForm(e) {
+            e.preventDefault(); if (!requirePermission('addManagers','ليست لديك صلاحية إضافة أو تعديل المشرفين.')) return;
+            const id=document.getElementById('managerEditId').value, name=document.getElementById('managerName').value.trim(), phone=document.getElementById('managerPhone').value.replace(/\D/g,'').replace(/^00967/,'').replace(/^967/,'').replace(/^0/,''), username=document.getElementById('managerUsername').value.trim(), gender=document.getElementById('managerGender').value, password=document.getElementById('managerPassword').value;
+            if(!name||!phone||!username||(!id&&!password)){alert('يرجى تعبئة جميع البيانات المطلوبة.');return;}
+            if(state.adminUsers.some(a=>a.id!==id&&((a.username||'').toLowerCase()===username.toLowerCase()||(a.phone&&a.phone===phone)))){alert('اسم المستخدم أو رقم الهاتف مستخدم بالفعل.');return;}
+            const permissions={approve:document.getElementById('permApprove').checked,editBusiness:document.getElementById('permEditBusiness').checked,deleteBusiness:document.getElementById('permDeleteBusiness').checked,loginBusiness:document.getElementById('permLoginBusiness').checked,addManagers:document.getElementById('permAddManagers').checked,deleteManagers:document.getElementById('permDeleteManagers').checked};
+            if(id){const a=state.adminUsers.find(x=>x.id===id);if(!a)return;a.name=name;a.phone=phone;a.username=username;a.gender=gender;a.permissions=permissions;if(password)a.password=password;}
+            else state.adminUsers.push({id:'admin-'+Date.now(),name,phone,username,gender,password,role:'admin',permissions});
+            saveAppData(); toggleManagerForm(false); renderManagers(); alert(id?'تم تحديث بيانات المشرف.':'تمت إضافة المشرف بنجاح.');
+        }
+        function renderManagers() {
+            const list=document.getElementById('adminManagersList'); if(!list)return; list.innerHTML='';
+            [...state.adminUsers].sort((a,b)=>(a.role==='owner'?-1:0)-(b.role==='owner'?-1:0)).forEach(a=>{
+                const owner=a.role==='owner', p=a.permissions||{};
+                const item=document.createElement('div'); item.className='list-item '+(owner?'admin-owner-card':'admin-staff-card');
+                const permNames=[['approve','قبول الطلبات'],['editBusiness','تعديل بيانات نشاط'],['deleteBusiness','حذف نشاط'],['loginBusiness','دخول لحسابات الأنشطة'],['addManagers','إضافة مشرفين'],['deleteManagers','حذف مشرفين']];
+                item.innerHTML=`<div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><div><strong>${escapeHtml(a.name||'')}</strong> <span class="admin-role-badge ${owner?'admin-owner-badge':'admin-staff-badge'}">${owner?'المالك':'مشرف'}</span><div style="font-size:11px;color:#64748b;margin-top:5px">اسم المستخدم: ${escapeHtml(a.username||'')}<br>الهاتف: ${a.phone?'00967'+escapeHtml(a.phone):'غير مضاف'}<br>النوع: ${escapeHtml(a.gender||'—')}</div></div></div><div style="font-size:10px;line-height:1.9;margin-top:8px"><b>الصلاحيات:</b> ${owner?'جميع الصلاحيات':permNames.map(([k,n])=>`${n}: ${p[k]?'نعم':'لا'}`).join(' | ')}</div><div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:9px">${owner?'':`<button class="btn-action-small" style="background:#0984e3" onclick="toggleManagerForm(true,'${a.id}')">تعديل البيانات</button><button class="btn-action-small btn-reject" onclick="deleteManager('${a.id}')">حذف المشرف</button><button class="btn-action-small btn-approve" onclick="loginAsManager('${a.id}')">دخول لحسابه</button>`}</div>`;
+                list.appendChild(item);
+            });
+        }
+        function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+        function deleteManager(id){if(!requirePermission('deleteManagers','ليست لديك صلاحية حذف المشرفين.'))return;const a=state.adminUsers.find(x=>x.id===id);if(!a||a.role==='owner'){alert('لا يمكن حذف حساب المالك.');return;}if(confirm(`هل تريد حذف حساب المشرف ${a.name}؟`)){state.adminUsers=state.adminUsers.filter(x=>x.id!==id);saveAppData();renderManagers();}}
+        function loginAsManager(id){if(state.currentUser!=='admin'){alert('دخول حسابات المشرفين الآخرين متاح للمالك فقط.');return;}const a=state.adminUsers.find(x=>x.id===id);if(!a||a.role==='owner')return;if(state.impersonatingAdmin){alert('أعد أولاً إلى حسابك الأصلي.');return;}state.impersonatingAdmin=state.currentUser;state.currentUser=a;showAdminPanel();alert('أنت الآن داخل حساب '+a.name+'؛ ستُطبق صلاحيات هذا الحساب.');}
+        function impersonateBusiness(id){if(!requirePermission('loginBusiness','ليست لديك صلاحية دخول حسابات الأنشطة.'))return;const b=state.businesses.find(x=>x.id===id);if(!b)return;state.impersonatingAdmin=state.currentUser;state.currentUser=b;showVendorPanel();}
+        function returnToAdminPanel(){if(!state.impersonatingAdmin)return;state.currentUser=state.impersonatingAdmin;state.impersonatingAdmin=null;showAdminPanel();}
+
+        function approveBusiness(id) {
+            if (!requirePermission('approve')) return;
+            const b = state.businesses.find(item => item.id === id);
+            if (b) {
+                b.status = 'approved';
+                state.notifications.push({
+                    id: Date.now(),
+                    text: `تم قبول نشاطك التجاري (${b.title}) ونشره بنجاح!`
+                });
+                saveAppData();
+                updateNotifBadge();
+                alert(`تم قبول وتفعيل نشاط (${b.title}) بنجاح!`);
+                renderAdminData();
+                renderBusinesses();
+            }
+        }
+
+        function rejectBusiness(id) {
+            if (!requirePermission('approve')) return;
+            if (confirm("هل أنت متأكد من حذف هذا الطلب نهائياً؟")) {
+                state.businesses = state.businesses.filter(item => item.id !== id);
+                saveAppData();
+                alert("تم حذف أو إلغاء الطلب بنجاح.");
+                renderAdminData();
+            }
+        }
+
+        function adminDeleteBusiness(id) {
+            if (!requirePermission('deleteBusiness')) return;
+            if (confirm("تحذير: هل أنت متأكد من حذف هذا النشاط التجاري نهائياً من الدليل؟")) {
+                state.businesses = state.businesses.filter(item => item.id !== id);
+                saveAppData();
+                alert("تم حذف النشاط بنجاح.");
+                renderAdminData();
+                renderBusinesses();
+            }
+        }
+
+        function adminEditVendorProfile(id) {
+            if (!requirePermission('editBusiness')) return;
+            const b = state.businesses.find(item => String(item.id) === String(id));
+            if (!b) return;
+            document.getElementById('adminEditVendorId').value = b.id;
+            document.getElementById('adminEditTitle').value = b.title || '';
+            document.getElementById('adminEditOwnerName').value = b.ownerName || '';
+            document.getElementById('adminEditOwnerGender').value = b.ownerGender || 'ذكر';
+            document.getElementById('adminEditPhone').value = b.phone || '';
+            document.getElementById('adminEditCategory').value = b.category || '';
+            document.getElementById('adminEditCity').value = b.city || '';
+            document.getElementById('adminEditDistrict').value = b.district || '';
+            document.getElementById('adminEditDesc').value = b.desc || '';
+            document.getElementById('adminEditMenu').value = b.menu || '';
+            document.getElementById('adminEditImage').value = '';
+            document.getElementById('adminEditStatus').value = b.status || 'approved';
+            document.getElementById('adminEditVendorModal').classList.add('active');
+        }
+        function closeAdminEditVendorModal() { document.getElementById('adminEditVendorModal').classList.remove('active'); }
+        function saveAdminVendorEdit(e) {
+            e.preventDefault();
+            if (!requirePermission('editBusiness')) return;
+            const id = document.getElementById('adminEditVendorId').value;
+            const b = state.businesses.find(item => String(item.id) === String(id));
+            if (!b) { alert('تعذر العثور على ملف العميل.'); return; }
+            const phone = document.getElementById('adminEditPhone').value.trim().replace(/[^0-9]/g,'').replace(/^00967/,'').replace(/^967/,'');
+            if (phone && !validateYemeniPhone(phone)) { alert('أدخل رقم هاتف يمني صحيحاً من 9 أرقام يبدأ بـ 70 أو 71 أو 73 أو 77 أو 78.'); return; }
+            b.title = document.getElementById('adminEditTitle').value.trim();
+            b.ownerName = document.getElementById('adminEditOwnerName').value.trim();
+            b.ownerGender = document.getElementById('adminEditOwnerGender').value;
+            b.phone = phone;
+            b.category = document.getElementById('adminEditCategory').value.trim();
+            b.city = document.getElementById('adminEditCity').value.trim();
+            b.district = document.getElementById('adminEditDistrict').value.trim();
+            b.desc = document.getElementById('adminEditDesc').value.trim();
+            b.menu = document.getElementById('adminEditMenu').value.trim();
+            const image = document.getElementById('adminEditImage').value.trim(); if (image) b.img = image;
+            b.status = document.getElementById('adminEditStatus').value;
+            saveAppData(); closeAdminEditVendorModal(); renderAdminData(); renderBusinesses();
+            alert('تم حفظ تعديلات ملف العميل فوراً.');
+        }
+
+        function approveNamePhoneRequest(reqId) {
+            if (!requirePermission('approve')) return;
+            const req = state.namePhoneRequests.find(r => r.id === reqId);
+            if (req) {
+                const b = state.businesses.find(item => item.id === req.businessId);
+                if (b) {
+                    b.ownerName = req.newOwnerName;
+                    b.phone = req.newPhone;
+                    state.notifications.push({
+                        id: Date.now(),
+                        text: `تم الموافقة على طلبك (${req.requestType}) لنشاطك (${b.title})`
+                    });
+                    saveAppData();
+                    updateNotifBadge();
+                }
+                state.namePhoneRequests = state.namePhoneRequests.filter(r => r.id !== reqId);
+                saveAppData();
+                alert("تم الموافقة على الطلب وتحديث البيانات بنجاح!");
+                renderAdminData();
+            }
+        }
+
+        function rejectNamePhoneRequest(reqId) {
+            if (!requirePermission('approve')) return;
+            if (confirm("هل تريد رفض وحذف هذا الطلب؟")) {
+                state.namePhoneRequests = state.namePhoneRequests.filter(r => r.id !== reqId);
+                saveAppData();
+                alert("تم حذف / إلغاء الطلب بنجاح.");
+                renderAdminData();
+            }
         }
 
         function showVendorPanel() {
             document.getElementById('mainView').style.display = 'none';
             document.getElementById('adminView').style.display = 'none';
             document.getElementById('vendorView').style.display = 'block';
+
+            const vendor = state.currentUser;
+            const container = document.getElementById('vendorProfileContent');
+            
+            let extraImagesManageHtml = '';
+            if (vendor.extraImgs && vendor.extraImgs.length > 0) {
+                extraImagesManageHtml = `<div style="display:flex; gap:6px; overflow-x:auto; margin-top:6px; padding-bottom:4px;">`;
+                vendor.extraImgs.forEach((imgUrl, index) => {
+                    extraImagesManageHtml += `
+                        <div style="position:relative; flex:0 0 auto;">
+                            <img src="${imgUrl}" style="width:65px; height:65px; object-fit:cover; border-radius:8px; border:1px solid #cbd5e1;" alt="صورة إضافية">
+                            <button type="button" onclick="removeVendorExtraImage(${index})" style="position:absolute; top:-4px; left:-4px; background:var(--danger-color); color:white; border:none; border-radius:50%; width:18px; height:18px; font-size:10px; cursor:pointer; display:flex; align-items:center; justify-content:center;" title="حذف الصورة">&times;</button>
+                        </div>
+                    `;
+                });
+                extraImagesManageHtml += `</div>`;
+            } else {
+                extraImagesManageHtml = `<div style="font-size:9px; color:var(--text-muted); margin-top:4px;">لا توجد صور إضافية حالياً.</div>`;
+            }
+
+            container.innerHTML = `
+                ${state.impersonatingAdmin ? `<div style="position:sticky;top:0;z-index:5;background:#fff;padding:8px 0 10px;margin-bottom:8px;border-bottom:1px solid #e2e8f0;"><button type="button" class="btn-action-small" style="background:#1a2e40;color:#fff;padding:10px 14px;border-radius:10px;font-size:12px;width:100%;" onclick="returnToAdminPanel()">↩ رجوع إلى لوحة المالك / المشرف</button></div>` : ''}
+                <div class="list-item">
+                    <div style="text-align:center; margin-bottom: 8px;">
+                        <img src="${vendor.img}" id="currentVendorImgPreview" style="width:70px; height:70px; border-radius:50%; object-fit:cover;" alt="صورة النشاط">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">تغيير شعار النشاط</label>
+                        <input type="file" class="form-file-input" id="vImageFile" accept="image/*" onchange="previewVendorImage(event)">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">الصور الإضافية</label>
+                        ${extraImagesManageHtml}
+                        <label class="form-label" style="margin-top:6px;">إضافة صور إضافية جديدة</label>
+                        <input type="file" class="form-file-input" id="vExtraImagesFile" accept="image/*" multiple onchange="addMoreVendorImages(event)">
+                    </div>
+
+                    <div class="form-group" style="background: #e6f4ed; padding: 8px; border-radius: 8px;">
+                        <label class="form-label" style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                            <span>إظهار اسم صاحب النشاط للعامة</span>
+                            <input type="checkbox" id="vShowOwner" ${vendor.showOwnerName ? 'checked' : ''} style="width: 16px; height: 16px; cursor: pointer;">
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">إسم صاحب النشاط * (طلب تغيير الاسم يرسل للمشرف)</label>
+                        <input type="text" class="form-input" id="vOwnerName" value="${vendor.ownerName}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">رقم الهاتف * (طلب تغيير الرقم يرسل للمشرف)</label>
+                        <input type="tel" class="form-input" id="vPhone" value="${vendor.phone}" required>
+                    </div>
+                    <hr style="margin: 10px 0; border:0; border-top:1px solid #cbd5e1;">
+                    <div class="form-group">
+                        <label class="form-label">إسم النشاط التجاري *</label>
+                        <input type="text" class="form-input" id="vTitle" value="${vendor.title}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">المنيو (لوحة خدمات المتجر)</label>
+                        <textarea class="form-input" id="vMenu" rows="2">${vendor.menu || ''}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">وصف النشاط</label>
+                        <textarea class="form-input" id="vDesc" rows="3">${vendor.desc}</textarea>
+                    </div>
+                    <button class="submit-form-btn" onclick="saveVendorChanges()">حفظ التعديلات وإرسال طلب التغيير للمشرف إن وجد</button>
+                </div>
+            `;
+        }
+
+        let tempNewImageBase64 = null;
+        function previewVendorImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    tempNewImageBase64 = e.target.result;
+                    document.getElementById('currentVendorImgPreview').src = tempNewImageBase64;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeVendorExtraImage(index) {
+            const vendor = state.currentUser;
+            if (vendor && vendor.extraImgs) {
+                vendor.extraImgs.splice(index, 1);
+                saveAppData();
+                showVendorPanel();
+                renderBusinesses();
+            }
+        }
+
+        function addMoreVendorImages(event) {
+            const files = event.target.files;
+            const vendor = state.currentUser;
+            if (!vendor.extraImgs) vendor.extraImgs = [];
+
+            if (vendor.extraImgs.length + files.length > 5) {
+                alert("عذراً، الحد الأقصى المسموح به هو 5 صور إضافية فقط!");
+                return;
+            }
+
+            let loadedCount = 0;
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    vendor.extraImgs.push(e.target.result);
+                    loadedCount++;
+                    if (loadedCount === files.length) {
+                        saveAppData();
+                        showVendorPanel();
+                        renderBusinesses();
+                    }
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        function saveVendorChanges() {
+            const vendor = state.currentUser;
+            const newTitle = document.getElementById('vTitle').value.trim();
+            const newMenu = document.getElementById('vMenu').value.trim();
+            const newDesc = document.getElementById('vDesc').value.trim();
+            const showOwnerChecked = document.getElementById('vShowOwner').checked;
+            
+            const newOwner = document.getElementById('vOwnerName').value.trim();
+            const newPhone = document.getElementById('vPhone').value.trim().replace(/\D/g, '');
+
+            if (!newTitle || !newOwner || !newPhone) {
+                alert("خطأ: اسم النشاط، اسم المالك، ورقم الهاتف لا يمكن تركها فارغة!");
+                return;
+            }
+
+            if (!validateYemeniPhone(newPhone)) {
+                alert("رقم الهاتف الجديد غير صحيح! يرجى إدخال رقم يمني صالح يتكون من 9 أرقام.");
+                return;
+            }
+
+            vendor.title = newTitle;
+            vendor.menu = newMenu;
+            vendor.desc = newDesc;
+            vendor.showOwnerName = showOwnerChecked;
+            if (tempNewImageBase64) {
+                vendor.img = tempNewImageBase64;
+                tempNewImageBase64 = null;
+            }
+
+            if (newOwner !== vendor.ownerName || newPhone !== vendor.phone) {
+                let reqType = "";
+                if (newOwner !== vendor.ownerName && newPhone !== vendor.phone) reqType = "تغيير الاسم ورقم الهاتف";
+                else if (newOwner !== vendor.ownerName) reqType = "طلب تغيير الاسم";
+                else reqType = "طلب تغيير الرقم";
+
+                state.namePhoneRequests.push({
+                    id: Date.now(),
+                    businessId: vendor.id,
+                    businessTitle: vendor.title,
+                    requestType: reqType,
+                    newOwnerName: newOwner,
+                    newPhone: newPhone
+                });
+
+                state.notifications.push({
+                    id: Date.now(),
+                    text: `طلب جديد (${reqType}) من النشاط (${vendor.title})`
+                });
+                saveAppData();
+                updateNotifBadge();
+                alert("تم إرسال طلب تغيير الاسم / الرقم إلى صندوق طلبات المشرف للمراجعة والتأكيد!");
+            } else {
+                saveAppData();
+                alert("تم حفظ التعديلات في ملفك الشخصي بنجاح!");
+            }
+
+            renderBusinesses();
+            showVendorPanel();
         }
 
         function updateNotifBadge() {
             const badge = document.getElementById('notifBadge');
-            badge.textContent = state.notifications.length;
+            const totalCount = state.notifications.length + state.namePhoneRequests.length;
+            badge.textContent = totalCount;
         }
 
         function openNotificationsModal() {
+            const list = document.getElementById('notificationsList');
+            list.innerHTML = '';
+            
+            let allNotifs = [...state.notifications];
+            if (isAdminUser()) {
+                state.namePhoneRequests.forEach(req => {
+                    allNotifs.push({
+                        id: req.id,
+                        text: `طلب ${req.requestType} للنشاط (${req.businessTitle})`
+                    });
+                });
+            }
+
+            if (allNotifs.length === 0) {
+                list.innerHTML = '<div style="font-size:10px; color:#64748b;">لا توجد إشعارات جديدة.</div>';
+            } else {
+                allNotifs.forEach(n => {
+                    const div = document.createElement('div');
+                    div.className = 'list-item';
+                    div.textContent = n.text;
+                    list.appendChild(div);
+                });
+            }
             document.getElementById('notificationsModal').classList.add('active');
         }
 
@@ -1829,7 +2510,30 @@
         }
 
         function closeNotificationsModal() { document.getElementById('notificationsModal').classList.remove('active'); }
-        function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+        document.addEventListener('keydown', function(e){
+            if(e.key==='Escape'){
+                const activeModal=document.querySelector('.modal-overlay.active');
+                if(activeModal){activeModal.classList.remove('active');if(activeModal.id==='loginModal')document.getElementById('loginForm').reset();return;}
+                if(state && state.impersonatingAdmin){returnToAdminPanel();}
+            }
+        });
+
+        window.onclick = function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('active');
+                if (e.target.id === 'loginModal') {
+                    document.getElementById('loginForm').reset();
+                } else if (e.target.id === 'forgotPassModal') {
+                    closeForgotPassModal();
+                }
+            }
+        };
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            ['whatsappNumber','loginPhone','managerPhone'].forEach(bindAsciiPhoneInput);
+            ['vendorPassword','vendorPasswordConfirm','loginPass','managerPassword','newPasswordInput','confirmPasswordInput'].forEach(bindEnglishPasswordInput);
+        });
     </script>
 </body>
 </html>
