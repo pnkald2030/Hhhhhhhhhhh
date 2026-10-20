@@ -1,0 +1,2558 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>كيمو - دليل اليمن التجاري</title>
+    <!-- استدعاء خط عربي فني متناسق مع مظهر الصورة -->
+    <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0b8457;
+            --primary-light: #12a26d;
+            --secondary-color: #1a2e40;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --star-color: #fbbc04; /* لون نجمات خرائط جوجل الأصفر المميز */
+            --danger-color: #e11d48;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 100vw;
+            background-color: #f8fafc;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 80px;
+            overflow-x: hidden;
+        }
+
+        @media (min-width: 481px) {
+            .app-container {
+                max-width: 450px;
+                box-shadow: 0 0 25px rgba(0,0,0,0.1);
+            }
+        }
+
+        /* الهيدر العلوي */
+        header {
+            background: #fff;
+            padding: 8px 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .header-top-row {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-icon {
+            font-size: 14px;
+            color: var(--secondary-color);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f1f5f9;
+            position: relative;
+            transition: background 0.2s;
+        }
+
+        .header-icon.logged-in {
+            background: #e6f4ed;
+            color: var(--primary-color);
+            border: 1px solid #b7e3cf;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            background: var(--danger-color);
+            color: white;
+            font-size: 7.5px;
+            font-weight: bold;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* تصميم اسم "كيمو" برمجياً بنفس ستايل الخط الفني في الصورة المطلوبة */
+        .logo-center-box {
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+        }
+
+        .kemo-logo-mark {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            line-height: 1;
+        }
+        .kemo-logo-pin {
+            color: var(--primary-color);
+            font-size: 25px;
+            filter: drop-shadow(0 1px 1px rgba(0,0,0,.12));
+        }
+        .kemo-artistic-name {
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 27px;
+            font-weight: 900;
+            color: var(--secondary-color);
+            letter-spacing: -1px;
+            line-height: 1.1;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .logo-center-box > span {
+            font-size: 8.5px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-top: 1px;
+        }
+
+        .logo-center-box span {
+            font-size: 8.5px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        /* البانر الأخضر */
+        .hero-banner {
+            background: linear-gradient(135deg, #0b8457 0%, #065e3d 100%);
+            color: white;
+            padding: 12px 14px;
+            border-radius: 0 0 16px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .hero-title { font-size: 13.5px; font-weight: 800; line-height: 1.2; }
+        .hero-subtitle { font-size: 9.5px; opacity: 0.9; margin-top: 2px; }
+
+        .add-business-btn {
+            background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%);
+            color: #0f172a;
+            border: none;
+            padding: 7px 10px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 3px 8px rgba(251, 133, 0, 0.35);
+            white-space: nowrap;
+        }
+
+        /* البحث والفلاتر */
+        .search-section { padding: 0 10px 8px 10px; }
+        .search-card {
+            background: white;
+            border-radius: 14px;
+            padding: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .search-input-wrapper {
+            display: flex;
+            align-items: center;
+            padding: 2px 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            gap: 6px;
+        }
+
+        .search-input {
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: 6px;
+            font-size: 11px;
+            color: var(--text-main);
+            background: transparent;
+            text-align: right;
+        }
+
+        .search-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 11px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .filters-row {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .near-me-btn {
+            flex: 1;
+            background: #e6f4ed;
+            color: var(--primary-color);
+            border: 1px solid #b7e3cf;
+            padding: 6px 4px;
+            border-radius: 8px;
+            font-size: 9.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            white-space: nowrap;
+        }
+
+        .select-box {
+            flex: 1;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 6px 3px;
+            font-size: 9.5px;
+            color: var(--text-main);
+            outline: none;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            text-overflow: ellipsis;
+        }
+
+        /* كبسولات الأقسام وأيقونات دائرية */
+        .categories-scroll-wrapper { padding: 4px 6px 8px 6px; width: 100%; box-sizing: border-box; }
+        .categories-row {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 4px;
+            width: 100%;
+            overflow: hidden;
+            padding: 0 0 6px;
+            box-sizing: border-box;
+        }
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 4px;
+            cursor: pointer;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .category-label { 
+            font-size: clamp(8px, 2.4vw, 10px);
+            font-weight: 700;
+            color: var(--secondary-color);
+            background: #ffffff;
+            padding: 3px 1px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            white-space: normal;
+            line-height: 1.2;
+            min-height: 24px;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.2s;
+        }
+        
+        .category-item:hover .category-label, .category-item.active .category-label {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .category-icon {
+            width: clamp(25px, 7.5vw, 32px);
+            height: clamp(25px, 7.5vw, 32px);
+            flex: 0 0 auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+        
+        .category-item:active .category-icon { transform: scale(0.92); }
+
+        .cat-all { background: var(--secondary-color); }
+        .cat-hotel { background: #00b894; }
+        .cat-food { background: #e17055; }
+        .cat-market { background: #e84393; }
+        .cat-hospital { background: #0984e3; }
+        .cat-more { background: #6c5ce7; }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 12px 6px 12px;
+        }
+
+        .section-title { font-size: 12px; font-weight: 800; color: var(--secondary-color); }
+        .view-all { color: var(--primary-color); font-size: 10.5px; font-weight: 700; text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 2px; }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 0 10px 12px 10px;
+        }
+
+        .empty-state {
+            grid-column: span 2;
+            text-align: center;
+            padding: 30px 15px;
+            background: white;
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .card:active { transform: scale(0.98); }
+
+        .card-img-wrapper { position: relative; height: 95px; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+
+        .badge-location {
+            position: absolute; top: 6px; right: 6px; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px); color: white; padding: 2px 6px; border-radius: 8px; font-size: 8.5px;
+        }
+
+        .badge-type {
+            position: absolute; top: 6px; left: 6px; padding: 2px 6px; border-radius: 8px; font-size: 8.5px; color: white; font-weight: bold; background: #00b894;
+        }
+
+.like-btn {
+            position: absolute;
+            bottom: 6px;
+            left: 6px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 13px;
+            color: #cbd5e1;
+            transition: 0.2s;
+        }
+        .like-btn.liked { color: var(--danger-color); }
+
+        .card-body { padding: 8px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-size: 11.5px; font-weight: 800; color: var(--secondary-color); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-sub { font-size: 9.5px; color: var(--text-muted); margin-bottom: 4px; }
+        
+        /* نظام تقييم الكارت المطابق لخرائط جوجل */
+        .card-rating { display: flex; align-items: center; gap: 4px; font-size: 10.5px; margin-bottom: 6px; font-weight: 700; color: #3c4043; }
+        .g-stars { display: flex; gap: 1px; color: #dadce0; font-size: 10px; }
+        .g-stars i.filled { color: var(--star-color); }
+
+        .card-btn {
+            margin-top: auto;
+            width: 100%;
+            background: #0b8457;
+            color: white;
+            border: none;
+            padding: 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            text-decoration: none;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 75px;
+            left: 14px;
+            background-color: #25d366;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            text-decoration: none;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 16px);
+            max-width: 440px;
+            background: #ffffff;
+            border-radius: 25px;
+            padding: 6px 8px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 9px;
+            font-weight: 700;
+            gap: 2px;
+            cursor: pointer;
+        }
+
+        .nav-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            background: #f1f5f9;
+            color: var(--text-muted);
+            transition: 0.2s;
+        }
+
+        .nav-item.active .nav-circle, .nav-item:hover .nav-circle { background: var(--primary-color); color: white; }
+        .nav-item.active span, .nav-item:hover span { color: var(--primary-color); }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 12px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: white; width: 100%; max-width: 410px; border-radius: 16px; padding: 16px; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .modal-close-btn {
+            position: absolute; top: 10px; left: 10px; background: #f1f5f9; border: none; width: 28px; height: 28px; border-radius: 50%; font-size: 15px; font-weight: bold; cursor: pointer; color: #64748b; display: flex; align-items: center; justify-content: center;
+        }
+
+        .form-title { font-size: 14px; font-weight: 800; color: var(--secondary-color); text-align: center; }
+        .form-subtitle { font-size: 10px; color: var(--text-muted); text-align: center; margin-bottom: 10px; }
+        .form-group { display: flex; flex-direction: column; gap: 3px; margin-bottom: 9px; }
+        .form-label { font-size: 10px; font-weight: 700; color: var(--secondary-color); }
+        .form-input, .form-select, .form-textarea { width: 100%; padding: 7px 9px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 10px; outline: none; }
+        
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-wrapper input {
+            width: 100%;
+            padding-left: 30px;
+        }
+        .toggle-password {
+            position: absolute;
+            left: 10px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .form-file-input { font-size: 9.5px; background: #f8fafc; padding: 6px; border: 1px dashed #cbd5e1; border-radius: 8px; cursor: pointer; }
+        
+        .form-btn-row { display: flex; gap: 8px; margin-top: 10px; }
+        .btn-cancel { flex: 1; background: #e2e8f0; color: #334155; border: none; padding: 8px; border-radius: 8px; font-size: 10px; font-weight: 800; cursor: pointer; }
+        .submit-form-btn { color: #0f172a; box-shadow: 0 3px 8px rgba(251, 133, 0, 0.25); flex: 2; width: 100%; background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%); color: white; border: none; padding: 8px; border-radius: 8px; font-size: 10.5px; font-weight: 800; cursor: pointer; }
+
+        .list-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px; margin-bottom: 8px; }
+        .btn-action-small { padding: 4px 8px; border-radius: 6px; border: none; font-size: 9px; font-weight: bold; cursor: pointer; }
+        .btn-approve { background: #00b894; color: white; }
+        .btn-reject { background: var(--danger-color); color: white; }
+        .btn-logout { background: var(--danger-color); color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 10px; font-weight: 800; cursor: pointer; }
+
+        .city-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+        .city-option-card { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 10px; border-radius: 10px; text-align: center; font-size: 11px; font-weight: bold; cursor: pointer; color: var(--secondary-color); transition: 0.2s; }
+        .city-option-card:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        
+        /* تصميم نظام تقييم خرائط جوجل (Google Maps Star Rating UI) في نافذة التفاصيل */
+        .detail-section { display:block; padding:8px 9px; margin:0 0 7px; border:1px solid #e5eaf0; border-radius:9px; background:#fff; font-size:11px; line-height:1.65; overflow-wrap:anywhere; }
+        .detail-title-section h3 { margin:0; font-size:15px; font-weight:850; color:var(--secondary-color); }
+        .detail-location-section { color:var(--primary-color); font-weight:750; }
+        .detail-description { background:#f8fafc; }
+        .detail-description strong,.detail-images strong,.detail-menu strong { display:block; margin-bottom:4px; }
+        .detail-images { background:#fff; }
+        .detail-menu { background:#e6f4ed; }
+        .detail-owner-field { font-size:11px; }
+        .owner-gender-private { color:#64748b; font-size:10px; }
+        .detail-image-section { text-align:center; margin-bottom:7px; }
+        .modal-back-btn { display:inline-flex; align-items:center; gap:5px; border:0; border-radius:18px; background:#eef2f7; color:#334155; padding:6px 10px; margin:0 0 9px; font-size:11px; font-weight:800; cursor:pointer; }
+        .admin-edit-grid { display:grid; grid-template-columns:1fr; gap:7px; }
+        .admin-edit-grid label { display:block; font-size:11px; font-weight:750; margin-bottom:3px; }
+        .admin-edit-grid input,.admin-edit-grid textarea,.admin-edit-grid select { width:100%; box-sizing:border-box; padding:8px; border:1px solid #dbe3ea; border-radius:8px; font:inherit; font-size:12px; }
+        .google-rating-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 7px 9px;
+            border-radius: 9px;
+            margin-bottom: 8px;
+            max-width: 290px;
+            margin-left: auto; margin-right: auto;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .g-map-score {
+            font-size: 17px;
+            font-weight: 900;
+            color: #202124;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .g-map-stars-interactive {
+            display: flex;
+            gap: 4px;
+            font-size: 18px;
+            color: #dadce0;
+            cursor: pointer;
+            justify-content: center;
+            margin: 4px 0 2px 0;
+        }
+        .g-map-stars-interactive i.filled {
+            color: var(--star-color);
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 12px;
+            background: #e2e8f0;
+            padding: 4px;
+            border-radius: 10px;
+        }
+        .admin-tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 6px 4px;
+            font-size: 9.5px;
+            font-weight: 800;
+            color: var(--secondary-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+        .admin-tab-btn.active {
+            background: white;
+            color: var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+        .admin-owner-card { border:2px solid #d4af37 !important; box-shadow:0 0 8px rgba(212,175,55,.25); }
+        .admin-staff-card { border:2px solid #159957 !important; }
+        .admin-role-badge { display:inline-block; padding:3px 8px; border-radius:12px; font-size:10px; font-weight:900; }
+        .admin-owner-badge { color:#765500; background:#fff3bf; }
+        .admin-staff-badge { color:#087443; background:#dcfce7; }
+        .permission-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:10px 0; }
+        .permission-grid label { display:flex; align-items:center; gap:5px; background:#f1f5f9; padding:8px; border-radius:8px; font-size:11px; }
+        .phone-input-wrap { display:flex; direction:ltr; gap:6px; align-items:center; }
+        .phone-prefix { background:#e2e8f0; padding:11px 9px; border-radius:8px; font-weight:900; font-size:12px; white-space:nowrap; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <!-- الهيدر العلوي مع اسم كيمو الفني برمجياً -->
+        <header>
+            <div class="header-top-row">
+                <div class="header-left">
+                    <div class="header-icon" id="userProfileIcon" onclick="handleHeaderUserClick()" title="الملف الشخصي">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+                    <div class="header-icon" id="notificationIcon" style="display: none;" onclick="openNotificationsModal()" title="الإشعارات">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-badge" id="notifBadge">0</span>
+                    </div>
+                </div>
+                
+                <div class="logo-center-box" onclick="showHomeScreen()" aria-label="كيمو - الدليل اليمني للأنشطة التجارية">
+                    <div class="kemo-logo-mark"><i class="fa-solid fa-location-dot kemo-logo-pin" aria-hidden="true"></i><div class="kemo-artistic-name">كيمو</div></div>
+                    <span>الدليل اليمني للأنشطة التجارية</span>
+                </div>
+
+                <div style="width: 32px;"></div>
+            </div>
+        </header>
+
+        <!-- الشاشة الرئيسية -->
+        <div id="mainView">
+            <section class="hero-banner">
+                <button class="add-business-btn" onclick="openAddBusinessModal()">
+                    <i class="fa-solid fa-plus-circle"></i>
+                    <span>إضافة نشاطك التجاري</span>
+                </button>
+                <div class="hero-text-content" style="text-align: right;">
+                    <h2 class="hero-title">دليل الأنشطة التجارية اليمني</h2>
+                    <p class="hero-subtitle">تصفح واكتشف أفضل المحلات والخدمات</p>
+                </div>
+            </section>
+
+            <!-- قسم البحث -->
+            <section class="search-section">
+                <div class="search-card">
+                    <div class="search-input-wrapper">
+                        <button class="search-btn" onclick="executeSearch()">بحث</button>
+                        <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن متجر، خدمة، مطعم... (اختياري)">
+                        <i class="fa-solid fa-magnifying-glass" style="color: #a0aec0; font-size: 12px;"></i>
+                    </div>
+                    
+                    <div class="filters-row">
+                        <select class="select-box" id="citySelect" onchange="filterByLocation()">
+                            <option value="">كل المدن</option>
+                            <option value="أمانة العاصمة">أمانة العاصمة</option>
+                            <option value="صنعاء">صنعاء</option><option value="عدن">عدن</option><option value="تعز">تعز</option>
+                            <option value="الحديدة">الحديدة</option><option value="حضرموت">حضرموت</option><option value="إب">إب</option>
+                            <option value="ذمار">ذمار</option><option value="مأرب">مأرب</option><option value="لحج">لحج</option>
+                            <option value="أبين">أبين</option><option value="شبوة">شبوة</option><option value="المهرة">المهرة</option>
+                            <option value="سقطرى">سقطرى</option><option value="الجوف">الجوف</option><option value="عمران">عمران</option>
+                            <option value="صعدة">صعدة</option><option value="حجة">حجة</option><option value="المحويت">المحويت</option>
+                            <option value="ريمة">ريمة</option><option value="البيضاء">البيضاء</option><option value="الضالع">الضالع</option>
+                            <option value="عمران">عمران</option>
+                        </select>
+
+                        <select class="select-box" id="districtSelect" onchange="filterByLocation()">
+                            <option value="">كل المناطق</option>
+                        </select>
+
+                        <button class="near-me-btn" onclick="getLocationAndFilter()">
+                            <span>قريب منك</span>
+                            <i class="fa-solid fa-location-crosshairs"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- الفئات (كبسولات وأيقونات دائرية) -->
+            <section class="categories-scroll-wrapper">
+                <div class="categories-row">
+                    <div class="category-item" onclick="filterByCategory('الكل')">
+                        <div class="category-icon cat-all"><i class="fa-solid fa-border-all"></i></div>
+                        <span class="category-label">الكل</span>
+                    </div>
+                    <div class="category-item" onclick="filterByCategory('فنادق')">
+                        <div class="category-icon cat-hotel"><i class="fa-solid fa-hotel"></i></div>
+                        <span class="category-label">فنادق</span>
+                    </div>
+                    <div class="category-item" onclick="filterByCategory('مطاعم')">
+                        <div class="category-icon cat-food"><i class="fa-solid fa-utensils"></i></div>
+                        <span class="category-label">مطاعم</span>
+                    </div>
+                    <div class="category-item" onclick="filterByCategory('سوبر ماركت')">
+                        <div class="category-icon cat-market"><i class="fa-solid fa-cart-shopping"></i></div>
+                        <span class="category-label">سوبر ماركت</span>
+                    </div>
+                    <div class="category-item" onclick="filterByCategory('مستشفيات')">
+                        <div class="category-icon cat-hospital"><i class="fa-solid fa-hospital"></i></div>
+                        <span class="category-label">مستشفيات</span>
+                    </div>
+                    <div class="category-item" onclick="filterByCategory('المزيد')">
+                        <div class="category-icon cat-more"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+                        <span class="category-label">المزيد</span>
+                    </div>
+                </div>
+                <div id="moreCategoriesPanel" style="display:none;padding:8px 12px 12px;">
+                    <input id="homeCategorySearch" class="form-input" type="search" placeholder="ابحث عن فئة أو قسم..." oninput="renderMoreCategories(this.value)" aria-label="البحث عن فئة" style="margin-bottom:8px;">
+                    <div id="moreCategoriesList" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;"></div>
+                </div>
+            </section>
+
+            <div class="section-header">
+                <a class="view-all" onclick="filterByCategory('الكل')">عرض الكل <i class="fa-solid fa-chevron-left"></i></a>
+                <h3 class="section-title" id="sectionTitle">اكتشف المحلات والخدمات الرائدة</h3>
+            </div>
+
+            <!-- شبكة الكروت -->
+            <section class="cards-grid" id="cardsGrid"></section>
+        </div>
+
+        <!-- لوحة تحكم المشرف kemo -->
+        <div id="adminView" style="display: none; padding: 12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+                <button class="btn-logout" onclick="handleLogout()">تسجيل الخروج</button>
+                <h3 style="font-size: 13px; color: var(--secondary-color);">لوحة تحكم المشرف (Kemo)</h3>
+            </div>
+            <div id="adminImpersonationBanner" style="display:none;background:#fff3bf;border:1px solid #d4af37;padding:8px;border-radius:9px;margin-bottom:9px;font-size:11px;">
+                أنت تدخل حالياً بحساب مشرف آخر. <button class="btn-action-small" style="background:#1a2e40;color:white" onclick="returnToAdminPanel()">العودة إلى حسابي</button>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="admin-tab-btn active" id="adminTabNotifications" onclick="switchAdminTab('notifications')">صندوق الإشعارات والطلبات</button>
+                <button class="admin-tab-btn" id="adminTabBusinesses" onclick="switchAdminTab('businesses')">الأنشطة التجارية</button>
+                <button class="admin-tab-btn" id="adminTabStats" onclick="switchAdminTab('stats')">الإحصائيات</button>
+                <button class="admin-tab-btn" id="adminTabManagers" onclick="switchAdminTab('managers')">المشرفون</button>
+            </div>
+
+            <div id="adminSectionNotifications">
+                <h4 style="font-size: 11.5px; margin-bottom: 6px; color: var(--secondary-color);">طلبات تغيير الاسم أو رقم الهاتف:</h4>
+                <div id="adminNamePhoneRequestsList" style="margin-bottom: 10px;"></div>
+
+                <h4 style="font-size: 11.5px; margin-bottom: 6px; color: var(--secondary-color);">طلبات إضافة نشاط تجاري جديد:</h4>
+                <div id="adminNewBusinessRequestsList"></div>
+            </div>
+
+            <div id="adminSectionBusinesses" style="display: none;">
+                <h4 style="font-size: 11.5px; margin-bottom: 6px; color: var(--secondary-color);">قائمة جميع الأنشطة التجارية المقبولة بالدليل:</h4>
+                <div id="adminAllBusinessesList"></div>
+            </div>
+
+            <div id="adminSectionManagers" style="display:none;">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">
+                    <h4 style="font-size:12px;color:var(--secondary-color);">إدارة حسابات المشرفين وصلاحياتهم</h4>
+                    <button class="btn-action-small btn-approve" id="addManagerButton" onclick="toggleManagerForm(true)">＋ إضافة مشرف</button>
+                </div>
+                <div id="managerFormWrap" class="list-item" style="display:none;margin-bottom:12px;">
+                    <h4 id="managerFormTitle" style="margin-bottom:8px;">إضافة مشرف جديد</h4>
+                    <form id="managerForm" onsubmit="saveManagerForm(event)">
+                        <input type="hidden" id="managerEditId">
+                        <div class="form-group"><label class="form-label">اسم المشرف *</label><input class="form-input" id="managerName" required></div>
+                        <div class="form-group"><label class="form-label">رقم الهاتف اليمني *</label><div class="phone-input-wrap"><span class="phone-prefix">+967</span><input class="form-input" id="managerPhone" inputmode="numeric" placeholder="××××××××7" required style="direction:ltr;min-width:0"></div></div>
+                        <div class="form-group"><label class="form-label">اسم المستخدم *</label><input class="form-input" id="managerUsername" required autocomplete="off"></div>
+                        <div class="form-group"><label class="form-label">النوع *</label><select class="form-input" id="managerGender" required><option value="ذكر">ذكر</option><option value="أنثى">أنثى</option></select></div>
+                        <div class="form-group"><label class="form-label">كلمة المرور <span id="managerPassHint">*</span></label><input type="password" class="form-input" id="managerPassword" autocomplete="new-password" placeholder="كلمة مرور المشرف" minlength="4"></div>
+                        <div style="font-weight:900;font-size:12px;margin:10px 0 4px;">الصلاحيات</div>
+                        <div class="permission-grid">
+                            <label><input type="checkbox" id="permApprove"> قبول الطلبات</label>
+                            <label><input type="checkbox" id="permEditBusiness"> تعديل بيانات نشاط</label>
+                            <label><input type="checkbox" id="permDeleteBusiness"> حذف نشاط</label>
+                            <label><input type="checkbox" id="permLoginBusiness"> دخول لحسابات الأنشطة</label>
+                            <label><input type="checkbox" id="permAddManagers"> إضافة مشرفين</label>
+                            <label><input type="checkbox" id="permDeleteManagers"> حذف مشرفين</label>
+                        </div>
+                        <div class="form-btn-row"><button type="button" class="btn-cancel" onclick="toggleManagerForm(false)">إلغاء</button><button type="submit" class="submit-form-btn">حفظ المشرف</button></div>
+                    </form>
+                </div>
+                <div id="adminManagersList"></div>
+            </div>
+
+            <div id="adminSectionStats" style="display: none;">
+                <div class="list-item" style="text-align: center; background: white; padding: 14px;">
+                    <h4 style="font-size: 13px; color: var(--secondary-color); margin-bottom: 10px;">📊 احصائيات الزوار الشاملة</h4>
+                    <div style="display: flex; gap: 8px; justify-content: space-around; margin-top: 8px;">
+                        <div style="background: #e6f4ed; padding: 10px; border-radius: 10px; flex: 1;">
+                            <div style="font-size: 10px; color: var(--text-muted); font-weight: bold;">زوار الصفحة اليومي</div>
+                            <div style="font-size: 18px; font-weight: 900; color: var(--primary-color); margin-top: 4px;" id="statDailyVisitors">1,420</div>
+                        </div>
+                        <div style="background: #f1f5f9; padding: 10px; border-radius: 10px; flex: 1;">
+                            <div style="font-size: 10px; color: var(--text-muted); font-weight: bold;">زوار الصفحة الأسبوعي</div>
+                            <div style="font-size: 18px; font-weight: 900; color: var(--secondary-color); margin-top: 4px;" id="statWeeklyVisitors">9,850</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-cancel" style="width:100%; margin-top:12px;" onclick="showHomeScreen()">رجوع للرئيسية</button>
+        </div>
+
+        <!-- الملف الشخصي لصاحب النشاط التجاري -->
+        <div id="vendorView" style="display: none; padding: 12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+                <button class="btn-logout" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج</button>
+                <h3 style="font-size: 14px; color: var(--secondary-color);">الملف الشخصي وإدارة النشاط</h3>
+            </div>
+            <div id="vendorProfileContent"></div>
+            
+            <div style="display:flex; gap:8px; margin-top:10px;">
+                <button class="btn-cancel" style="flex:1;" onclick="showHomeScreen()">رجوع للرئيسية</button>
+            </div>
+        </div>
+
+        <!-- زر واتساب العائم -->
+        <a href="https://wa.me/967771594022?text=مرحباً،%20أستفسر%20عن%20دليل%20كيمو%20التجاري" class="whatsapp-float" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+
+        <!-- الشريط السفلي -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" onclick="showHomeScreen()">
+                <div class="nav-circle"><i class="fa-solid fa-house"></i></div>
+                <span>الرئيسية</span>
+            </div>
+            <div class="nav-item" onclick="openCitiesModal()">
+                <div class="nav-circle"><i class="fa-solid fa-location-dot"></i></div>
+                <span>المدن</span>
+            </div>
+            <div class="nav-item" onclick="getLocationAndFilter()">
+                <div class="nav-circle"><i class="fa-solid fa-list-ul"></i></div>
+                <span>قريب منك</span>
+            </div>
+            <div class="nav-item" onclick="openAddBusinessModal()">
+                <div class="nav-circle"><i class="fa-solid fa-circle-plus"></i></div>
+                <span>إضافة نشاط</span>
+            </div>
+        </nav>
+
+    </div>
+
+    <!-- نافذة تفاصيل النشاط التجاري -->
+    <div class="modal-overlay" id="businessDetailsModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeBusinessDetailsModal()">&times;</button><button class="modal-back-btn" onclick="closeBusinessDetailsModal()"><i class="fa-solid fa-arrow-right"></i> رجوع</button>
+            <div id="businessDetailsBody"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="adminEditVendorModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeAdminEditVendorModal()">&times;</button>
+            <button class="modal-back-btn" onclick="closeAdminEditVendorModal()"><i class="fa-solid fa-arrow-right"></i> رجوع</button>
+            <h3 class="form-title">تعديل ملف العميل / النشاط</h3>
+            <form id="adminEditVendorForm" onsubmit="saveAdminVendorEdit(event)">
+                <input type="hidden" id="adminEditVendorId">
+                <div class="admin-edit-grid">
+                    <div><label>اسم النشاط</label><input id="adminEditTitle" required></div>
+                    <div><label>اسم صاحب النشاط</label><input id="adminEditOwnerName"></div>
+                    <div><label>نوع صاحب الحساب (خاص بالإدارة)</label><select id="adminEditOwnerGender"><option value="ذكر">ذكر</option><option value="أنثى">أنثى</option></select></div>
+                    <div><label>رقم الهاتف (لا يظهر للزوار)</label><input id="adminEditPhone" inputmode="numeric"></div>
+                    <div><label>الفئة</label><input id="adminEditCategory"></div>
+                    <div><label>المحافظة / المدينة</label><input id="adminEditCity"></div>
+                    <div><label>المديرية / الحي</label><input id="adminEditDistrict"></div>
+                    <div><label>ساعات العمل</label><input id="adminEditHours" placeholder="مثال: من 8 صباحاً إلى 10 مساءً"></div>
+                    <div><label>الوصف</label><textarea id="adminEditDesc" rows="3"></textarea></div>
+                    <div><label>الخدمات / المنيو</label><textarea id="adminEditMenu" rows="3"></textarea></div>
+                    <div><label>رابط الصورة الرئيسية (اختياري)</label><input id="adminEditImage" placeholder="اتركه كما هو إن لم ترغب بالتغيير"></div>
+                    <div><label>حالة النشاط</label><select id="adminEditStatus"><option value="approved">منشور</option><option value="pending">بانتظار الموافقة</option><option value="rejected">مرفوض</option></select></div>
+                </div>
+                <div class="form-btn-row"><button type="button" class="btn-cancel" onclick="closeAdminEditVendorModal()">إلغاء / رجوع</button><button type="submit" class="submit-form-btn">حفظ التعديل فوراً</button></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة اختيار المدن -->
+    <div class="modal-overlay" id="citiesModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeCitiesModal()">&times;</button><button class="modal-back-btn" onclick="closeCitiesModal()"><i class="fa-solid fa-arrow-right"></i> رجوع</button>
+            <h3 class="form-title">اختر المدينة لعرض أنشطتها</h3>
+            <p class="form-subtitle">تصفح المحلات والخدمات حسب المحافظة</p>
+            <div class="city-grid" id="allCitiesGrid"></div>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة نشاط تجاري -->
+    <div class="modal-overlay" id="addBusinessModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeAddBusinessModal()">&times;</button><button class="modal-back-btn" onclick="closeAddBusinessModal()"><i class="fa-solid fa-arrow-right"></i> رجوع</button>
+            <h3 class="form-title">إنشاء حساب وإضافة نشاطك التجاري</h3>
+            <p class="form-subtitle">أدخل بياناتك وبيانات نشاطك للانضمام إلى دليل كيمو</p>
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:11px 12px;margin:0 0 14px;color:#1e3a8a;font-size:11px;line-height:1.9;text-align:right;">
+                <div style="font-weight:800;margin-bottom:3px;"><i class="fa-solid fa-circle-info"></i> كيف يتم نشر نشاطك؟</div>
+                <div>١. أكمل بيانات النشاط وارفع صورته.</div>
+                <div>٢. أرسل الطلب للمشرف للمراجعة.</div>
+                <div>٣. يظهر النشاط للزوار بعد الموافقة.</div>
+                <div style="margin-top:5px;color:#92400e;font-weight:700;">تنبيه: استخدم رقم هاتف يمني صحيحًا واحفظ كلمة المرور؛ هذه النسخة التجريبية تحفظ البيانات على الجهاز فقط.</div>
+            </div>
+
+            <form id="addBusinessForm" onsubmit="submitNewBusiness(event)">
+                <div class="form-group">
+                    <label class="form-label" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>1. اسم صاحب النشاط أو الخدمة *</span>
+                        <span style="display: flex; gap: 8px; font-weight: normal; font-size: 9.5px;">
+                            <label style="cursor: pointer;"><input type="radio" name="ownerGender" value="ذكر" checked> ذكر</label>
+                            <label style="cursor: pointer;"><input type="radio" name="ownerGender" value="أنثى"> أنثى</label>
+                        </span>
+                    </label>
+                    <input type="text" class="form-input" id="ownerName" placeholder="اسمك الكامل" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">2. اسم النشاط التجاري أو الخدمة *</label>
+                    <input type="text" class="form-input" id="businessName" placeholder="اسم المحل أو الشركة" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">3. ادخل رقم هاتفك اليمني فقط *</label>
+                    <div style="display: flex; align-items: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                        <input type="tel" class="form-input" id="whatsappNumber" maxlength="9" placeholder="×××××××××" style="border: none;" required>
+                        <span style="background: #e2e8f0; color: #334155; padding: 7px 9px; font-size: 10px; font-weight: 800; border-right: 1px solid #cbd5e1;">+967</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">4. المدينة والمنطقة / الشارع *</label>
+                    <div style="display: flex; gap: 6px;">
+                        <select class="form-select" id="formCity" style="flex: 1;" required>
+                            <option value="">اختر المدينة</option>
+                            <option value="أمانة العاصمة">أمانة العاصمة</option>
+                            <option value="صنعاء">صنعاء</option><option value="عدن">عدن</option><option value="تعز">تعز</option>
+                            <option value="الحديدة">الحديدة</option><option value="حضرموت">حضرموت</option><option value="إب">إب</option>
+                            <option value="ذمار">ذمار</option><option value="مأرب">مأرب</option><option value="لحج">لحج</option>
+                            <option value="أبين">أبين</option><option value="شبوة">شبوة</option><option value="المهرة">المهرة</option>
+                            <option value="سقطرى">سقطرى</option><option value="الجوف">الجوف</option><option value="عمران">عمران</option>
+                            <option value="صعدة">صعدة</option><option value="حجة">حجة</option><option value="المحويت">المحويت</option>
+                            <option value="ريمة">ريمة</option><option value="البيضاء">البيضاء</option><option value="الضالع">الضالع</option>
+                            <option value="عمران">عمران</option>
+                        </select>
+                        <input type="text" class="form-input" id="formDistrict" placeholder="المديرية / الحي / القرية / الشارع" style="flex: 1.5;" required list="yemenPlacesList">
+                        <datalist id="yemenPlacesList"></datalist>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">5. نوع النشاط وشعار النشاط (الإجباري) *</label>
+                    <div style="display: flex; gap: 6px; align-items: center;">
+                        <select class="form-select" id="formCategory" style="flex: 1;">
+                            <option value="مطاعم">مطاعم</option>
+                            <option value="مقاهي">مقاهي</option>
+                            <option value="حلويات ومخابز">حلويات ومخابز</option>
+                            <option value="فنادق">فنادق</option>
+                            <option value="شقق فندقية">شقق فندقية</option>
+                            <option value="منتجعات">منتجعات</option>
+                            <option value="سوبر ماركت">سوبر ماركت</option>
+                            <option value="بقالات">بقالات</option>
+                            <option value="مواد غذائية">مواد غذائية</option>
+                            <option value="ملابس وأزياء">ملابس وأزياء</option>
+                            <option value="أحذية وحقائب">أحذية وحقائب</option>
+                            <option value="عطور ومستحضرات تجميل">عطور ومستحضرات تجميل</option>
+                            <option value="ذهب ومجوهرات">ذهب ومجوهرات</option>
+                            <option value="إلكترونيات وهواتف">إلكترونيات وهواتف</option>
+                            <option value="كمبيوتر وملحقاته">كمبيوتر وملحقاته</option>
+                            <option value="أثاث ومفروشات">أثاث ومفروشات</option>
+                            <option value="أدوات منزلية">أدوات منزلية</option>
+                            <option value="مواد بناء">مواد بناء</option>
+                            <option value="أدوات كهربائية">أدوات كهربائية</option>
+                            <option value="سباكة وصحي">سباكة وصحي</option>
+                            <option value="سيارات ومعارض">سيارات ومعارض</option>
+                            <option value="قطع غيار سيارات">قطع غيار سيارات</option>
+                            <option value="صيانة سيارات">صيانة سيارات</option>
+                            <option value="دراجات نارية">دراجات نارية</option>
+                            <option value="محطات وقود">محطات وقود</option>
+                            <option value="نقل وشحن">نقل وشحن</option>
+                            <option value="توصيل طلبات">توصيل طلبات</option>
+                            <option value="مستشفيات">مستشفيات</option>
+                            <option value="عيادات طبية">عيادات طبية</option>
+                            <option value="صيدليات">صيدليات</option>
+                            <option value="مختبرات طبية">مختبرات طبية</option>
+                            <option value="مراكز أشعة">مراكز أشعة</option>
+                            <option value="عيادات أسنان">عيادات أسنان</option>
+                            <option value="بصريات ونظارات">بصريات ونظارات</option>
+                            <option value="مدارس">مدارس</option>
+                            <option value="جامعات ومعاهد">جامعات ومعاهد</option>
+                            <option value="دورات تدريبية">دورات تدريبية</option>
+                            <option value="مكتبات وقرطاسية">مكتبات وقرطاسية</option>
+                            <option value="مكاتب عقارات">مكاتب عقارات</option>
+                            <option value="مقاولات وهندسة">مقاولات وهندسة</option>
+                            <option value="مكاتب محاماة">مكاتب محاماة</option>
+                            <option value="محاسبة وتدقيق">محاسبة وتدقيق</option>
+                            <option value="بنوك وصرافة">بنوك وصرافة</option>
+                            <option value="تحويلات مالية">تحويلات مالية</option>
+                            <option value="تأمين">تأمين</option>
+                            <option value="اتصالات وإنترنت">اتصالات وإنترنت</option>
+                            <option value="وكالات سفر وسياحة">وكالات سفر وسياحة</option>
+                            <option value="تأجير سيارات">تأجير سيارات</option>
+                            <option value="تصوير واستوديوهات">تصوير واستوديوهات</option>
+                            <option value="دعاية وإعلان">دعاية وإعلان</option>
+                            <option value="طباعة ومطابع">طباعة ومطابع</option>
+                            <option value="خياطة وتطريز">خياطة وتطريز</option>
+                            <option value="صالونات حلاقة">صالونات حلاقة</option>
+                            <option value="صالونات نسائية">صالونات نسائية</option>
+                            <option value="نوادٍ رياضية">نوادٍ رياضية</option>
+                            <option value="مراكز لياقة">مراكز لياقة</option>
+                            <option value="مغاسل ملابس">مغاسل ملابس</option>
+                            <option value="تنظيف ومكافحة آفات">تنظيف ومكافحة آفات</option>
+                            <option value="صيانة أجهزة منزلية">صيانة أجهزة منزلية</option>
+                            <option value="صيانة جوالات">صيانة جوالات</option>
+                            <option value="خدمات كمبيوتر">خدمات كمبيوتر</option>
+                            <option value="خدمات حكومية">خدمات حكومية</option>
+                            <option value="جمعيات ومؤسسات">جمعيات ومؤسسات</option>
+                            <option value="زراعة ومشاتل">زراعة ومشاتل</option>
+                            <option value="مواشي وأعلاف">مواشي وأعلاف</option>
+                            <option value="دواجن وأسماك">دواجن وأسماك</option>
+                            <option value="معدات زراعية">معدات زراعية</option>
+                            <option value="مصانع وورش">مصانع وورش</option>
+                            <option value="حدادة وألمنيوم">حدادة وألمنيوم</option>
+                            <option value="نجارة">نجارة</option>
+                            <option value="زجاج وأبواب">زجاج وأبواب</option>
+                            <option value="حفلات ومناسبات">حفلات ومناسبات</option>
+                            <option value="قاعات أفراح">قاعات أفراح</option>
+                            <option value="تأجير معدات">تأجير معدات</option>
+                            <option value="متاجر إلكترونية">متاجر إلكترونية</option>
+                            <option value="خدمات أخرى">خدمات أخرى</option>
+                        </select>
+                        <input type="file" class="form-file-input" id="logoImage" accept="image/*" style="flex: 1.5;" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">6. كلمة المرور *</label>
+                    <div class="password-wrapper">
+                        <input type="password" class="form-input" id="vendorPassword" minlength="4" pattern="[A-Za-z0-9]+" autocomplete="new-password" placeholder="4 أحرف أو أرقام إنجليزية على الأقل" required>
+                        <i class="fa-regular fa-eye toggle-password" onclick="togglePasswordVisibility('vendorPassword', this)"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">7. تأكيد كلمة المرور *</label>
+                    <div class="password-wrapper">
+                        <input type="password" class="form-input" id="vendorPasswordConfirm" minlength="4" pattern="[A-Za-z0-9]+" autocomplete="new-password" placeholder="أعد كتابة كلمة المرور" required>
+                        <i class="fa-regular fa-eye toggle-password" onclick="togglePasswordVisibility('vendorPasswordConfirm', this)"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">8. ساعات العمل (اختياري)</label>
+                    <input type="text" class="form-input" id="businessHours" placeholder="مثال: من 8 صباحاً حتى 10 مساءً (السبت - الخميس)">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">9. صور إضافية (اختياري - حتى 5 صور كحد أقصى)</label>
+                    <input type="file" class="form-file-input" id="extraImages" accept="image/*" multiple onchange="handleExtraImages(event)">
+                    <span style="font-size: 8.5px; color: var(--text-muted); margin-top: 2px;" id="extraImagesCount">تم اختيار 0 من 5 صور كحد أقصى</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">10. وصف مختصر لنشاطك التجاري (اختياري)</label>
+                    <textarea class="form-textarea" id="businessDesc" rows="2" placeholder="نبذة عن خدماتك..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">11. قائمة الخدمات (المنيو) (اختياري)</label>
+                    <textarea class="form-textarea" id="formMenu" rows="2" placeholder="أدخل قائمة الخدمات أو المنيو..."></textarea>
+                </div>
+
+                <div class="form-btn-row">
+                    <button type="button" class="btn-cancel" onclick="closeAddBusinessModal()">إلغاء</button>
+                    <button type="submit" class="submit-form-btn">تأكيد وإرسال الطلب</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة تسجيل الدخول -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeLoginModal()">&times;</button><button class="modal-back-btn" onclick="closeLoginModal()"><i class="fa-solid fa-arrow-right"></i> رجوع</button>
+            <h3 class="form-title">تسجيل الدخول</h3>
+            <p class="form-subtitle">أدخل رقم هاتفك اليمني وكلمة المرور</p>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">ادخل رقم هاتفك فقط *</label>
+                    <div class="phone-input-wrap"><span class="phone-prefix">+967</span><input type="text" class="form-input" id="loginPhone" placeholder="×××××××××" required autocomplete="tel" inputmode="tel" style="direction:ltr; min-width:0;"></div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور *</label>
+                    <div class="password-wrapper">
+                        <input type="password" class="form-input" id="loginPass" placeholder="كلمة المرور الخاصة بك" required autocomplete="current-password">
+                        <i class="fa-regular fa-eye toggle-password" onclick="togglePasswordVisibility('loginPass', this)"></i>
+                    </div>
+                </div>
+                <div style="text-align: left; margin-bottom: 8px;">
+                    <a href="javascript:void(0);" onclick="startForgotPasswordFlow()" style="font-size: 9.5px; color: var(--primary-color); font-weight: bold; text-decoration: none;">نسيت كلمة المرور؟</a>
+                </div>
+                <div class="form-btn-row">
+                    <button type="button" class="btn-cancel" onclick="closeLoginModal()">إلغاء</button>
+                    <button type="submit" class="submit-form-btn">دخول</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة استعادة كلمة المرور -->
+    <div class="modal-overlay" id="forgotPassModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeForgotPassModal()">&times;</button>
+            <h3 class="form-title">استعادة كلمة المرور</h3>
+            <p class="form-subtitle" id="forgotSubtitle">قم بإدخال الكود المكون من 4 أرقام الذي أرسلناه للواتساب</p>
+
+            <form id="forgotPassForm" onsubmit="verifyAndResetPassword(event)">
+                <div class="form-group" id="codeGroup">
+                    <label class="form-label">أدخل كود التحقق (4 أرقام) *</label>
+                    <input type="text" class="form-input" id="verificationCodeInput" maxlength="4" placeholder="مثال: 4829" required>
+                </div>
+                <div class="form-group" id="newPassGroup" style="display:none;">
+                    <label class="form-label">كلمة المرور الجديدة *</label>
+                    <div class="password-wrapper">
+                        <input type="password" class="form-input" id="newPasswordInput" placeholder="أدخل كلمة المرور الجديدة">
+                        <i class="fa-regular fa-eye toggle-password" onclick="togglePasswordVisibility('newPasswordInput', this)"></i>
+                    </div>
+                </div>
+                <div class="form-group" id="confirmPassGroup" style="display:none;">
+                    <label class="form-label">تأكيد كلمة المرور الجديدة *</label>
+                    <div class="password-wrapper">
+                        <input type="password" class="form-input" id="confirmPasswordInput" placeholder="أعد كتابة كلمة المرور">
+                        <i class="fa-regular fa-eye toggle-password" onclick="togglePasswordVisibility('confirmPasswordInput', this)"></i>
+                    </div>
+                </div>
+                <div class="form-btn-row">
+                    <button type="button" class="btn-cancel" onclick="closeForgotPassModal()">إلغاء</button>
+                    <button type="submit" class="submit-form-btn" id="forgotBtnText">تأكيد الكود</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة الإشعارات -->
+    <div class="modal-overlay" id="notificationsModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeNotificationsModal()">&times;</button>
+            <h3 class="form-title">الإشعارات والتنبيهات</h3>
+            <div id="notificationsList" style="margin-top: 8px;"></div>
+        </div>
+    </div>
+
+    <script>
+        const MY_PHONE_NUMBER = "00967771594022";
+
+        function loadAppData() {
+            const savedBusinesses = localStorage.getItem('kemo_businesses');
+            const savedNotifs = localStorage.getItem('kemo_notifications');
+            const savedRequests = localStorage.getItem('kemo_namePhoneRequests');
+            const savedManagers = localStorage.getItem('kemo_admin_users');
+
+            return {
+                businesses: savedBusinesses ? JSON.parse(savedBusinesses) : [
+                    {
+                        id: 1,
+                        ownerName: "علي باوزير",
+                        ownerGender: "ذكر",
+                        showOwnerName: true,
+                        title: "مطعم البيت اليمني",
+                        category: "مطاعم",
+                        city: "صنعاء",
+                        district: "شارع حدة",
+                        phone: "771594022",
+                        pass: "123456",
+                        desc: "أفضل المأكولات الشعبية والمندي.",
+                        hours: "يومياً من 8:00 صباحاً حتى 12:00 منتصف الليل",
+                        menu: "مندي لحم، حنيذ، عوافي، صالونة",
+                        img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80",
+                        extraImgs: ["https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80"],
+                        status: "approved",
+                        likes: 14,
+                        ratings: [5, 4, 5, 5]
+                    },
+                    {
+                        id: 2,
+                        ownerName: "سارة العدني",
+                        ownerGender: "أنثى",
+                        showOwnerName: false,
+                        title: "فندق جراند بلازا",
+                        category: "فنادق",
+                        city: "عدن",
+                        district: "خور مكسر",
+                        phone: "771594022",
+                        pass: "123456",
+                        desc: "إقامة فاخرة بإطلالة ساحرة على البحر.",
+                        hours: "مفتوح 24 ساعة",
+                        menu: "غرفة مفردة، جناح ملكي، فطور مجاني",
+                        img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80",
+                        extraImgs: [],
+                        status: "approved",
+                        likes: 22,
+                        ratings: [4, 4, 5]
+                    }
+                ],
+                notifications: savedNotifs ? JSON.parse(savedNotifs) : [],
+                namePhoneRequests: savedRequests ? JSON.parse(savedRequests) : [],
+                adminUsers: savedManagers ? JSON.parse(savedManagers) : [{ id: 'owner-kemo', name: 'Kemo', username: '2001', phone: '', gender: 'ذكر', password: '203096203096', role: 'owner', permissions: { approve: true, editBusiness: true, deleteBusiness: true, loginBusiness: true, addManagers: true, deleteManagers: true } }]
+            };
+        }
+
+        let appData = loadAppData();
+        if (Array.isArray(appData.adminUsers)) {
+            const ownerAccount = appData.adminUsers.find(a => a && a.role === 'owner');
+            if (ownerAccount && (ownerAccount.username || '').toLowerCase() === 'kemo') {
+                ownerAccount.username = '2001';
+            }
+        }
+        let state = {
+            currentUser: null,
+            adminUsers: appData.adminUsers || [],
+            impersonatingAdmin: null,
+            resetPhoneTarget: null,
+            resetGeneratedCode: null,
+            resetStep: 1,
+            businesses: appData.businesses,
+            notifications: appData.notifications,
+            namePhoneRequests: appData.namePhoneRequests
+        };
+
+        function saveAppData() {
+            try {
+                localStorage.setItem('kemo_businesses', JSON.stringify(state.businesses));
+                localStorage.setItem('kemo_notifications', JSON.stringify(state.notifications));
+                localStorage.setItem('kemo_namePhoneRequests', JSON.stringify(state.namePhoneRequests));
+                localStorage.setItem('kemo_admin_users', JSON.stringify(state.adminUsers));
+                localStorage.setItem('kemo_rating_votes', JSON.stringify(localRatingVotes));
+                localStorage.setItem('kemo_liked_businesses', JSON.stringify(localLikes));
+                return true;
+            } catch (error) {
+                console.error('تعذر حفظ بيانات كيمو:', error);
+                alert('تعذر حفظ البيانات. قد تكون مساحة التخزين ممتلئة؛ جرّب تقليل حجم الصور.');
+                return false;
+            }
+        }
+
+        function readLocalMap(key) {
+            try { return JSON.parse(localStorage.getItem(key) || '{}') || {}; }
+            catch (_) { return {}; }
+        }
+        let localRatingVotes = readLocalMap('kemo_rating_votes');
+        let localLikes = readLocalMap('kemo_liked_businesses');
+
+        let tempExtraImages = [];
+
+        function validateYemeniPhone(phoneStr) {
+            return /^[0-9]{9}$/.test(String(phoneStr)) && /^(70|71|73|77|78)[0-9]{7}$/.test(String(phoneStr));
+        }
+        function validateEnglishPassword(value) {
+            return /^[A-Za-z0-9]+$/.test(String(value));
+        }
+        function bindAsciiPhoneInput(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.setAttribute('inputmode','numeric');
+            el.setAttribute('maxlength','9');
+            el.addEventListener('input', () => { el.value = el.value.replace(/[^0-9]/g, '').slice(0,9); });
+        }
+        function bindEnglishPasswordInput(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.setAttribute('pattern','[A-Za-z0-9]+');
+            el.setAttribute('title','استخدم الأحرف الإنجليزية والأرقام فقط');
+            el.addEventListener('input', () => { el.setCustomValidity(/^[A-Za-z0-9]*$/.test(el.value) ? '' : 'كلمة المرور تقبل الأحرف الإنجليزية والأرقام فقط'); });
+        }
+
+        function togglePasswordVisibility(fieldId, iconElement) {
+            const field = document.getElementById(fieldId);
+            if (field.type === "password") {
+                field.type = "text";
+                iconElement.classList.remove("fa-eye");
+                iconElement.classList.add("fa-eye-slash");
+            } else {
+                field.type = "password";
+                iconElement.classList.remove("fa-eye-slash");
+                iconElement.classList.add("fa-eye");
+            }
+        }
+
+        function handleExtraImages(event) {
+            const files = event.target.files;
+            if (files.length > 5) {
+                alert("عذراً، الحد الأقصى المسموح به هو 5 صور فقط!");
+                event.target.value = '';
+                tempExtraImages = [];
+                document.getElementById('extraImagesCount').textContent = "تم اختيار 0 من 5 صور كحد أقصى";
+                return;
+            }
+
+            const oversized = Array.from(files).some(file => !file.type.startsWith('image/') || file.size > 2 * 1024 * 1024);
+            if (oversized) {
+                alert('اختر صوراً فقط، وألا يتجاوز حجم الصورة الواحدة 2 ميجابايت.');
+                event.target.value = '';
+                tempExtraImages = [];
+                document.getElementById('extraImagesCount').textContent = 'تم اختيار 0 من 5 صور كحد أقصى';
+                return;
+            }
+            tempExtraImages = [];
+            let loadedCount = 0;
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    tempExtraImages.push(e.target.result);
+                    loadedCount++;
+                    if (loadedCount === files.length) {
+                        document.getElementById('extraImagesCount').textContent = `تم اختيار ${loadedCount} من 5 صور بنجاح`;
+                    }
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        function toggleLike(event, id) {
+            if (event) event.stopPropagation();
+            const b = state.businesses.find(item => item.id === id);
+            if (!b) return;
+            const key = String(id);
+            if (localLikes[key]) {
+                alert('لقد أعجبت بهذا النشاط من هذا الجهاز مسبقاً ❤️');
+                return;
+            }
+            b.likes = (Number(b.likes) || 0) + 1;
+            localLikes[key] = true;
+            state.notifications.push({
+                id: Date.now(),
+                targetBusinessId: b.id,
+                text: `إشعار لمتجر (${b.title}): حصل على إعجاب جديد! ❤️ (الإجمالي: ${b.likes})`
+            });
+            saveAppData();
+            updateNotifBadge();
+            renderBusinesses();
+            alert(`شكراً لك على دعم ${b.title} ❤️`);
+        }
+
+        function calculateAverageRating(ratings) {
+            if (!ratings || ratings.length === 0) return { avg: "0.0", count: 0 };
+            const sum = ratings.reduce((a, b) => a + b, 0);
+            return { avg: (sum / ratings.length).toFixed(1), count: ratings.length };
+        }
+
+        function generateGoogleStarsHtml(avgRating) {
+            const num = parseFloat(avgRating) || 0;
+            let html = '<div class="g-stars">';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.round(num)) {
+                    html += '<i class="fa-solid fa-star filled"></i>';
+                } else {
+                    html += '<i class="fa-solid fa-star"></i>';
+                }
+            }
+            html += '</div>';
+            return html;
+        }
+
+        function startForgotPasswordFlow() {
+            alert('استعادة كلمة المرور عبر واتساب غير مفعّلة بأمان في نسخة HTML الحالية. لا يمكن إرسال رمز تحقق حقيقي من المتصفح وحده. عند ربط الموقع بخادم يمكن إضافة استعادة آمنة.');
+        }
+
+        function verifyAndResetPassword(e) {
+            e.preventDefault();
+            if (state.resetStep === 1) {
+                const enteredCode = document.getElementById('verificationCodeInput').value.trim();
+                if (enteredCode !== state.resetGeneratedCode) {
+                    alert("الكود المدخل غير صحيح. حاول مرة أخرى.");
+                    return;
+                }
+                alert("تم تأكيد الكود بنجاح! يرجى إدخال كلمة المرور الجديدة.");
+                state.resetStep = 2;
+                document.getElementById('codeGroup').style.display = 'none';
+                document.getElementById('newPassGroup').style.display = 'block';
+                document.getElementById('confirmPassGroup').style.display = 'block';
+                document.getElementById('forgotSubtitle').textContent = "قم بكتابة كلمة المرور الجديدة وتأكيدها";
+                document.getElementById('forgotBtnText').textContent = "تغيير كلمة المرور والدخول";
+            } else {
+                const newPass = document.getElementById('newPasswordInput').value.trim();
+                const confirmPass = document.getElementById('confirmPasswordInput').value.trim();
+
+                if (!newPass || newPass.length < 4) {
+                    alert("كلمة المرور يجب ألا تقل عن 4 خانات.");
+                    return;
+                }
+                if (newPass !== confirmPass) {
+                    alert("كلمة المرور وتأكيدها غير متطابقين!");
+                    return;
+                }
+
+                const vendor = state.businesses.find(b => b.phone === state.resetPhoneTarget);
+                if (vendor) {
+                    vendor.pass = newPass;
+                    state.currentUser = vendor;
+                    saveAppData();
+                    updateUIHeader();
+                    alert("تم تغير كلمة المرور والدخول بنجاح!");
+                    closeForgotPassModal();
+                    showHomeScreen();
+                }
+            }
+        }
+
+        function closeForgotPassModal() {
+            document.getElementById('forgotPassForm').reset();
+            document.getElementById('forgotPassModal').classList.remove('active');
+            state.resetStep = 1;
+        }
+
+        const YEMEN_GOVERNORATES = {
+          "أمانة العاصمة": ["التحرير","الوحدة","السبعين","معين","الثورة","شعوب","الصافية","آزال","بني الحارث","شوارع الزبيري","حدة","شميلة","باب اليمن","شارع الستين","شارع تعز"],
+          "صنعاء": ["سنحان","بني مطر","همدان","أرحب","نهم","الحيمة الداخلية","الحيمة الخارجية","خولان","بلاد الروس","جحانة","صنعاء الجديدة"],
+          "عدن": ["كريتر","المعلا","التواهي","خور مكسر","المنصورة","الشيخ عثمان","دار سعد","البريقة","إنماء","المدينة الخضراء"],
+          "تعز": ["القاهرة","المظفر","صالة","التعزية","الحوبان","بير باشا","جولة سنان","الروضة","جبل حبشي","المخا","التربة"],
+          "الحديدة": ["الحوك","الحالي","الميناء","الحسينية","الزيدية","بيت الفقيه","زبيد","الخوخة","التحيتا"],
+          "حضرموت": ["المكلا","فوة","الديس","الشحر","غيل باوزير","تريم","سيئون","شبام","القطن","وادي العين","حورة"],
+          "إب": ["الظهار","المشنة","جبلة","يريم","القفر","بعدان","ذي السفال","النادرة","حبيش","العدين"],
+          "ذمار": ["مدينة ذمار","عنس","ميفعة عنس","جهران","ضوران","وصاب العالي","وصاب السافل","الحداء"],
+          "مأرب": ["مدينة مأرب","الوادي","صرواح","حريب","الجوبة","مجزر","رغوان","مدغل"],
+          "لحج": ["الحوطة","تبن","طور الباحة","المسيمير","يافع","ردفان","المضاربة ورأس العارة","الملاح"],
+          "أبين": ["زنجبار","خنفر","جعار","لودر","مودية","أحور","شقرة","المحفد","رصد"],
+          "شبوة": ["عتق","بيحان","عسيلان","حبان","ميفعة","رضوم","نصاب","مرخة","جردان"],
+          "المهرة": ["الغيضة","حوف","قشن","سيحوت","نشطون","حات","شحن","منعر"],
+          "سقطرى": ["حديبو","قلنسية","موري","ديحمض","حالة","قاضب"],
+          "الجوف": ["الحزم","الخلق","المتون","برط العنان","خب والشعف","المصلوب","الغيل"],
+          "عمران": ["مدينة عمران","ريدة","خمر","حوث","حرف سفيان","ثلا"],
+          "صعدة": ["مدينة صعدة","سحار","رازح","باقم","قطابر","منبه","غمر","حيدان","كتاف"],
+          "حجة": ["مدينة حجة","عبس","حرض","ميدي","بكيل المير","كشر","أفلح الشام","المحابشة","الشاهل"],
+          "المحويت": ["مدينة المحويت","شبام كوكبان","الرجم","ملحان","حفاش","الطويلة"],
+          "ريمة": ["الجبين","كسمة","بلاد الطعام","السلفية","مزهر","الجعفرية"],
+          "البيضاء": ["مدينة البيضاء","رداع","الزاهر","الصومعة","نعمان","ناطع","ذي ناعم","مكيراس"],
+          "الضالع": ["مدينة الضالع","قعطبة","دمت","جبن","الشعيب","الحصين","الأزارق","جحاف"]
+        };
+        const YEMEN_CATEGORIES = ['مطاعم', 'مقاهي', 'حلويات ومخابز', 'فنادق', 'شقق فندقية', 'منتجعات', 'سوبر ماركت', 'بقالات', 'مواد غذائية', 'ملابس وأزياء', 'أحذية وحقائب', 'عطور ومستحضرات تجميل', 'ذهب ومجوهرات', 'إلكترونيات وهواتف', 'كمبيوتر وملحقاته', 'أثاث ومفروشات', 'أدوات منزلية', 'مواد بناء', 'أدوات كهربائية', 'سباكة وصحي', 'سيارات ومعارض', 'قطع غيار سيارات', 'صيانة سيارات', 'دراجات نارية', 'محطات وقود', 'نقل وشحن', 'توصيل طلبات', 'مستشفيات', 'عيادات طبية', 'صيدليات', 'مختبرات طبية', 'مراكز أشعة', 'عيادات أسنان', 'بصريات ونظارات', 'مدارس', 'جامعات ومعاهد', 'دورات تدريبية', 'مكتبات وقرطاسية', 'مكاتب عقارات', 'مقاولات وهندسة', 'مكاتب محاماة', 'محاسبة وتدقيق', 'بنوك وصرافة', 'تحويلات مالية', 'تأمين', 'اتصالات وإنترنت', 'وكالات سفر وسياحة', 'تأجير سيارات', 'تصوير واستوديوهات', 'دعاية وإعلان', 'طباعة ومطابع', 'خياطة وتطريز', 'صالونات حلاقة', 'صالونات نسائية', 'نوادٍ رياضية', 'مراكز لياقة', 'مغاسل ملابس', 'تنظيف ومكافحة آفات', 'صيانة أجهزة منزلية', 'صيانة جوالات', 'خدمات كمبيوتر', 'خدمات حكومية', 'جمعيات ومؤسسات', 'زراعة ومشاتل', 'مواشي وأعلاف', 'دواجن وأسماك', 'معدات زراعية', 'مصانع وورش', 'حدادة وألمنيوم', 'نجارة', 'زجاج وأبواب', 'حفلات ومناسبات', 'قاعات أفراح', 'تأجير معدات', 'متاجر إلكترونية', 'خدمات أخرى'];
+
+        function populateYemenCategoryOptions() {
+          const row = document.querySelector('.categories-row');
+          if (row) {
+            row.innerHTML = '';
+            const primary = [
+              ['الكل','fa-border-all','cat-all'],
+              ['مطاعم','fa-utensils','cat-food'],
+              ['فنادق','fa-hotel','cat-hotel'],
+              ['سوبر ماركت','fa-cart-shopping','cat-market'],
+              ['مستشفيات','fa-hospital','cat-hospital']
+            ];
+            const selected = window.kemoSelectedCategory || 'الكل';
+            const glyphMap = {'مقاهي':'fa-mug-hot','حلويات ومخابز':'fa-cake-candles','شقق فندقية':'fa-building','منتجعات':'fa-umbrella-beach','بقالات':'fa-basket-shopping','مواد غذائية':'fa-carrot','عيادات طبية':'fa-user-doctor','صيدليات':'fa-prescription-bottle-medical','مدارس':'fa-school','سيارات ومعارض':'fa-car','ملابس وأزياء':'fa-shirt','إلكترونيات وهواتف':'fa-mobile-screen','مكاتب عقارات':'fa-house','بنوك وصرافة':'fa-money-bill-transfer'};
+            const classMap = {'مقاهي':'cat-food','حلويات ومخابز':'cat-food','شقق فندقية':'cat-hotel','منتجعات':'cat-hotel','عيادات طبية':'cat-hospital','صيدليات':'cat-hospital'};
+            let ordered;
+            if (selected === 'الكل') ordered = primary.slice();
+            else {
+              const chosen = primary.find(x=>x[0]===selected) || [selected, glyphMap[selected] || 'fa-store', classMap[selected] || 'cat-market'];
+              ordered = [primary[0], chosen, ...primary.slice(1).filter(x=>x[0]!==selected)].slice(0,5);
+            }
+            ordered.forEach(([category, glyph, cls]) => {
+              const item=document.createElement('div'); item.className='category-item'+(category===selected?' active':''); item.onclick=()=>filterByCategory(category);
+              const icon=document.createElement('div'); icon.className='category-icon '+cls;
+              const i=document.createElement('i'); i.className='fa-solid '+glyph; icon.appendChild(i);
+              const label=document.createElement('span'); label.className='category-label'; label.textContent=category;
+              item.append(label,icon); row.appendChild(item);
+            });
+            const more=document.createElement('div'); more.className='category-item'; more.onclick=toggleMoreCategories;
+            const icon=document.createElement('div'); icon.className='category-icon cat-more';
+            const i=document.createElement('i'); i.className='fa-solid fa-ellipsis'; icon.appendChild(i);
+            const label=document.createElement('span'); label.className='category-label'; label.textContent='المزيد';
+            more.append(icon,label); row.appendChild(more);
+          }
+          const categorySelect = document.getElementById('formCategory');
+          if (categorySelect) {
+            const selected = categorySelect.value;
+            categorySelect.innerHTML = '<option value="">اختر الفئة التجارية</option>';
+            YEMEN_CATEGORIES.forEach(category => categorySelect.add(new Option(category, category)));
+            if (YEMEN_CATEGORIES.includes(selected)) categorySelect.value = selected;
+          }
+          const formSelect=document.getElementById('formCategory');
+          if(formSelect && !document.getElementById('formCategorySearch')) {
+            const search=document.createElement('input'); search.type='search'; search.id='formCategorySearch'; search.className='form-input';
+            search.placeholder='ابحث عن الفئة التجارية...'; search.style.marginBottom='7px';
+            search.addEventListener('input',()=>{
+              const q=search.value.trim().toLocaleLowerCase('ar'); const current=formSelect.value;
+              Array.from(formSelect.options).forEach((opt,index)=>{ if(index===0){opt.hidden=false;return;} opt.hidden=!opt.text.toLocaleLowerCase('ar').includes(q); });
+              if(current && formSelect.selectedOptions[0]?.hidden) formSelect.value='';
+            });
+            formSelect.parentNode.insertBefore(search,formSelect);
+          }
+          renderMoreCategories('');
+        }
+        function toggleMoreCategories(){
+          const panel=document.getElementById('moreCategoriesPanel'); if(!panel) return;
+          const open=panel.style.display==='none'; panel.style.display=open?'block':'none';
+          if(open){ const input=document.getElementById('homeCategorySearch'); if(input) input.focus(); renderMoreCategories(input?.value||''); }
+        }
+        function renderMoreCategories(query=''){
+          const list=document.getElementById('moreCategoriesList'); if(!list) return;
+          const q=String(query||'').trim().toLocaleLowerCase('ar'); list.innerHTML='';
+          YEMEN_CATEGORIES.filter(c=>!['مطاعم','فنادق','سوبر ماركت','مستشفيات'].includes(c) && c.toLocaleLowerCase('ar').includes(q)).forEach(category=>{
+            const btn=document.createElement('button'); btn.type='button'; btn.className='submit-form-btn'; btn.style.cssText='display:flex;flex-direction:column;align-items:center;gap:6px;padding:9px 7px;font-size:12px;background:var(--card-bg);color:var(--text-main);border:1px solid var(--border-color);';
+            const label=document.createElement('span'); label.textContent=category;
+            const icon=document.createElement('span'); icon.style.cssText='width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--primary-color);color:#fff;';
+            const glyphMap={'مقاهي':'fa-mug-hot','حلويات ومخابز':'fa-cake-candles','صيدليات':'fa-prescription-bottle-medical','عيادات طبية':'fa-user-doctor','مدارس':'fa-school','جامعات ومعاهد':'fa-graduation-cap','ملابس وأزياء':'fa-shirt','سيارات ومعارض':'fa-car','مكاتب عقارات':'fa-house','إلكترونيات وهواتف':'fa-mobile-screen','بقالات':'fa-basket-shopping','فنادق':'fa-hotel'};
+            const glyph=glyphMap[category]||'fa-store'; const i=document.createElement('i'); i.className='fa-solid '+glyph; icon.appendChild(i); btn.append(label,icon);
+            btn.onclick=()=>{filterByCategory(category); const panel=document.getElementById('moreCategoriesPanel'); if(panel) panel.style.display='none';}; list.appendChild(btn);
+          });
+          if(!list.children.length) list.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:10px;color:var(--text-muted)">لا توجد فئة مطابقة</div>';
+        }
+
+        function populateYemenLocationOptions() {
+          const citySelect = document.getElementById('citySelect');
+          const formCity = document.getElementById('formCity');
+          const grid = document.getElementById('allCitiesGrid');
+          const datalist = document.getElementById('yemenPlacesList');
+          if (citySelect) {
+            const keep = citySelect.value;
+            citySelect.innerHTML = '<option value="">كل المدن والمحافظات</option>';
+            Object.keys(YEMEN_GOVERNORATES).forEach(city => citySelect.add(new Option(city, city)));
+            citySelect.value = keep;
+          }
+          if (formCity) {
+            const keep = formCity.value;
+            formCity.innerHTML = '<option value="">اختر المحافظة / المدينة</option>';
+            Object.keys(YEMEN_GOVERNORATES).forEach(city => formCity.add(new Option(city, city)));
+            formCity.value = keep;
+            formCity.onchange = () => {
+              if (!datalist) return;
+              datalist.innerHTML = '';
+              (YEMEN_GOVERNORATES[formCity.value] || []).forEach(place => datalist.appendChild(new Option(place, place)));
+            };
+          }
+          if (grid) {
+            grid.innerHTML = '';
+            Object.keys(YEMEN_GOVERNORATES).forEach(city => {
+              const card = document.createElement('div'); card.className = 'city-option-card';
+              card.textContent = city; card.onclick = () => selectCityFromModal(city); grid.appendChild(card);
+            });
+          }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateYemenLocationOptions();
+            populateYemenCategoryOptions();
+            renderBusinesses();
+            updateUIHeader();
+            populateDistricts();
+        });
+
+        function populateDistricts() {
+            const citySelect = document.getElementById('citySelect');
+            const districtSelect = document.getElementById('districtSelect');
+            const selectedCity = citySelect.value;
+
+            districtSelect.innerHTML = '<option value="">كل المناطق</option>';
+            if (!selectedCity) return;
+
+            const districts = [...new Set([...(YEMEN_GOVERNORATES[selectedCity] || []), ...state.businesses.filter(b => b.city === selectedCity && b.status === 'approved').map(b => b.district)])];
+            districts.forEach(d => {
+                const opt = document.createElement('option');
+                opt.value = d;
+                opt.textContent = d;
+                districtSelect.appendChild(opt);
+            });
+        }
+
+        function isAdminUser(user = state.currentUser) { return user === 'admin' || !!(user && user.role === 'admin'); }
+        function currentAdminRecord() { return state.currentUser === 'admin' ? state.adminUsers.find(a => a.role === 'owner') : (state.currentUser && state.currentUser.role === 'admin' ? state.currentUser : null); }
+        function hasPermission(permission) { const a = currentAdminRecord(); return !!(a && (a.role === 'owner' || (a.permissions && a.permissions[permission]))); }
+        function requirePermission(permission, message='ليست لديك صلاحية لتنفيذ هذا الإجراء.') { if (hasPermission(permission)) return true; alert(message); return false; }
+
+        function handleHeaderUserClick() {
+            if (isAdminUser()) {
+                showAdminPanel();
+            } else if (state.currentUser) {
+                showVendorPanel();
+            } else {
+                openLoginModal();
+            }
+        }
+
+        function updateUIHeader() {
+            const userIcon = document.getElementById('userProfileIcon');
+            const notifIcon = document.getElementById('notificationIcon');
+
+            if (state.currentUser) {
+                userIcon.classList.add('logged-in');
+                notifIcon.style.display = 'flex';
+                updateNotifBadge();
+            } else {
+                userIcon.classList.remove('logged-in');
+                notifIcon.style.display = 'none';
+            }
+        }
+
+        function executeSearch() {
+            renderBusinesses();
+        }
+
+        function filterByLocation() {
+            populateDistricts();
+            renderBusinesses('الكل');
+        }
+
+        function renderBusinesses(filterCat = 'الكل') {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';
+            
+            const selectedCity = document.getElementById('citySelect').value;
+            const selectedDistrict = document.getElementById('districtSelect').value;
+            const searchQuery = (document.getElementById('searchInput')?.value || '').trim().toLocaleLowerCase('ar');
+            const approved = state.businesses.filter(b => b.status === 'approved');
+
+            let matchedCount = 0;
+            approved.forEach(b => {
+                if (filterCat !== 'الكل' && b.category !== filterCat) return;
+                if (selectedCity && b.city !== selectedCity) return;
+                if (selectedDistrict && b.district !== selectedDistrict) return;
+                if (searchQuery && ![b.title, b.category, b.city, b.district, b.desc, b.menu, b.hours].some(value => String(value || '').toLocaleLowerCase('ar').includes(searchQuery))) return;
+
+                matchedCount++;
+                const ratingInfo = calculateAverageRating(b.ratings);
+                const starsHtml = generateGoogleStarsHtml(ratingInfo.avg);
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => openBusinessDetails(b.id);
+                card.innerHTML = `
+                    <div class="card-img-wrapper">
+                        <img src="${b.img}" class="card-img" alt="${b.title}">
+                        <span class="badge-location"><i class="fa-solid fa-location-dot"></i> ${b.city}</span>
+                        <span class="badge-type">مميز</span>
+                        <button class="like-btn" onclick="toggleLike(event, ${b.id})" title="إعجاب">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">${b.title}</h4>
+                        <div class="card-sub"><i class="fa-solid fa-tag"></i> ${b.category}</div>
+                        <div class="card-rating">
+                            <span>${ratingInfo.avg}</span>
+                            ${starsHtml}
+                            <span style="color: var(--text-muted); font-size: 9px;">(${ratingInfo.count})</span>
+                            <span style="margin-right: auto; font-size: 9px; color: var(--danger-color);"><i class="fa-solid fa-heart"></i> ${b.likes || 0}</span>
+                        </div>
+                        <a href="https://wa.me/967${String(b.phone || '').replace(/[^0-9]/g,'').replace(/^00967/, '').replace(/^967/, '')}?text=${encodeURIComponent('أهلاً، أستفسر عن ' + b.title)}" target="_blank" rel="noopener" class="card-btn" onclick="event.stopPropagation()">
+                            <i class="fa-brands fa-whatsapp"></i> تواصل عبر الواتساب
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            if (matchedCount === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-store-slash" style="font-size: 28px; margin-bottom: 6px; color: var(--text-muted);"></i>
+                        <p>عذراً، لا توجد أنشطة تجارية مطابقة لبحثك أو القسم المختار.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function openBusinessDetails(id) {
+            const b = state.businesses.find(item => item.id === id);
+            if (!b) return;
+
+            let ownerDisplayHtml = '';
+            if (b.showOwnerName || isAdminUser() || (state.currentUser && state.currentUser.id === b.id)) {
+                ownerDisplayHtml = `<div class="detail-owner-field"><strong>اسم صاحب النشاط:</strong> ${escapeHtml(b.ownerName || '')}${isAdminUser() ? ` <span class="owner-gender-private">(النوع: ${escapeHtml(b.ownerGender || 'غير محدد')})</span>` : ''}</div>`;
+            }
+
+            let extraImagesHtml = '';
+            if (b.extraImgs && b.extraImgs.length > 0) {
+                extraImagesHtml = `<div style="display:flex; gap:6px; overflow-x:auto; margin-top:8px; padding-bottom:4px;">`;
+                b.extraImgs.forEach(imgUrl => {
+                    extraImagesHtml += `<img src="${imgUrl}" style="width:70px; height:70px; object-fit:cover; border-radius:8px; border:1px solid #cbd5e1;" alt="صورة إضافية">`;
+                });
+                extraImagesHtml += `</div>`;
+            }
+
+            const ratingInfo = calculateAverageRating(b.ratings);
+
+            const detailsBody = document.getElementById('businessDetailsBody');
+            const cleanPhone = String(b.phone || '').replace(/[^0-9]/g, '').replace(/^00967/, '').replace(/^967/, '');
+            const mapQuery = encodeURIComponent([b.title, b.district, b.city, 'اليمن'].filter(Boolean).join(' '));
+            detailsBody.innerHTML = `
+                <div class="detail-image-section"><img src="${b.img}" style="width: 100%; height: 112px; object-fit: cover; border-radius: 10px;" alt="${escapeHtml(b.title || 'صورة النشاط')}"></div>
+                <section class="detail-section detail-title-section"><h3>${escapeHtml(b.title || '')}</h3></section>
+                <section class="detail-section detail-location-section"><i class="fa-solid fa-tag"></i> ${escapeHtml(b.category || '')}<br><i class="fa-solid fa-location-dot"></i> ${escapeHtml(b.city || '')}${b.district ? ' - ' + escapeHtml(b.district) : ''}</section>
+                ${ownerDisplayHtml ? `<section class="detail-section">${ownerDisplayHtml}</section>` : ''}
+                ${b.hours ? `<section class="detail-section"><strong><i class="fa-regular fa-clock"></i> ساعات العمل</strong><div>${escapeHtml(b.hours)}</div></section>` : ''}
+                ${b.desc ? `<section class="detail-section detail-description"><strong>الوصف</strong><div>${escapeHtml(b.desc)}</div></section>` : ''}
+                ${extraImagesHtml ? `<section class="detail-section detail-images"><strong>صور النشاط</strong>${extraImagesHtml}</section>` : ''}
+                ${b.menu ? `<section class="detail-section detail-menu"><strong>الخدمات / المنيو</strong><div>${escapeHtml(b.menu)}</div></section>` : ''}
+                
+                <!-- نظام تقييم جوجل مابس التفاعلي المطابق لخرائط جوجل -->
+                <div class="google-rating-box">
+                    <div style="font-size: 11px; font-weight: bold; color: #70757a; margin-bottom: 2px;">تقييمات زوار دليل كيمو</div>
+                    <div class="g-map-score">
+                        <span>${ratingInfo.avg}</span>
+                        <div style="font-size: 16px;">${generateGoogleStarsHtml(ratingInfo.avg)}</div>
+                    </div>
+                    <div style="font-size: 9.5px; color: #70757a; margin-bottom: 4px;">(${ratingInfo.count} تقييم)</div>
+                    
+                    <div class="g-map-stars-interactive" id="googleRatingStarsContainer">
+                        <i class="fa-solid fa-star" onmouseover="highlightGoogleStars(1)" onmouseout="resetGoogleStarsHighlight(${localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg))})" onclick="rateBusiness(${b.id}, 1)" aria-label="نجمة واحدة" role="button" tabindex="0"></i>
+                        <i class="fa-solid fa-star" onmouseover="highlightGoogleStars(2)" onmouseout="resetGoogleStarsHighlight(${localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg))})" onclick="rateBusiness(${b.id}, 2)" aria-label="2 نجوم" role="button" tabindex="0"></i>
+                        <i class="fa-solid fa-star" onmouseover="highlightGoogleStars(3)" onmouseout="resetGoogleStarsHighlight(${localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg))})" onclick="rateBusiness(${b.id}, 3)" aria-label="3 نجوم" role="button" tabindex="0"></i>
+                        <i class="fa-solid fa-star" onmouseover="highlightGoogleStars(4)" onmouseout="resetGoogleStarsHighlight(${localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg))})" onclick="rateBusiness(${b.id}, 4)" aria-label="4 نجوم" role="button" tabindex="0"></i>
+                        <i class="fa-solid fa-star" onmouseover="highlightGoogleStars(5)" onmouseout="resetGoogleStarsHighlight(${localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg))})" onclick="rateBusiness(${b.id}, 5)" aria-label="5 نجوم" role="button" tabindex="0"></i>
+                    </div>
+                    <span style="font-size: 8.5px; color: var(--text-muted); display:block; margin-top:5px;">اختر من نجمة إلى خمس نجوم. يمكنك تعديل تقييمك لاحقاً من هذا الجهاز</span>
+                    <div id="ratingFeedback" aria-live="polite" style="font-size:10px;color:var(--primary-color);font-weight:700;margin-top:5px;">${localRatingVotes[String(b.id)] ? `تقييمك الحالي: ${localRatingVotes[String(b.id)].score} من 5` : ''}</div>
+                </div>
+
+                <div class="business-contact-actions" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+                    <a href="https://wa.me/967${cleanPhone}?text=${encodeURIComponent('أهلاً، أستفسر عن نشاط ' + b.title)}" target="_blank" rel="noopener" class="submit-form-btn" style="display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;background:#25d366;">
+                        <i class="fa-brands fa-whatsapp" style="font-size:17px;"></i> واتساب النشاط
+                    </a>
+                    <a href="tel:+967${cleanPhone}" class="submit-form-btn" style="display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;background:var(--primary-color);">
+                        <i class="fa-solid fa-phone"></i> اتصال هاتفي
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank" rel="noopener" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;color:var(--text-main);border:1px solid var(--border-color,#dbe3ea);border-radius:10px;font-size:11px;font-weight:bold;text-decoration:none;background:var(--card-bg,#fff);">
+                        <i class="fa-solid fa-map-location-dot"></i> البحث عن الموقع على خرائط Google
+                    </a>
+                </div>
+            `;
+            document.getElementById('businessDetailsModal').classList.add('active');
+            updateGoogleStarsDisplay(localRatingVotes[String(b.id)]?.score || Math.round(parseFloat(ratingInfo.avg)));
+        }
+
+        function highlightGoogleStars(count) {
+            updateGoogleStarsDisplay(count);
+        }
+
+        function resetGoogleStarsHighlight(avgCount) {
+            updateGoogleStarsDisplay(avgCount);
+        }
+
+        function updateGoogleStarsDisplay(count) {
+            const container = document.getElementById('googleRatingStarsContainer');
+            if (!container) return;
+            const stars = container.querySelectorAll('i');
+            stars.forEach((star, index) => {
+                if (index < count) {
+                    star.classList.add('filled');
+                } else {
+                    star.classList.remove('filled');
+                }
+            });
+        }
+
+        function rateBusiness(id, stars) {
+            const b = state.businesses.find(item => item.id === id);
+            const score = Number(stars);
+            if (!b || !Number.isInteger(score) || score < 1 || score > 5) return;
+            if (!Array.isArray(b.ratings)) b.ratings = [];
+
+            const key = String(id);
+            const previousVote = localRatingVotes[key];
+            if (previousVote && Number.isInteger(previousVote.index) && previousVote.index >= 0 && previousVote.index < b.ratings.length) {
+                b.ratings[previousVote.index] = score;
+                localRatingVotes[key] = { index: previousVote.index, score };
+            } else {
+                b.ratings.push(score);
+                localRatingVotes[key] = { index: b.ratings.length - 1, score };
+            }
+            saveAppData();
+            updateGoogleStarsDisplay(score);
+            renderBusinesses();
+            openBusinessDetails(id);
+            const message = previousVote ? 'تم تحديث تقييمك بنجاح' : 'شكراً لك! تم تسجيل تقييمك';
+            const status = document.getElementById('ratingFeedback');
+            if (status) status.textContent = `${message}: ${score} من 5 نجوم.`;
+            else alert(`${message}: ${score} من 5 نجوم.`);
+        }
+
+        function closeBusinessDetailsModal() {
+            document.getElementById('businessDetailsModal').classList.remove('active');
+        }
+
+        function filterByCategory(cat) {
+            if (cat === 'المزيد') { toggleMoreCategories(); return; }
+            window.kemoSelectedCategory = cat || 'الكل';
+            populateYemenCategoryOptions();
+            document.getElementById('sectionTitle').textContent = cat === 'الكل' ? 'اكتشف المحلات والخدمات الرائدة' : `الأقسام: ${cat}`;
+            renderBusinesses(cat);
+        }
+
+        function openCitiesModal() {
+            document.getElementById('citiesModal').classList.add('active');
+        }
+        function closeCitiesModal() {
+            document.getElementById('citiesModal').classList.remove('active');
+        }
+        function selectCityFromModal(cityName) {
+            document.getElementById('citySelect').value = cityName;
+            closeCitiesModal();
+            filterByLocation();
+            document.getElementById('sectionTitle').textContent = `محلات مدينة: ${cityName}`;
+        }
+
+        function getLocationAndFilter() {
+            if (!navigator.geolocation) {
+                alert('متصفحك لا يدعم تحديد الموقع.');
+                return;
+            }
+            navigator.geolocation.getCurrentPosition((position) => {
+                const userLat = position.coords.latitude;
+                const userLon = position.coords.longitude;
+                const withCoordinates = state.businesses.filter(b => b.status === 'approved' && Number.isFinite(Number(b.lat)) && Number.isFinite(Number(b.lon)));
+                if (!withCoordinates.length) {
+                    alert('تم تحديد موقعك، لكن الأنشطة الحالية لا تحتوي على إحداثيات جغرافية لاحتساب الأقرب. اختر المدينة أو المنطقة من الفلاتر.');
+                    return;
+                }
+                const distanceKm = (lat1, lon1, lat2, lon2) => {
+                    const rad = d => d * Math.PI / 180;
+                    const dLat = rad(lat2 - lat1), dLon = rad(lon2 - lon1);
+                    const a = Math.sin(dLat / 2) ** 2 + Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(dLon / 2) ** 2;
+                    return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                };
+                withCoordinates.sort((a, b) => distanceKm(userLat, userLon, Number(a.lat), Number(a.lon)) - distanceKm(userLat, userLon, Number(b.lat), Number(b.lon)));
+                const grid = document.getElementById('cardsGrid');
+                grid.innerHTML = '';
+                document.getElementById('sectionTitle').textContent = 'الأنشطة الأقرب إلى موقعك';
+                withCoordinates.slice(0, 20).forEach(b => {
+                    const distance = distanceKm(userLat, userLon, Number(b.lat), Number(b.lon));
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.onclick = () => openBusinessDetails(b.id);
+                    card.innerHTML = `<div class="card-img-wrapper"><img src="${b.img}" class="card-img" alt="${b.title}"><span class="badge-location">${b.city}</span></div><div class="card-body"><h4 class="card-title">${b.title}</h4><div class="card-sub">${b.category} · ${b.district || b.city}</div><div class="card-sub">يبعد تقريباً ${distance.toFixed(1)} كم</div><button class="card-btn" onclick="event.stopPropagation();openBusinessDetails(${b.id})">عرض التفاصيل</button></div>`;
+                    grid.appendChild(card);
+                });
+            }, () => alert('تعذر تحديد الموقع. تأكد من تفعيل GPS ومنح المتصفح الإذن.'), { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
+        }
+
+        function submitNewBusiness(e) {
+            e.preventDefault();
+            const ownerName = document.getElementById('ownerName').value.trim();
+            const ownerGender = document.querySelector('input[name="ownerGender"]:checked').value;
+            const businessName = document.getElementById('businessName').value.trim();
+            const category = document.getElementById('formCategory').value;
+            const city = document.getElementById('formCity').value;
+            const district = document.getElementById('formDistrict').value.trim();
+            const pass = document.getElementById('vendorPassword').value.trim();
+            const passConfirm = document.getElementById('vendorPasswordConfirm').value.trim();
+            const phone = document.getElementById('whatsappNumber').value.trim();
+            const hours = document.getElementById('businessHours').value.trim() || '';
+            const desc = document.getElementById('businessDesc').value.trim() || 'لا يوجد وصف';
+            const menu = document.getElementById('formMenu').value.trim();
+            const logoInput = document.getElementById('logoImage');
+
+            if (!ownerName || !businessName) {
+                alert("اسم صاحب النشاط واسم النشاط حقول إجبارية ولا يمكن تركها فارغة!");
+                return;
+            }
+
+            if (!validateYemeniPhone(phone)) {
+                alert("رقم الهاتف غير صحيح! يجب أن يتكون من 9 أرقام ويبدأ بحدود شبكات اليمن الصحيحة (70, 71, 73, 77, 78).");
+                return;
+            }
+
+            const phoneAlreadyUsed = state.businesses.some(b => String(b.phone) === phone);
+            if (phoneAlreadyUsed) {
+                alert("رقم الهاتف مسجل بالفعل في طلب أو نشاط آخر. استخدم رقمًا مختلفًا أو تواصل مع المشرف.");
+                return;
+            }
+
+            if (pass.length < 4) {
+                alert("كلمة المرور يجب ألا تقل عن 4 أحرف أو أرقام إنجليزية.");
+                return;
+            }
+
+            if (!logoInput.files || logoInput.files.length === 0) {
+                alert("شعار / صورة النشاط الأساسية إجبارية!");
+                return;
+            }
+
+            if (!validateEnglishPassword(pass) || !validateEnglishPassword(passConfirm)) {
+                alert("كلمة المرور يجب أن تحتوي على أحرف إنجليزية أو أرقام إنجليزية فقط، دون مسافات أو أحرف عربية.");
+                return;
+            }
+
+            if (pass !== passConfirm) {
+                alert("خطأ: كلمة المرور وتأكيد كلمة المرور غير متطابقين!");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const logoBase64 = event.target.result;
+
+                const newBiz = {
+                    id: Date.now(),
+                    ownerName,
+                    ownerGender,
+                    showOwnerName: true,
+                    title: businessName,
+                    category,
+                    city,
+                    district,
+                    phone,
+                    pass,
+                    hours,
+                    desc,
+                    menu,
+                    img: logoBase64,
+                    extraImgs: [...tempExtraImages],
+                    status: "pending",
+                    likes: 0,
+                    ratings: []
+                };
+
+                state.businesses.push(newBiz);
+                state.notifications.push({
+                    id: Date.now(),
+                    type: "new_business",
+                    businessId: newBiz.id,
+                    text: `طلب إضافة نشاط تجاري جديد: (${businessName}) للمالك (${ownerName})`
+                });
+
+                saveAppData();
+                tempExtraImages = [];
+                updateNotifBadge();
+                closeAddBusinessModal();
+                document.getElementById('addBusinessForm').reset();
+                document.getElementById('extraImagesCount').textContent = "تم اختيار 0 من 5 صور كحد أقصى";
+                alert("تم استلام طلبك في هذه النسخة التجريبية وإرساله إلى قائمة مراجعة المشرف على هذا الجهاز. لن يظهر النشاط للزوار إلا بعد الموافقة. ملاحظة: البيانات ليست مشتركة عبر الإنترنت بعد.");
+            };
+            reader.readAsDataURL(logoInput.files[0]);
+        }
+
+        try { localStorage.setItem('kemo_admin_users', JSON.stringify(appData.adminUsers || [])); } catch (error) { console.warn('تعذر حفظ اسم مستخدم المالك الجديد:', error); }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const loginName = document.getElementById('loginPhone').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+
+            const normalizedLogin = loginName.toLowerCase();
+            const enteredPhone = /^[0-9]+$/.test(loginName) ? loginName.replace(/^00967/, '').replace(/^967/, '').replace(/^0/, '') : '';
+            if (!validateEnglishPassword(pass)) { alert('كلمة المرور تقبل الأحرف الإنجليزية والأرقام الإنجليزية فقط.'); return; }
+            const admin = state.adminUsers.find(a => (a.username || '').toLowerCase() === normalizedLogin || (a.phone && String(a.phone).replace(/\D/g, '').replace(/^00967/, '').replace(/^967/, '').replace(/^0/, '') === enteredPhone) && a.password === pass);
+            const validAdmin = admin && admin.password === pass;
+            if (validAdmin) {
+                state.currentUser = admin.role === 'owner' ? 'admin' : admin;
+                updateUIHeader(); closeLoginModal(); showAdminPanel();
+                alert(`مرحباً ${admin.name}، تم تسجيل الدخول بنجاح.`); return;
+            }
+
+            const phone = enteredPhone;
+            const vendor = validateYemeniPhone(phone) ? state.businesses.find(b => String(b.phone) === phone && b.pass === pass && b.status === 'approved') : null;
+            if (vendor) {
+                state.currentUser = vendor;
+                updateUIHeader();
+                alert(`أهلاً بك يا ${vendor.ownerName}. تم تسجيل الدخول بنجاح!`);
+                closeLoginModal();
+                showHomeScreen();
+                return;
+            }
+
+            alert("رقم الهاتف أو كلمة المرور غير صحيحة.");
+        }
+
+        function handleLogout() {
+            state.currentUser = null;
+            updateUIHeader();
+            showHomeScreen();
+            alert("تم تسجيل الخروج بنجاح.");
+        }
+
+        function switchAdminTab(tabName) {
+            document.getElementById('adminTabNotifications').classList.remove('active');
+            document.getElementById('adminTabBusinesses').classList.remove('active');
+            document.getElementById('adminTabStats').classList.remove('active');
+            document.getElementById('adminTabManagers').classList.remove('active');
+
+            document.getElementById('adminSectionNotifications').style.display = 'none';
+            document.getElementById('adminSectionBusinesses').style.display = 'none';
+            document.getElementById('adminSectionStats').style.display = 'none';
+            document.getElementById('adminSectionManagers').style.display = 'none';
+
+            if (tabName === 'notifications') {
+                document.getElementById('adminTabNotifications').classList.add('active');
+                document.getElementById('adminSectionNotifications').style.display = 'block';
+            } else if (tabName === 'businesses') {
+                document.getElementById('adminTabBusinesses').classList.add('active');
+                document.getElementById('adminSectionBusinesses').style.display = 'block';
+            } else if (tabName === 'stats') {
+                document.getElementById('adminTabStats').classList.add('active');
+                document.getElementById('adminSectionStats').style.display = 'block';
+            } else if (tabName === 'managers') {
+                document.getElementById('adminTabManagers').classList.add('active');
+                document.getElementById('adminSectionManagers').style.display = 'block';
+                renderManagers();
+            }
+        }
+
+        function showAdminPanel() {
+            document.getElementById('adminImpersonationBanner').style.display = state.impersonatingAdmin ? 'block' : 'none';
+            document.getElementById('mainView').style.display = 'none';
+            document.getElementById('vendorView').style.display = 'none';
+            document.getElementById('adminView').style.display = 'block';
+            renderAdminData();
+        }
+
+        function renderAdminData() {
+            const namePhoneList = document.getElementById('adminNamePhoneRequestsList');
+            namePhoneList.innerHTML = '';
+            if (state.namePhoneRequests.length === 0) {
+                namePhoneList.innerHTML = '<div style="font-size:10px; color:#64748b; background:white; padding:8px; border-radius:8px;">لا توجد طلبات تغيير اسم أو رقم هاتف حالياً.</div>';
+            } else {
+                state.namePhoneRequests.forEach(req => {
+                    const item = document.createElement('div');
+                    item.className = 'list-item';
+                    item.innerHTML = `
+                        <div style="font-size:11px; font-weight:800; color:var(--secondary-color);">طلب تعديل بيانات: (${req.businessTitle})</div>
+                        <div style="font-size:9.5px; color:#334155; margin: 3px 0;">نوع الطلب: ${req.requestType} | الاسم الجديد: ${req.newOwnerName} | الرقم: ${req.newPhone}</div>
+                        <div style="margin-top:6px; display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+                            <a href="https://wa.me/967${req.newPhone}?text=مرحباً،%20تم%20مراجعة%20طلبك" target="_blank" class="btn-action-small" style="background:#25d366; color:white; text-decoration:none;">
+                                <i class="fa-brands fa-whatsapp"></i> تواصل واتساب
+                            </a>
+                            <button class="btn-action-small btn-approve" onclick="approveNamePhoneRequest(${req.id})">تأكيد / قبول</button>
+                            <button class="btn-action-small btn-reject" onclick="rejectNamePhoneRequest(${req.id})">حذف / إلغاء</button>
+                        </div>
+                    `;
+                    namePhoneList.appendChild(item);
+                });
+            }
+
+            const newBizList = document.getElementById('adminNewBusinessRequestsList');
+            newBizList.innerHTML = '';
+            const pending = state.businesses.filter(b => b.status === 'pending');
+
+            if (pending.length === 0) {
+                newBizList.innerHTML = '<div style="font-size:10px; color:#64748b; background:white; padding:8px; border-radius:8px;">لا توجد طلبات إضافة نشاط تجاري جديدة.</div>';
+            } else {
+                pending.forEach(b => {
+                    const item = document.createElement('div');
+                    item.className = 'list-item';
+                    item.innerHTML = `
+                        <div style="font-size:11px; font-weight:800; color:var(--secondary-color);">${b.title} (${b.category})</div>
+                        <div style="font-size:9.5px; color:#64748b; margin: 3px 0;">المالك: ${b.ownerName} | الهاتف: ${b.phone} | المدينة: ${b.city}</div>
+                        <div style="margin-top:6px; display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+                            <a href="https://wa.me/967${b.phone}?text=مرحباً%20${encodeURIComponent(b.ownerName)}،%20بخصوص%20طلب%20إضافة%20نشاطك" target="_blank" class="btn-action-small" style="background:#25d366; color:white; text-decoration:none;">
+                                <i class="fa-brands fa-whatsapp"></i> تواصل واتساب
+                            </a>
+                            <button class="btn-action-small btn-approve" onclick="approveBusiness(${b.id})">تأكيد / قبول</button>
+                            <button class="btn-action-small btn-reject" onclick="rejectBusiness(${b.id})">حذف / إلغاء</button>
+                        </div>
+                    `;
+                    newBizList.appendChild(item);
+                });
+            }
+
+            const allBizList = document.getElementById('adminAllBusinessesList');
+            allBizList.innerHTML = '';
+            state.businesses.forEach(b => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+                item.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <div style="font-size:11px; font-weight:800; color:var(--secondary-color);">${b.title} (${b.category})</div>
+                            <div style="font-size:9.5px; color:#64748b;">المالك: ${b.ownerName} | الإعجابات: ❤️ ${b.likes || 0} | الزوار: 👁️ 150+</div>
+                        </div>
+                        <span style="font-size:9px; font-weight:bold; padding:2px 6px; border-radius:6px; background:${b.status==='approved'?'#e6f4ed':'#fee2e2'}; color:${b.status==='approved'?'#0b8457':'#e11d48'};">${b.status==='approved'?'مقبول':'معلق'}</span>
+                    </div>
+                    <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+                        <a href="https://wa.me/967${b.phone}?text=مرحباً%20${encodeURIComponent(b.ownerName)}" target="_blank" class="btn-action-small" style="background:#25d366; color:white; text-decoration:none;">
+                            <i class="fa-brands fa-whatsapp"></i> واتساب
+                        </a>
+                        <button class="btn-action-small btn-approve" onclick="adminEditVendorProfile(${b.id})" style="background:#0984e3;">تعديل بيانات العميل</button>
+                        <button class="btn-action-small btn-reject" onclick="adminDeleteBusiness(${b.id})">حذف النشاط</button>
+                        <button class="btn-action-small" style="background:#64748b;color:white;" onclick="impersonateBusiness(${b.id})">دخول للحساب</button>
+                    </div>
+                `;
+                allBizList.appendChild(item);
+            });
+        }
+
+        function toggleManagerForm(show, id=null) {
+            if (show && !requirePermission('addManagers', 'ليست لديك صلاحية إضافة المشرفين.')) return;
+            const wrap=document.getElementById('managerFormWrap'); wrap.style.display=show?'block':'none';
+            if (!show) { document.getElementById('managerForm').reset(); document.getElementById('managerEditId').value=''; return; }
+            if (id) {
+                const a=state.adminUsers.find(x=>x.id===id); if(!a || a.role==='owner') return;
+                document.getElementById('managerFormTitle').textContent='تعديل بيانات المشرف';
+                document.getElementById('managerEditId').value=a.id;
+                document.getElementById('managerName').value=a.name||''; document.getElementById('managerPhone').value=a.phone||'';
+                document.getElementById('managerUsername').value=a.username||''; document.getElementById('managerGender').value=a.gender||'ذكر';
+                document.getElementById('managerPassword').value=''; document.getElementById('managerPassword').required=false;
+                document.getElementById('managerPassHint').textContent='(اتركها فارغة للإبقاء على الحالية)';
+                const p=a.permissions||{}; [['permApprove','approve'],['permEditBusiness','editBusiness'],['permDeleteBusiness','deleteBusiness'],['permLoginBusiness','loginBusiness'],['permAddManagers','addManagers'],['permDeleteManagers','deleteManagers']].forEach(([el,k])=>document.getElementById(el).checked=!!p[k]);
+            } else {
+                document.getElementById('managerForm').reset(); document.getElementById('managerEditId').value='';
+                document.getElementById('managerFormTitle').textContent='إضافة مشرف جديد'; document.getElementById('managerPassword').required=true;
+                document.getElementById('managerPassHint').textContent='*';
+            }
+        }
+        function saveManagerForm(e) {
+            e.preventDefault(); if (!requirePermission('addManagers','ليست لديك صلاحية إضافة أو تعديل المشرفين.')) return;
+            const id=document.getElementById('managerEditId').value, name=document.getElementById('managerName').value.trim(), phone=document.getElementById('managerPhone').value.replace(/\D/g,'').replace(/^00967/,'').replace(/^967/,'').replace(/^0/,''), username=document.getElementById('managerUsername').value.trim(), gender=document.getElementById('managerGender').value, password=document.getElementById('managerPassword').value;
+            if(!name||!phone||!username||(!id&&!password)){alert('يرجى تعبئة جميع البيانات المطلوبة.');return;}
+            if(state.adminUsers.some(a=>a.id!==id&&((a.username||'').toLowerCase()===username.toLowerCase()||(a.phone&&a.phone===phone)))){alert('اسم المستخدم أو رقم الهاتف مستخدم بالفعل.');return;}
+            const permissions={approve:document.getElementById('permApprove').checked,editBusiness:document.getElementById('permEditBusiness').checked,deleteBusiness:document.getElementById('permDeleteBusiness').checked,loginBusiness:document.getElementById('permLoginBusiness').checked,addManagers:document.getElementById('permAddManagers').checked,deleteManagers:document.getElementById('permDeleteManagers').checked};
+            if(id){const a=state.adminUsers.find(x=>x.id===id);if(!a)return;a.name=name;a.phone=phone;a.username=username;a.gender=gender;a.permissions=permissions;if(password)a.password=password;}
+            else state.adminUsers.push({id:'admin-'+Date.now(),name,phone,username,gender,password,role:'admin',permissions});
+            saveAppData(); toggleManagerForm(false); renderManagers(); alert(id?'تم تحديث بيانات المشرف.':'تمت إضافة المشرف بنجاح.');
+        }
+        function renderManagers() {
+            const list=document.getElementById('adminManagersList'); if(!list)return; list.innerHTML='';
+            [...state.adminUsers].sort((a,b)=>(a.role==='owner'?-1:0)-(b.role==='owner'?-1:0)).forEach(a=>{
+                const owner=a.role==='owner', p=a.permissions||{};
+                const item=document.createElement('div'); item.className='list-item '+(owner?'admin-owner-card':'admin-staff-card');
+                const permNames=[['approve','قبول الطلبات'],['editBusiness','تعديل بيانات نشاط'],['deleteBusiness','حذف نشاط'],['loginBusiness','دخول لحسابات الأنشطة'],['addManagers','إضافة مشرفين'],['deleteManagers','حذف مشرفين']];
+                item.innerHTML=`<div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><div><strong>${escapeHtml(a.name||'')}</strong> <span class="admin-role-badge ${owner?'admin-owner-badge':'admin-staff-badge'}">${owner?'المالك':'مشرف'}</span><div style="font-size:11px;color:#64748b;margin-top:5px">اسم المستخدم: ${escapeHtml(a.username||'')}<br>الهاتف: ${a.phone?'00967'+escapeHtml(a.phone):'غير مضاف'}<br>النوع: ${escapeHtml(a.gender||'—')}</div></div></div><div style="font-size:10px;line-height:1.9;margin-top:8px"><b>الصلاحيات:</b> ${owner?'جميع الصلاحيات':permNames.map(([k,n])=>`${n}: ${p[k]?'نعم':'لا'}`).join(' | ')}</div><div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:9px">${owner?'':`<button class="btn-action-small" style="background:#0984e3" onclick="toggleManagerForm(true,'${a.id}')">تعديل البيانات</button><button class="btn-action-small btn-reject" onclick="deleteManager('${a.id}')">حذف المشرف</button><button class="btn-action-small btn-approve" onclick="loginAsManager('${a.id}')">دخول لحسابه</button>`}</div>`;
+                list.appendChild(item);
+            });
+        }
+        function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+        function deleteManager(id){if(!requirePermission('deleteManagers','ليست لديك صلاحية حذف المشرفين.'))return;const a=state.adminUsers.find(x=>x.id===id);if(!a||a.role==='owner'){alert('لا يمكن حذف حساب المالك.');return;}if(confirm(`هل تريد حذف حساب المشرف ${a.name}؟`)){state.adminUsers=state.adminUsers.filter(x=>x.id!==id);saveAppData();renderManagers();}}
+        function loginAsManager(id){if(state.currentUser!=='admin'){alert('دخول حسابات المشرفين الآخرين متاح للمالك فقط.');return;}const a=state.adminUsers.find(x=>x.id===id);if(!a||a.role==='owner')return;if(state.impersonatingAdmin){alert('أعد أولاً إلى حسابك الأصلي.');return;}state.impersonatingAdmin=state.currentUser;state.currentUser=a;showAdminPanel();alert('أنت الآن داخل حساب '+a.name+'؛ ستُطبق صلاحيات هذا الحساب.');}
+        function impersonateBusiness(id){if(!requirePermission('loginBusiness','ليست لديك صلاحية دخول حسابات الأنشطة.'))return;const b=state.businesses.find(x=>x.id===id);if(!b)return;state.impersonatingAdmin=state.currentUser;state.currentUser=b;showVendorPanel();}
+        function returnToAdminPanel(){if(!state.impersonatingAdmin)return;state.currentUser=state.impersonatingAdmin;state.impersonatingAdmin=null;showAdminPanel();}
+        function handleAppBack(){
+            const activeModal=document.querySelector('.modal-overlay.active');
+            if(activeModal){activeModal.classList.remove('active');return;}
+            if(state && state.impersonatingAdmin){returnToAdminPanel();return;}
+            if(state && state.currentUser && state.currentUser!=='admin' && state.currentUser.role!=='admin'){showVendorPanel();return;}
+            if(document.getElementById('adminView').style.display==='block'){showHomeScreen();return;}
+            showHomeScreen();
+        }
+
+        function approveBusiness(id) {
+            if (!requirePermission('approve')) return;
+            const b = state.businesses.find(item => item.id === id);
+            if (b) {
+                b.status = 'approved';
+                state.notifications.push({
+                    id: Date.now(),
+                    text: `تم قبول نشاطك التجاري (${b.title}) ونشره بنجاح!`
+                });
+                saveAppData();
+                updateNotifBadge();
+                alert(`تم قبول وتفعيل نشاط (${b.title}) بنجاح!`);
+                renderAdminData();
+                renderBusinesses();
+            }
+        }
+
+        function rejectBusiness(id) {
+            if (!requirePermission('approve')) return;
+            if (confirm("هل أنت متأكد من حذف هذا الطلب نهائياً؟")) {
+                state.businesses = state.businesses.filter(item => item.id !== id);
+                saveAppData();
+                alert("تم حذف أو إلغاء الطلب بنجاح.");
+                renderAdminData();
+            }
+        }
+
+        function adminDeleteBusiness(id) {
+            if (!requirePermission('deleteBusiness')) return;
+            if (confirm("تحذير: هل أنت متأكد من حذف هذا النشاط التجاري نهائياً من الدليل؟")) {
+                state.businesses = state.businesses.filter(item => item.id !== id);
+                saveAppData();
+                alert("تم حذف النشاط بنجاح.");
+                renderAdminData();
+                renderBusinesses();
+            }
+        }
+
+        function adminEditVendorProfile(id) {
+            if (!requirePermission('editBusiness')) return;
+            const b = state.businesses.find(item => String(item.id) === String(id));
+            if (!b) return;
+            document.getElementById('adminEditVendorId').value = b.id;
+            document.getElementById('adminEditTitle').value = b.title || '';
+            document.getElementById('adminEditOwnerName').value = b.ownerName || '';
+            document.getElementById('adminEditOwnerGender').value = b.ownerGender || 'ذكر';
+            document.getElementById('adminEditPhone').value = b.phone || '';
+            document.getElementById('adminEditCategory').value = b.category || '';
+            document.getElementById('adminEditCity').value = b.city || '';
+            document.getElementById('adminEditDistrict').value = b.district || '';
+            document.getElementById('adminEditHours').value = b.hours || '';
+            document.getElementById('adminEditDesc').value = b.desc || '';
+            document.getElementById('adminEditMenu').value = b.menu || '';
+            document.getElementById('adminEditImage').value = '';
+            document.getElementById('adminEditStatus').value = b.status || 'approved';
+            document.getElementById('adminEditVendorModal').classList.add('active');
+        }
+        function closeAdminEditVendorModal() { document.getElementById('adminEditVendorModal').classList.remove('active'); }
+        function saveAdminVendorEdit(e) {
+            e.preventDefault();
+            if (!requirePermission('editBusiness')) return;
+            const id = document.getElementById('adminEditVendorId').value;
+            const b = state.businesses.find(item => String(item.id) === String(id));
+            if (!b) { alert('تعذر العثور على ملف العميل.'); return; }
+            const phone = document.getElementById('adminEditPhone').value.trim().replace(/[^0-9]/g,'').replace(/^00967/,'').replace(/^967/,'');
+            if (phone && !validateYemeniPhone(phone)) { alert('أدخل رقم هاتف يمني صحيحاً من 9 أرقام يبدأ بـ 70 أو 71 أو 73 أو 77 أو 78.'); return; }
+            b.title = document.getElementById('adminEditTitle').value.trim();
+            b.ownerName = document.getElementById('adminEditOwnerName').value.trim();
+            b.ownerGender = document.getElementById('adminEditOwnerGender').value;
+            b.phone = phone;
+            b.category = document.getElementById('adminEditCategory').value.trim();
+            b.city = document.getElementById('adminEditCity').value.trim();
+            b.district = document.getElementById('adminEditDistrict').value.trim();
+            b.hours = document.getElementById('adminEditHours').value.trim();
+            b.desc = document.getElementById('adminEditDesc').value.trim();
+            b.menu = document.getElementById('adminEditMenu').value.trim();
+            const image = document.getElementById('adminEditImage').value.trim(); if (image) b.img = image;
+            b.status = document.getElementById('adminEditStatus').value;
+            saveAppData(); closeAdminEditVendorModal(); renderAdminData(); renderBusinesses();
+            alert('تم حفظ تعديلات ملف العميل فوراً.');
+        }
+
+        function approveNamePhoneRequest(reqId) {
+            if (!requirePermission('approve')) return;
+            const req = state.namePhoneRequests.find(r => r.id === reqId);
+            if (req) {
+                const b = state.businesses.find(item => item.id === req.businessId);
+                if (b) {
+                    b.ownerName = req.newOwnerName;
+                    b.phone = req.newPhone;
+                    state.notifications.push({
+                        id: Date.now(),
+                        text: `تم الموافقة على طلبك (${req.requestType}) لنشاطك (${b.title})`
+                    });
+                    saveAppData();
+                    updateNotifBadge();
+                }
+                state.namePhoneRequests = state.namePhoneRequests.filter(r => r.id !== reqId);
+                saveAppData();
+                alert("تم الموافقة على الطلب وتحديث البيانات بنجاح!");
+                renderAdminData();
+            }
+        }
+
+        function rejectNamePhoneRequest(reqId) {
+            if (!requirePermission('approve')) return;
+            if (confirm("هل تريد رفض وحذف هذا الطلب؟")) {
+                state.namePhoneRequests = state.namePhoneRequests.filter(r => r.id !== reqId);
+                saveAppData();
+                alert("تم حذف / إلغاء الطلب بنجاح.");
+                renderAdminData();
+            }
+        }
+
+        function showVendorPanel() {
+            document.getElementById('mainView').style.display = 'none';
+            document.getElementById('adminView').style.display = 'none';
+            document.getElementById('vendorView').style.display = 'block';
+
+            const vendor = state.currentUser;
+            const container = document.getElementById('vendorProfileContent');
+            
+            let extraImagesManageHtml = '';
+            if (vendor.extraImgs && vendor.extraImgs.length > 0) {
+                extraImagesManageHtml = `<div style="display:flex; gap:6px; overflow-x:auto; margin-top:6px; padding-bottom:4px;">`;
+                vendor.extraImgs.forEach((imgUrl, index) => {
+                    extraImagesManageHtml += `
+                        <div style="position:relative; flex:0 0 auto;">
+                            <img src="${imgUrl}" style="width:65px; height:65px; object-fit:cover; border-radius:8px; border:1px solid #cbd5e1;" alt="صورة إضافية">
+                            <button type="button" onclick="removeVendorExtraImage(${index})" style="position:absolute; top:-4px; left:-4px; background:var(--danger-color); color:white; border:none; border-radius:50%; width:18px; height:18px; font-size:10px; cursor:pointer; display:flex; align-items:center; justify-content:center;" title="حذف الصورة">&times;</button>
+                        </div>
+                    `;
+                });
+                extraImagesManageHtml += `</div>`;
+            } else {
+                extraImagesManageHtml = `<div style="font-size:9px; color:var(--text-muted); margin-top:4px;">لا توجد صور إضافية حالياً.</div>`;
+            }
+
+            container.innerHTML = `
+                ${state.impersonatingAdmin ? `<div style="position:sticky;top:0;z-index:5;background:#fff;padding:8px 0 10px;margin-bottom:8px;border-bottom:1px solid #e2e8f0;"><button type="button" class="btn-action-small" style="background:#1a2e40;color:#fff;padding:10px 14px;border-radius:10px;font-size:12px;width:100%;" onclick="returnToAdminPanel()">↩ رجوع إلى لوحة المالك / المشرف</button></div>` : ''}
+                <div class="list-item">
+                    <div style="text-align:center; margin-bottom: 8px;">
+                        <img src="${vendor.img}" id="currentVendorImgPreview" style="width:70px; height:70px; border-radius:50%; object-fit:cover;" alt="صورة النشاط">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">تغيير شعار النشاط</label>
+                        <input type="file" class="form-file-input" id="vImageFile" accept="image/*" onchange="previewVendorImage(event)">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">الصور الإضافية</label>
+                        ${extraImagesManageHtml}
+                        <label class="form-label" style="margin-top:6px;">إضافة صور إضافية جديدة</label>
+                        <input type="file" class="form-file-input" id="vExtraImagesFile" accept="image/*" multiple onchange="addMoreVendorImages(event)">
+                    </div>
+
+                    <div class="form-group" style="background: #e6f4ed; padding: 8px; border-radius: 8px;">
+                        <label class="form-label" style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+                            <span>إظهار اسم صاحب النشاط للعامة</span>
+                            <input type="checkbox" id="vShowOwner" ${vendor.showOwnerName ? 'checked' : ''} style="width: 16px; height: 16px; cursor: pointer;">
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">إسم صاحب النشاط * (طلب تغيير الاسم يرسل للمشرف)</label>
+                        <input type="text" class="form-input" id="vOwnerName" value="${vendor.ownerName}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">رقم الهاتف * (طلب تغيير الرقم يرسل للمشرف)</label>
+                        <input type="tel" class="form-input" id="vPhone" value="${vendor.phone}" required>
+                    </div>
+                    <hr style="margin: 10px 0; border:0; border-top:1px solid #cbd5e1;">
+                    <div class="form-group">
+                        <label class="form-label">إسم النشاط التجاري *</label>
+                        <input type="text" class="form-input" id="vTitle" value="${vendor.title}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ساعات العمل</label>
+                        <input type="text" class="form-input" id="vHours" value="${vendor.hours || ''}" placeholder="مثال: من 8 صباحاً إلى 10 مساءً">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">المنيو (لوحة خدمات المتجر)</label>
+                        <textarea class="form-input" id="vMenu" rows="2">${vendor.menu || ''}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">وصف النشاط</label>
+                        <textarea class="form-input" id="vDesc" rows="3">${vendor.desc}</textarea>
+                    </div>
+                    <button class="submit-form-btn" onclick="saveVendorChanges()">حفظ التعديلات وإرسال طلب التغيير للمشرف إن وجد</button>
+                </div>
+            `;
+        }
+
+        let tempNewImageBase64 = null;
+        function previewVendorImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    tempNewImageBase64 = e.target.result;
+                    document.getElementById('currentVendorImgPreview').src = tempNewImageBase64;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeVendorExtraImage(index) {
+            const vendor = state.currentUser;
+            if (vendor && vendor.extraImgs) {
+                vendor.extraImgs.splice(index, 1);
+                saveAppData();
+                showVendorPanel();
+                renderBusinesses();
+            }
+        }
+
+        function addMoreVendorImages(event) {
+            const files = event.target.files;
+            const vendor = state.currentUser;
+            if (!vendor.extraImgs) vendor.extraImgs = [];
+
+            if (vendor.extraImgs.length + files.length > 5) {
+                alert("عذراً، الحد الأقصى المسموح به هو 5 صور إضافية فقط!");
+                return;
+            }
+
+            let loadedCount = 0;
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    vendor.extraImgs.push(e.target.result);
+                    loadedCount++;
+                    if (loadedCount === files.length) {
+                        saveAppData();
+                        showVendorPanel();
+                        renderBusinesses();
+                    }
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        function saveVendorChanges() {
+            const vendor = state.currentUser;
+            const newTitle = document.getElementById('vTitle').value.trim();
+            const newHours = document.getElementById('vHours').value.trim();
+            const newMenu = document.getElementById('vMenu').value.trim();
+            const newDesc = document.getElementById('vDesc').value.trim();
+            const showOwnerChecked = document.getElementById('vShowOwner').checked;
+            
+            const newOwner = document.getElementById('vOwnerName').value.trim();
+            const newPhone = document.getElementById('vPhone').value.trim().replace(/\D/g, '');
+
+            if (!newTitle || !newOwner || !newPhone) {
+                alert("خطأ: اسم النشاط، اسم المالك، ورقم الهاتف لا يمكن تركها فارغة!");
+                return;
+            }
+
+            if (!validateYemeniPhone(newPhone)) {
+                alert("رقم الهاتف الجديد غير صحيح! يرجى إدخال رقم يمني صالح يتكون من 9 أرقام.");
+                return;
+            }
+
+            vendor.title = newTitle;
+            vendor.hours = newHours;
+            vendor.menu = newMenu;
+            vendor.desc = newDesc;
+            vendor.showOwnerName = showOwnerChecked;
+            if (tempNewImageBase64) {
+                vendor.img = tempNewImageBase64;
+                tempNewImageBase64 = null;
+            }
+
+            if (newOwner !== vendor.ownerName || newPhone !== vendor.phone) {
+                let reqType = "";
+                if (newOwner !== vendor.ownerName && newPhone !== vendor.phone) reqType = "تغيير الاسم ورقم الهاتف";
+                else if (newOwner !== vendor.ownerName) reqType = "طلب تغيير الاسم";
+                else reqType = "طلب تغيير الرقم";
+
+                state.namePhoneRequests.push({
+                    id: Date.now(),
+                    businessId: vendor.id,
+                    businessTitle: vendor.title,
+                    requestType: reqType,
+                    newOwnerName: newOwner,
+                    newPhone: newPhone
+                });
+
+                state.notifications.push({
+                    id: Date.now(),
+                    text: `طلب جديد (${reqType}) من النشاط (${vendor.title})`
+                });
+                saveAppData();
+                updateNotifBadge();
+                alert("تم إرسال طلب تغيير الاسم / الرقم إلى صندوق طلبات المشرف للمراجعة والتأكيد!");
+            } else {
+                saveAppData();
+                alert("تم حفظ التعديلات في ملفك الشخصي بنجاح!");
+            }
+
+            renderBusinesses();
+            showVendorPanel();
+        }
+
+        function updateNotifBadge() {
+            const badge = document.getElementById('notifBadge');
+            const totalCount = state.notifications.length + state.namePhoneRequests.length;
+            badge.textContent = totalCount;
+        }
+
+        function openNotificationsModal() {
+            const list = document.getElementById('notificationsList');
+            list.innerHTML = '';
+            
+            let allNotifs = [...state.notifications];
+            if (isAdminUser()) {
+                state.namePhoneRequests.forEach(req => {
+                    allNotifs.push({
+                        id: req.id,
+                        text: `طلب ${req.requestType} للنشاط (${req.businessTitle})`
+                    });
+                });
+            }
+
+            if (allNotifs.length === 0) {
+                list.innerHTML = '<div style="font-size:10px; color:#64748b;">لا توجد إشعارات جديدة.</div>';
+            } else {
+                allNotifs.forEach(n => {
+                    const div = document.createElement('div');
+                    div.className = 'list-item';
+                    div.textContent = n.text;
+                    list.appendChild(div);
+                });
+            }
+            document.getElementById('notificationsModal').classList.add('active');
+        }
+
+        function showHomeScreen() {
+            document.getElementById('adminView').style.display = 'none';
+            document.getElementById('vendorView').style.display = 'none';
+            document.getElementById('mainView').style.display = 'block';
+            document.getElementById('citySelect').value = "";
+            document.getElementById('districtSelect').value = "";
+            renderBusinesses('الكل');
+        }
+
+        function openAddBusinessModal() { document.getElementById('addBusinessModal').classList.add('active'); }
+        function closeAddBusinessModal() { document.getElementById('addBusinessModal').classList.remove('active'); }
+        
+        function openLoginModal() { document.getElementById('loginModal').classList.add('active'); }
+        function closeLoginModal() { 
+            document.getElementById('loginForm').reset();
+            document.getElementById('loginModal').classList.remove('active'); 
+        }
+
+        function closeNotificationsModal() { document.getElementById('notificationsModal').classList.remove('active'); }
+
+        document.addEventListener('keydown', function(e){
+            if(e.key==='Escape'){
+                const activeModal=document.querySelector('.modal-overlay.active');
+                if(activeModal){activeModal.classList.remove('active');if(activeModal.id==='loginModal')document.getElementById('loginForm').reset();return;}
+                if(state && state.impersonatingAdmin){returnToAdminPanel();}
+            }
+        });
+
+        window.onclick = function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('active');
+                if (e.target.id === 'loginModal') {
+                    document.getElementById('loginForm').reset();
+                } else if (e.target.id === 'forgotPassModal') {
+                    closeForgotPassModal();
+                }
+            }
+        };
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            ['whatsappNumber','loginPhone','managerPhone'].forEach(bindAsciiPhoneInput);
+            ['vendorPassword','vendorPasswordConfirm','loginPass','managerPassword','newPasswordInput','confirmPasswordInput'].forEach(bindEnglishPasswordInput);
+        });
+</script>
+</body>
+</html>
