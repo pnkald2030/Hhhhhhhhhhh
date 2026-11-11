@@ -132,7 +132,8 @@ insert = '''
         bubbleView=null; bubbleParams=null
     }
 '''
-s=s.replace('''        val lp=WindowManager.LayoutParams(size,size,type,''','''        val type = if (Build.VERSION.SDK_INT >= 26) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE\n        val lp=WindowManager.LayoutParams(size,size,type,''')
+s=s.replace('''        val lp=WindowManager.LayoutParams(size,size,type,''','''        val type = if (Build.VERSION.SDK_INT >= 26) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE
+        val lp=WindowManager.LayoutParams(size,size,type,''')
 s=s.replace('''    private fun showPlayer(uri: Uri) {''',insert+'''
     private fun showPlayer(uri: Uri) {
         removeBubble()''')
