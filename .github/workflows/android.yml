@@ -1,0 +1,58 @@
+name: Build Kimo Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'KimoAndroid_updated_source.zip'
+      - '.github/workflows/android.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Compile Kimo APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK 35
+        run: |
+          sdkmanager --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+          yes | sdkmanager --licenses
+
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Extract Android project
+        run: |
+          test -f KimoAndroid_updated_source.zip
+          mkdir -p extracted
+          unzip -q KimoAndroid_updated_source.zip -d extracted
+          test -f extracted/KimoAndroid/settings.gradle
+          test -f extracted/KimoAndroid/app/build.gradle
+
+      - name: Build debug APK
+        working-directory: extracted/KimoAndroid
+        run: gradle --no-daemon --stacktrace assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: kimo-debug-apk
+          path: extracted/KimoAndroid/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          retention-days: 14
