@@ -62,16 +62,19 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           p = Path("app/src/main/java/com/kimo/floating/MainActivity.kt")
-          s = p.read_text()
-          if "import android.app.Activity" in s:
-              s = s.replace("import android.app.Activity", "import androidx.activity.ComponentActivity")
-          elif "import androidx.activity.ComponentActivity" not in s:
-              s = s.replace("package com.kimo.floating",
-                            "package com.kimo.floating\n\nimport androidx.activity.ComponentActivity")
-          s = s.replace("class MainActivity : Activity()", "class MainActivity : ComponentActivity()")
-          if "class MainActivity : ComponentActivity()" not in s:
+          lines = p.read_text().splitlines()
+          lines = [line for line in lines if line.strip() not in (
+              "import android.app.Activity",
+              "import androidx.activity.ComponentActivity"
+          )]
+          package_index = next(i for i, line in enumerate(lines) if line.startswith("package "))
+          lines.insert(package_index + 1, "")
+          lines.insert(package_index + 2, "import androidx.activity.ComponentActivity")
+          source = "\\n".join(lines) + "\\n"
+          source = source.replace("class MainActivity : Activity()", "class MainActivity : ComponentActivity()")
+          if "class MainActivity : ComponentActivity()" not in source:
               raise SystemExit("Could not switch MainActivity to ComponentActivity")
-          p.write_text(s)
+          p.write_text(source)
           g = Path("app/build.gradle")
           build = g.read_text()
           dep = 'implementation "androidx.activity:activity-ktx:1.10.1"'
@@ -80,7 +83,7 @@ jobs:
               if pos < 0:
                   raise SystemExit("No dependencies block in app/build.gradle")
               pos += len("dependencies {")
-              build = build[:pos] + "\n    " + dep + build[pos:]
+              build = build[:pos] + "\\n    " + dep + build[pos:]
               g.write_text(build)
           PY
 
