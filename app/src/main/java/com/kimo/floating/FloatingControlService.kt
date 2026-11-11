@@ -129,7 +129,7 @@ class FloatingControlService : Service() {
         try { bubble?.let { wm.removeView(it) } } catch (_: Exception) {}
         bubble = null
         getSharedPreferences("kimo", MODE_PRIVATE).edit().putBoolean("running", false).apply()
-        stopForeground(STOP_FOREGROUND_REMOVE)
+        if (Build.VERSION.SDK_INT >= 24) stopForeground(STOP_FOREGROUND_REMOVE) else stopForeground(true)
         super.onDestroy()
     }
     override fun onBind(intent: Intent?): IBinder? = null
