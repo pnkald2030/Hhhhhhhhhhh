@@ -6,6 +6,7 @@ on:
     paths:
       - 'KimoAndroid_updated_source.zip'
       - '.github/workflows/android.yml'
+      - 'repair_kimo.py'
 
 permissions:
   contents: read
@@ -46,6 +47,10 @@ jobs:
           unzip -q KimoAndroid_updated_source.zip -d extracted
           test -f extracted/KimoAndroid/settings.gradle
           test -f extracted/KimoAndroid/app/build.gradle
+
+      - name: Apply Kimo functional repairs
+        working-directory: extracted/KimoAndroid
+        run: python3 "$GITHUB_WORKSPACE/repair_kimo.py"
 
       - name: Export extracted source for repair
         uses: actions/upload-artifact@v4
