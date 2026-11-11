@@ -47,6 +47,14 @@ jobs:
           test -f extracted/KimoAndroid/settings.gradle
           test -f extracted/KimoAndroid/app/build.gradle
 
+      - name: Export extracted source for repair
+        uses: actions/upload-artifact@v4
+        with:
+          name: kimo-source-for-repair
+          path: extracted/KimoAndroid/
+          if-no-files-found: error
+          retention-days: 3
+
       - name: Inspect complete app sources
         working-directory: extracted/KimoAndroid
         shell: bash
