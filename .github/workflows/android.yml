@@ -63,10 +63,11 @@ jobs:
           from pathlib import Path
           p = Path("app/src/main/java/com/kimo/floating/MainActivity.kt")
           s = p.read_text()
-          if "import androidx.activity.ComponentActivity" not in s:
-              s = s.replace("import androidx.activity.result.contract.ActivityResultContracts",
-                            "import androidx.activity.ComponentActivity\nimport androidx.activity.result.contract.ActivityResultContracts")
-          s = s.replace("import android.app.Activity", "import androidx.activity.ComponentActivity")
+          if "import android.app.Activity" in s:
+              s = s.replace("import android.app.Activity", "import androidx.activity.ComponentActivity")
+          elif "import androidx.activity.ComponentActivity" not in s:
+              s = s.replace("package com.kimo.floating",
+                            "package com.kimo.floating\n\nimport androidx.activity.ComponentActivity")
           s = s.replace("class MainActivity : Activity()", "class MainActivity : ComponentActivity()")
           if "class MainActivity : ComponentActivity()" not in s:
               raise SystemExit("Could not switch MainActivity to ComponentActivity")
