@@ -70,6 +70,19 @@ p.write_text(s)
 p=Path('app/src/main/java/com/kimo/floating/FloatingVideoService.kt')
 s=p.read_text()
 s=s.replace('import android.graphics.PixelFormat\n','import android.graphics.PixelFormat\nimport android.media.AudioManager\n')
+s=s.replace('    private var pinchDistance = 0f; private var baseWidth = 0; private var baseHeight = 0\n','    private var pinchDistance = 0f; private var baseWidth = 0; private var baseHeight = 0\n    private var touchMoved = false\n')
+s=s.replace('MotionEvent.ACTION_DOWN -> { startX=e.rawX; startY=e.rawY; baseX=lp.x; baseY=lp.y; return true }','MotionEvent.ACTION_DOWN -> { startX=e.rawX; startY=e.rawY; baseX=lp.x; baseY=lp.y; touchMoved=false; return true }')
+s=s.replace('''                if (e.pointerCount >= 2) { pinchDistance=distance(e); baseWidth=lp.width; baseHeight=lp.height }''','''                if (e.pointerCount >= 2) { touchMoved=true; pinchDistance=distance(e); baseWidth=lp.width; baseHeight=lp.height }''')
+s=s.replace('''                    lp.x = baseX + (e.rawX-startX).toInt()
+                    lp.y = baseY + (e.rawY-startY).toInt()''','''                    val dx=(e.rawX-startX).toInt(); val dy=(e.rawY-startY).toInt()
+                    if (kotlin.math.abs(dx)+kotlin.math.abs(dy)>dp(5)) touchMoved=true
+                    lp.x = baseX + dx
+                    lp.y = baseY + dy''')
+s=s.replace('''            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> { pinchDistance=0f; return true }''','''            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                pinchDistance=0f
+                if (e.actionMasked == MotionEvent.ACTION_UP && !touchMoved) endControls?.visibility = if (endControls?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+                return true
+            }''')
 s=s.replace('''    private var endControls: LinearLayout? = null
 ''','''    private var endControls: LinearLayout? = null
     private var bubbleView: TextView? = null
