@@ -47,6 +47,14 @@ jobs:
           test -f extracted/KimoAndroid/settings.gradle
           test -f extracted/KimoAndroid/app/build.gradle
 
+      - name: Inspect MainActivity source
+        working-directory: extracted/KimoAndroid
+        run: |
+          echo '--- MainActivity.kt ---'
+          nl -ba app/src/main/java/com/kimo/floating/MainActivity.kt | sed -n '1,180p'
+          echo '--- Android manifest ---'
+          cat app/src/main/AndroidManifest.xml
+
       - name: Align Java and Kotlin JVM targets
         working-directory: extracted/KimoAndroid
         shell: bash
