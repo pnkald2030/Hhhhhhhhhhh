@@ -56,6 +56,7 @@ s=s.replace('''        setContentView(root)
     override fun onResume() {
         super.onResume()
         if (pendingStart && (Build.VERSION.SDK_INT < 23 || Settings.canDrawOverlays(this))) startBubbleNow()
+        if (pendingVideo != null && (Build.VERSION.SDK_INT < 23 || Settings.canDrawOverlays(this))) launchWhenAllowed()
     }
 
     private fun section''')
