@@ -55,6 +55,33 @@ jobs:
           echo '--- Android manifest ---'
           cat app/src/main/AndroidManifest.xml
 
+      - name: Fix Activity Result host
+        working-directory: extracted/KimoAndroid
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("app/src/main/java/com/kimo/floating/MainActivity.kt")
+          s = p.read_text()
+          if "import androidx.activity.ComponentActivity" not in s:
+              s = s.replace("import androidx.activity.result.contract.ActivityResultContracts",
+                            "import androidx.activity.ComponentActivity\nimport androidx.activity.result.contract.ActivityResultContracts")
+          s = s.replace("class MainActivity : Activity()", "class MainActivity : ComponentActivity()")
+          if "class MainActivity : ComponentActivity()" not in s:
+              raise SystemExit("Could not switch MainActivity to ComponentActivity")
+          p.write_text(s)
+          g = Path("app/build.gradle")
+          build = g.read_text()
+          dep = 'implementation "androidx.activity:activity-ktx:1.10.1"'
+          if dep not in build:
+              pos = build.find("dependencies {")
+              if pos < 0:
+                  raise SystemExit("No dependencies block in app/build.gradle")
+              pos += len("dependencies {")
+              build = build[:pos] + "\\n    " + dep + build[pos:]
+              g.write_text(build)
+          PY
+
       - name: Align Java and Kotlin JVM targets
         working-directory: extracted/KimoAndroid
         shell: bash
