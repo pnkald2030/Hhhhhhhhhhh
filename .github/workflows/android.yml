@@ -51,19 +51,14 @@ jobs:
         working-directory: extracted/KimoAndroid
         shell: bash
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-          p = Path('app/build.gradle')
-          s = p.read_text()
-          # Kotlin is already targeting JVM 17; align Java compileOptions with it.
-          s2 = re.sub(r'JavaVersion\\.VERSION_1_8', 'JavaVersion.VERSION_17', s)
-          if s2 == s and 'sourceCompatibility' in s:
-              s2 = re.sub(r'(sourceCompatibility\\s*(?:=)?\\s*)JavaVersion\\.VERSION_\\w+', r'\\1JavaVersion.VERSION_17', s2)
-              s2 = re.sub(r'(targetCompatibility\\s*(?:=)?\\s*)JavaVersion\\.VERSION_\\w+', r'\\1JavaVersion.VERSION_17', s2)
-          p.write_text(s2)
-          print('Aligned Java compileOptions to JVM 17')
-          PY
+          cat >> app/build.gradle <<'GRADLE'
+
+          // Keep Java bytecode target aligned with Kotlin JVM 17.
+          tasks.withType(JavaCompile).configureEach {
+              sourceCompatibility = JavaVersion.VERSION_17
+              targetCompatibility = JavaVersion.VERSION_17
+          }
+          GRADLE
 
       - name: Build debug APK
         working-directory: extracted/KimoAndroid
