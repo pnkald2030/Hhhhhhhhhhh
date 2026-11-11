@@ -47,6 +47,19 @@ jobs:
           test -f extracted/KimoAndroid/settings.gradle
           test -f extracted/KimoAndroid/app/build.gradle
 
+      - name: Inspect complete app sources
+        working-directory: extracted/KimoAndroid
+        shell: bash
+        run: |
+          echo '===== MAIN ACTIVITY ====='
+          cat app/src/main/java/com/kimo/floating/MainActivity.kt
+          echo '===== FLOATING SERVICE ====='
+          cat app/src/main/java/com/kimo/floating/FloatingVideoService.kt
+          echo '===== MANIFEST ====='
+          cat app/src/main/AndroidManifest.xml
+          echo '===== STYLES ====='
+          cat app/src/main/res/values/styles.xml
+
       - name: Inspect MainActivity source
         working-directory: extracted/KimoAndroid
         run: |
