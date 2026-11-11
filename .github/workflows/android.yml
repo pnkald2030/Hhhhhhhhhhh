@@ -53,10 +53,12 @@ jobs:
         run: |
           cat >> app/build.gradle <<'GRADLE'
 
-          // Keep Java bytecode target aligned with Kotlin JVM 17.
-          tasks.withType(JavaCompile).configureEach {
-              sourceCompatibility = JavaVersion.VERSION_17
-              targetCompatibility = JavaVersion.VERSION_17
+          // Set Android Java bytecode compatibility to match Kotlin JVM 17.
+          android {
+              compileOptions {
+                  sourceCompatibility JavaVersion.VERSION_17
+                  targetCompatibility JavaVersion.VERSION_17
+              }
           }
           GRADLE
 
