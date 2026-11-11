@@ -69,7 +69,7 @@ p.write_text(s)
 
 p=Path('app/src/main/java/com/kimo/floating/FloatingVideoService.kt')
 s=p.read_text()
-s=s.replace('import android.graphics.PixelFormat\n','import android.graphics.PixelFormat\nimport android.media.AudioManager\n')
+s=s.replace('import android.graphics.PixelFormat\n','import android.graphics.PixelFormat\nimport android.media.AudioManager\nimport android.widget.Toast\n')
 s=s.replace('    private var pinchDistance = 0f; private var baseWidth = 0; private var baseHeight = 0\n','    private var pinchDistance = 0f; private var baseWidth = 0; private var baseHeight = 0\n    private var touchMoved = false\n')
 s=s.replace('MotionEvent.ACTION_DOWN -> { startX=e.rawX; startY=e.rawY; baseX=lp.x; baseY=lp.y; return true }','MotionEvent.ACTION_DOWN -> { startX=e.rawX; startY=e.rawY; baseX=lp.x; baseY=lp.y; touchMoved=false; return true }')
 s=s.replace('''                if (e.pointerCount >= 2) { pinchDistance=distance(e); baseWidth=lp.width; baseHeight=lp.height }''','''                if (e.pointerCount >= 2) { touchMoved=true; pinchDistance=distance(e); baseWidth=lp.width; baseHeight=lp.height }''')
@@ -140,6 +140,7 @@ insert = '''
                 }
             }
         }
+        val type = if (Build.VERSION.SDK_INT >= 26) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE
         val lp=WindowManager.LayoutParams(size,size,type,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
             PixelFormat.TRANSLUCENT).apply { gravity=Gravity.TOP or Gravity.START; x=dp(12); y=dp(180) }
@@ -151,8 +152,6 @@ insert = '''
         bubbleView=null; bubbleParams=null
     }
 '''
-s=s.replace('''        val lp=WindowManager.LayoutParams(size,size,type,''','''        val type = if (Build.VERSION.SDK_INT >= 26) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE
-        val lp=WindowManager.LayoutParams(size,size,type,''')
 s=s.replace('''    private fun showPlayer(uri: Uri) {''',insert+'''
     private fun showPlayer(uri: Uri) {
         removeBubble()''')
