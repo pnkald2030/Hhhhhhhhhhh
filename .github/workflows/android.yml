@@ -70,7 +70,7 @@ jobs:
           package_index = next(i for i, line in enumerate(lines) if line.startswith("package "))
           lines.insert(package_index + 1, "")
           lines.insert(package_index + 2, "import androidx.activity.ComponentActivity")
-          source = "\n".join(lines) + "\n"
+          source = chr(10).join(lines) + chr(10)
           source = source.replace("class MainActivity : Activity()", "class MainActivity : ComponentActivity()")
           if "class MainActivity : ComponentActivity()" not in source:
               raise SystemExit("Could not switch MainActivity to ComponentActivity")
@@ -83,7 +83,7 @@ jobs:
               if pos < 0:
                   raise SystemExit("No dependencies block in app/build.gradle")
               pos += len("dependencies {")
-              build = build[:pos] + "\\n    " + dep + build[pos:]
+              build = build[:pos] + chr(10) + "    " + dep + build[pos:]
               g.write_text(build)
           PY
 
