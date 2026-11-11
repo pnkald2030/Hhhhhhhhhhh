@@ -59,6 +59,11 @@ s=s.replace('''        setContentView(root)
     }
 
     private fun section''')
+s=s.replace('''    override fun onResume() {
+        super.onResume()
+        if(pendingVideo!=null && (Build.VERSION.SDK_INT<23 || Settings.canDrawOverlays(this))) launchWhenAllowed()
+    }
+''','')
 p.write_text(s)
 
 p=Path('app/src/main/java/com/kimo/floating/FloatingVideoService.kt')
