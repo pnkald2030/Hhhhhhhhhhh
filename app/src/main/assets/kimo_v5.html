@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>كيمو</title>
+<style>
+:root{--bg:#101820;--surface:#192630;--pill:#1d2d37;--line:#30434d;--text:#f3f6f7;--muted:#9baab1;--accent:#69b8a1;--banner:linear-gradient(115deg,#17483f 0%,#28736c 52%,#526f79 100%);--danger:#70464a;--success:#285b48}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#0a1117;color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif}
+body.light{--bg:#f1f5f5;--surface:#fff;--pill:#f8fbfa;--line:#dce5e3;--text:#1e2b2b;--muted:#73817f;--accent:#287c68;--danger:#f3dddd;--success:#d8f0e2}
+.app{width:100%;max-width:440px;min-height:100dvh;margin:auto;background:var(--bg);padding:env(safe-area-inset-top) 14px env(safe-area-inset-bottom);position:relative;overflow:visible;box-shadow:0 0 36px #0007}
+header.banner{height:52px;min-height:52px;width:calc(100% + 28px);margin-inline:-14px;background:var(--banner);border-radius:0 0 13px 13px;position:sticky;top:env(safe-area-inset-top);z-index:15;display:flex;align-items:center;justify-content:center;padding:4px 52px}
+.brand{text-align:center;line-height:1.15}.brand b{display:block;color:white;font-size:18px;font-weight:750}.brand small{display:block;color:#d0d8d9;font-size:9px;margin-top:2px;line-height:1.25}
+.gear,.backbtn{position:absolute;left:10px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:white;font-size:21px;width:36px;height:36px;cursor:pointer}
+.backbtn{font-size:24px}
+main{padding:13px 1px 28px}.page{display:none}.page.active{display:block}
+.section-title{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:15px 1px 9px;min-height:23px}
+h2{font-size:15px;font-weight:720;margin:0}.hint{font-size:10px;color:var(--muted);font-weight:400;line-height:1.55;white-space:normal}
+.status{display:block;margin:9px auto 18px;min-width:150px;border:0;border-radius:999px;padding:10px 23px;background:var(--danger);color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.status.on{background:var(--success);color:#e8fff0}
+.pill{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--pill);border:1px solid var(--line);border-radius:15px;padding:11px 13px;margin:8px 0;min-height:47px;cursor:pointer}
+.pillcopy{display:flex;align-items:baseline;gap:8px;min-width:0;flex:1;flex-wrap:wrap}
+.word{font-size:13px;line-height:1.5;flex:0 1 auto;overflow-wrap:anywhere}
+.hint.inline{font-size:10px;flex:0 1 auto;max-width:100%;white-space:normal}
+.switch{width:36px;height:20px;border-radius:99px;background:#59656b;position:relative;flex:none}
+.switch:after{content:"";position:absolute;right:3px;top:3px;width:14px;height:14px;border-radius:50%;background:white;transition:.15s}
+.switch.on{background:#39896c}.switch.on:after{right:19px}
+.radio{color:var(--muted);font-size:16px}.radio.selected{color:var(--accent)}
+.sketch{width:22px;height:29px;border:1.5px solid var(--muted);border-radius:4px;display:inline-block;flex:none}
+.sketch.land{width:29px;height:20px}
+.pagehead{display:flex;align-items:center;justify-content:space-between;position:relative;min-height:42px;margin:0 2px 12px}
+.pagehead h2{font-size:17px}.pagehead .backbtn{position:static;transform:none;color:var(--text)}
+.accordion{margin:8px 0}
+.sublist{display:none;padding:2px 5px 5px}.sublist.open{display:block}
+.instruction-detail{display:none;background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:14px;margin-top:12px;line-height:1.8;font-size:12px}
+.instruction-detail.open{display:block}.instruction-detail h3{font-size:14px;margin:0 0 8px}
+.rowitem{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.backhint{text-align:center;color:var(--muted);font-size:10px;padding:14px 0}
+.float-logo{display:none;position:fixed;z-index:20;left:18px;top:55%;width:35px;height:35px;touch-action:none;cursor:grab}
+.float-logo.show{display:block}.float-logo svg{width:100%;height:100%;filter:drop-shadow(0 2px 5px #0008)}
+.toast{display:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;font-size:12px;margin:8px 0}.toast.show{display:block}
+.footer{font-size:10px;color:var(--muted);line-height:1.8;text-align:center;margin-top:20px}
+@media(max-width:360px){.word{font-size:12px}.hint.inline{font-size:9px}.pill{padding:10px}.brand small{font-size:9px}}
+</style></head>
+<body><div class="app" id="app">
+<header class="banner" id="homeBanner">
+<button class="gear" onclick="navigate('settings')" aria-label="الإعدادات">⚙</button>
+<div class="brand"><b id="brandName">كيمو</b><small id="brandHint">نافذة لمشاهدة الفيديو فوق التطبيقات الأخرى.</small></div>
+</header>
+<main>
+<section class="page active" id="home">
+<div class="section-title"><h2 data-ar="حالة التطبيق" data-en="App status">حالة التطبيق</h2></div>
+<button class="status" id="status" onclick="toggleApp()">إضغط لتشغيل</button>
+<div class="section-title"><h2 data-ar="الأذونات" data-en="Permissions">الأذونات</h2><span class="hint" data-ar="أذونات ضرورية لتشغيل التطبيق" data-en="Permissions required to run the app">أذونات ضرورية لتشغيل التطبيق</span></div>
+<div class="pill" onclick="fakePermission(this)"><div class="pillcopy"><span class="word" data-ar="الظهور فوق التطبيقات" data-en="Display over other apps">الظهور فوق التطبيقات</span></div><span class="switch"></span></div>
+<div class="pill" onclick="fakePermission(this)"><div class="pillcopy"><span class="word" data-ar="العمل في الخلفية" data-en="Background activity">العمل في الخلفية</span></div><span class="switch"></span></div>
+<div class="section-title"><h2 data-ar="شكل النافذة" data-en="Window shape">شكل النافذة</h2><span class="hint" data-ar="اختر طريقة عرض الفيديو داخل النافذة" data-en="Choose how video appears in the window">اختر طريقة عرض الفيديو داخل النافذة</span></div>
+<div class="pill" onclick="selectShape(this)"><div class="pillcopy"><span class="word" data-ar="طولي دائماً" data-en="Always portrait">طولي دائماً</span></div><span class="sketch"></span><span class="radio selected">●</span></div>
+<div class="pill" onclick="selectShape(this)"><div class="pillcopy"><span class="word" data-ar="تكيفي تلقائي" data-en="Auto adaptive">تكيفي تلقائي</span><span class="hint inline" data-ar="حسب أبعاد الفيديو" data-en="Based on video dimensions">حسب أبعاد الفيديو</span></div><span style="display:flex;gap:4px;align-items:center"><span class="sketch"></span><span class="sketch land"></span></span><span class="radio">○</span></div>
+</section>
+
+<section class="page" id="settings">
+<div class="pagehead"><h2 data-ar="الإعدادات" data-en="Settings">الإعدادات</h2><button class="backbtn" onclick="goBack()">‹</button></div>
+<div class="pill" onclick="toggleLanguage()"><div class="pillcopy"><span class="word" data-ar="لغة التطبيق" data-en="App language">لغة التطبيق</span><span class="hint inline" data-ar="اضغط الزر لتغيير اللغة ←" data-en="Tap to change language →">اضغط الزر لتغيير اللغة ←</span></div><strong id="langValue" style="font-size:12px">English</strong></div>
+<div class="pill" onclick="toggleTheme()"><div class="pillcopy"><span class="word" data-ar="الوضع المعتم" data-en="Dark mode">الوضع المعتم</span></div><span class="switch on" id="themeSwitch"></span></div>
+<div class="section-title"><h2 data-ar="المساعدة والمعلومات" data-en="Help & information">المساعدة والمعلومات</h2></div>
+<div class="accordion">
+<div class="pill" onclick="toggleList('permissionsList')" ><span class="word" data-ar="أذونات التطبيق" data-en="App permissions">أذونات التطبيق</span><span>⌄</span></div>
+<div class="sublist" id="permissionsList">
+<div class="pill" onclick="fakePermission(this)"><span class="word" data-ar="الظهور فوق التطبيقات" data-en="Display over other apps">الظهور فوق التطبيقات</span><span class="switch"></span></div>
+<div class="pill" onclick="fakePermission(this)"><span class="word" data-ar="العمل في الخلفية" data-en="Background activity">العمل في الخلفية</span><span class="switch"></span></div>
+<div class="pill"><span class="word" data-ar="الإشعارات (إذا تطلبها إصدار أندرويد)" data-en="Notifications (if required by Android version)">الإشعارات (إذا تطلبها إصدار أندرويد)</span><span class="switch"></span></div>
+</div>
+<div class="pill" onclick="toggleList('instructionsList')"><span class="word" data-ar="التعليمات" data-en="Instructions">التعليمات</span><span>⌄</span></div>
+<div class="sublist" id="instructionsList">
+<div class="pill" onclick="showInstruction('start')"><span class="word" data-ar="تشغيل كيمو" data-en="Start Kimo">تشغيل كيمو</span><span>›</span></div>
+<div class="pill" onclick="showInstruction('dark')"><span class="word" data-ar="الوضع المظلم" data-en="Dark mode">الوضع المظلم</span><span>›</span></div>
+<div class="pill" onclick="showInstruction('language')"><span class="word" data-ar="تغيير اللغة" data-en="Change language">تغيير اللغة</span><span>›</span></div>
+<div class="pill" onclick="showInstruction('floating')"><span class="word" data-ar="استخدام النافذة العائمة" data-en="Using the floating window">استخدام النافذة العائمة</span><span>›</span></div>
+</div>
+<div id="instructionDetail" class="instruction-detail"></div>
+<div class="pill" onclick="navigate('privacy')"><span class="word" data-ar="سياسة الخصوصية والإصدار" data-en="Privacy policy & version">سياسة الخصوصية والإصدار</span><span>›</span></div>
+<div class="pill" onclick="window.open('https://wa.me/967771594022?text=%D9%86%D8%B3%D8%B9%D8%AF%20%D8%A8%D8%AA%D9%88%D8%A7%D8%B5%D9%84%D9%83%D9%85%20%D9%85%D8%B9%D9%86%D8%A7%20%D9%85%D8%A7%D9%87%D9%8A%20%D9%85%D8%B4%D9%83%D9%84%D8%AA%D9%83%D8%9F','_blank')"><span class="word" data-ar="الدعم الفني" data-en="Technical support">الدعم الفني</span><span>›</span></div>
+</div>
+<div class="footer"><div onclick="window.open('https://wa.me/967771594022','_blank')" style="cursor:pointer"><b data-ar="كيمو" data-en="Kimo">كيمو</b> <span class="hint" data-ar="اضغط للتواصل مع المطوّر" data-en="Tap to contact the developer">اضغط للتواصل مع المطوّر</span></div><p>© 2026 كيمو. جميع الحقوق محفوظة.<br>اسم كيمو وشعاره وتصميم التطبيق وبرمجته ومحتواه الأصلي مملوكة لصاحب التطبيق، مع مراعاة حقوق الأطراف الثالثة وتراخيص المكونات المستخدمة.</p></div>
+</section>
+
+<section class="page" id="privacy">
+<div class="pagehead"><h2 data-ar="سياسة الخصوصية والإصدار" data-en="Privacy policy & version">سياسة الخصوصية والإصدار</h2><button class="backbtn" onclick="goBack()">‹</button></div>
+<div class="pill"><div class="pillcopy"><span class="word" data-ar="رقم الإصدار" data-en="Version">رقم الإصدار</span></div><span class="hint">1.0.0 (تجريبي)</span></div>
+<p class="hint" style="line-height:2;padding:8px">ستُستكمل سياسة الخصوصية النهائية وفق وظائف التطبيق الفعلية والبيانات التي يجمعها فعلياً قبل النشر.</p>
+</section>
+</main>
+<div class="backhint" id="backHint" data-ar="زر الرجوع يعيدك خطوة للخلف" data-en="Back returns to the previous page">زر الرجوع يعيدك خطوة للخلف</div>
+</div>
+<div class="float-logo" id="floatLogo" aria-label="رمز كيمو العائم">
+<svg viewBox="0 0 40 40" fill="none"><rect x="7" y="4" width="25" height="29" rx="3" stroke="#9ba8ad" stroke-width="2.2"/><rect x="3" y="10" width="25" height="27" rx="3" fill="#101820" stroke="#f4f7f8" stroke-width="2.2"/></svg>
+</div>
+<script>
+let current='home', stack=[], running=false, english=false;
+const arText={start:['تشغيل كيمو','1. اضغط «إضغط لتشغيل» في الصفحة الرئيسية. 2. فعّل إذن الظهور فوق التطبيقات من إعدادات أندرويد إذا طُلب منك ذلك. 3. اسمح بالعمل في الخلفية أو أزل قيود البطارية إذا كان جهازك يحتاج ذلك. تختلف أسماء الإعدادات حسب الشركة وإصدار أندرويد.'],dark:['الوضع المظلم','افتح الإعدادات، ثم اضغط على خانة «الوضع المعتم» لتبديل مظهر التطبيق بين الفاتح والمعتم.'],language:['تغيير اللغة','افتح الإعدادات، ثم اضغط على خانة «لغة التطبيق». ستتغير عناوين التطبيق وخياراته وتلميحاته إلى اللغة الأخرى.'],floating:['استخدام النافذة العائمة','بعد تشغيل كيمو ومنح الأذونات المطلوبة، استخدم ميزة النافذة العائمة من مشغل فيديو متوافق. يمكنك سحب الرمز العائم إلى مكان مناسب. قد لا تدعم بعض التطبيقات أو الفيديوهات هذه الميزة.']};
+const enText={start:['Start Kimo','1. Tap “Start” on the home screen. 2. Allow display over other apps in Android settings if requested. 3. Allow background activity or remove battery restrictions if your device requires it. Setting names vary by device and Android version.'],dark:['Dark mode','Open Settings, then tap the Dark mode row to switch between light and dark appearance.'],language:['Change language','Open Settings, then tap App language. App labels, options and hints will switch to the other language.'],floating:['Using the floating window','After starting Kimo and granting the required permissions, use the floating-window feature from a compatible video player. You can drag the floating icon to a convenient place. Some apps or videos may not support this feature.']};
+function navigate(id){stack.push(current);document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');current=id;document.getElementById('homeBanner').style.display=id==='home'?'flex':'none';document.getElementById('backHint').style.display='none';}
+function goBack(){if(stack.length){const id=stack.pop();document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');current=id;document.getElementById('homeBanner').style.display=id==='home'?'flex':'none';document.getElementById('backHint').style.display=id==='home'?'block':'none';}else if(current==='home'){if(confirm(english?'Press OK again to exit the preview.':'اضغط موافق لتأكيد الخروج من المعاينة.')) alert(english?'This is a web preview; Android app exit is not available here.':'هذه معاينة ويب ولا يمكن إغلاق تطبيق أندرويد فعلياً.');}}
+function applyRunningState(value){running=!!value;const b=document.getElementById('status');b.classList.toggle('on',running);b.textContent=running?(english?'Tap to stop':'إضغط للإيقاف'):(english?'Tap to start':'إضغط لتشغيل');document.getElementById('floatLogo').classList.remove('show')}
+function toggleApp(){if(window.KimoAndroid){KimoAndroid.toggleKimo();setTimeout(syncNativeState,250)}else{applyRunningState(!running)}}
+function syncNativeState(){if(!window.KimoAndroid)return;applyRunningState(KimoAndroid.isRunning());syncPermissionIndicators()}
+function syncPermissionIndicators(){if(!window.KimoAndroid)return;const overlay=KimoAndroid.hasOverlayPermission(),battery=KimoAndroid.hasBatteryExemption();document.querySelectorAll('.pill').forEach(p=>{const w=p.querySelector('.word');const s=p.querySelector('.switch');if(!w||!s)return;const t=w.textContent.trim();if(t.includes('الظهور فوق')||t.includes('Display over'))s.classList.toggle('on',overlay);if(t.includes('العمل في الخلفية')||t.includes('Background activity'))s.classList.toggle('on',battery)})}
+
+function fakePermission(el){const w=el.querySelector('.word');const t=w?w.textContent:'';if(window.KimoAndroid){if(t.includes('الظهور فوق')||t.includes('Display over'))KimoAndroid.openOverlaySettings();else if(t.includes('العمل في الخلفية')||t.includes('Background activity'))KimoAndroid.openBatterySettings();else KimoAndroid.openAppSettings();setTimeout(syncNativeState,500)}else{const sw=el.querySelector('.switch');if(sw)sw.classList.toggle('on')}}
+function selectShape(el){try{localStorage.setItem('kimoShape',el.querySelector('.word')?.textContent||'')}catch(e){}document.querySelectorAll('#home .radio').forEach(r=>{r.textContent='○';r.classList.remove('selected')});const r=el.querySelector('.radio');r.textContent='●';r.classList.add('selected')}
+function toggleList(id){document.getElementById(id).classList.toggle('open')}
+function showInstruction(key){const data=(english?enText:arText)[key];const d=document.getElementById('instructionDetail');d.innerHTML='<h3>'+data[0]+'</h3><div>'+data[1]+'</div>';d.classList.add('open');d.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function toggleTheme(){document.body.classList.toggle('light');document.getElementById('themeSwitch').classList.toggle('on');try{localStorage.setItem('kimoLight',document.body.classList.contains('light')?'1':'0')}catch(e){}}
+function toggleLanguage(){english=!english;try{localStorage.setItem('kimoEnglish',english?'1':'0')}catch(e){}document.documentElement.lang=english?'en':'ar';document.documentElement.dir=english?'ltr':'rtl';document.querySelectorAll('[data-ar]').forEach(el=>el.textContent=english?el.dataset.en:el.dataset.ar);document.getElementById('langValue').textContent=english?'عربي':'English';document.getElementById('brandName').textContent='كيمو';document.getElementById('brandHint').textContent=english?'A floating window for watching video over other apps.':'نافذة لمشاهدة الفيديو فوق التطبيقات الأخرى.';document.getElementById('status').textContent=running?(english?'Tap to stop':'إضغط للإيقاف'):(english?'Tap to start':'إضغط لتشغيل');document.getElementById('instructionDetail').classList.remove('open')}
+function restoreKimoPrefs(){try{if(localStorage.getItem('kimoLight')==='1'){document.body.classList.add('light');document.getElementById('themeSwitch').classList.remove('on')}if(localStorage.getItem('kimoEnglish')==='1'&&!english)toggleLanguage()}catch(e){}syncNativeState()}
+window.addEventListener('load',()=>setTimeout(restoreKimoPrefs,120));
+const floater=document.getElementById('floatLogo');let dragging=false,dx=0,dy=0;
+floater.addEventListener('pointerdown',e=>{dragging=true;dx=e.clientX-floater.offsetLeft;dy=e.clientY-floater.offsetTop;floater.setPointerCapture(e.pointerId)});
+floater.addEventListener('pointermove',e=>{if(!dragging)return;floater.style.left=Math.max(0,Math.min(innerWidth-40,e.clientX-dx))+'px';floater.style.top=Math.max(8,Math.min(innerHeight-45,e.clientY-dy))+'px'});
+floater.addEventListener('pointerup',()=>dragging=false);
+</script></body></html>

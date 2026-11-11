@@ -1,154 +1,37 @@
 name: Build Kimo Android APK
-
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'KimoAndroid_updated_source.zip'
+      - 'settings.gradle'
+      - 'build.gradle'
+      - 'app/**'
       - '.github/workflows/android.yml'
-      - 'repair_kimo.py'
-
 permissions:
-  contents: write
-
+  contents: read
 jobs:
   build:
-    name: Compile Kimo APK
+    name: Compile Kimo Android APK
     runs-on: ubuntu-latest
-    env:
-      ANDROID_HOME: /usr/local/lib/android/sdk
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-
+      - uses: android-actions/setup-android@v3
       - name: Install Android SDK 35
-        shell: bash
         run: |
-          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)"
-          test -n "$SDKMANAGER"
-          yes | "$SDKMANAGER" --licenses || true
-          "$SDKMANAGER" --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
-
-      - name: Set up Gradle 8.9
-        uses: gradle/actions/setup-gradle@v4
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-
-      - name: Extract Android project
-        run: |
-          test -f KimoAndroid_updated_source.zip
-          mkdir -p extracted
-          unzip -q KimoAndroid_updated_source.zip -d extracted
-          test -f extracted/KimoAndroid/settings.gradle
-          test -f extracted/KimoAndroid/app/build.gradle
-
-      - name: Publish extracted Android source for inspection
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          branch="inspect-android-source-${GITHUB_RUN_ID}"
-          git checkout -b "$branch"
-          mkdir -p _source_inspection
-          cp -R extracted/KimoAndroid/. _source_inspection/
-          git add _source_inspection
-          git commit -m "Export Android source for inspection"
-          git push origin "$branch"
-
-      - name: Apply Kimo functional repairs
-        working-directory: extracted/KimoAndroid
-        run: python3 "$GITHUB_WORKSPACE/repair_kimo.py"
-
-      - name: Export extracted source for repair
-        uses: actions/upload-artifact@v4
-        with:
-          name: kimo-source-for-repair
-          path: extracted/KimoAndroid/
-          if-no-files-found: error
-          retention-days: 3
-
-      - name: Inspect complete app sources
-        working-directory: extracted/KimoAndroid
-        shell: bash
-        run: |
-          echo '===== MAIN ACTIVITY ====='
-          cat app/src/main/java/com/kimo/floating/MainActivity.kt
-          echo '===== FLOATING SERVICE ====='
-          cat app/src/main/java/com/kimo/floating/FloatingVideoService.kt
-          echo '===== MANIFEST ====='
-          cat app/src/main/AndroidManifest.xml
-          echo '===== STYLES ====='
-          cat app/src/main/res/values/styles.xml
-
-      - name: Inspect MainActivity source
-        working-directory: extracted/KimoAndroid
-        run: |
-          echo '--- MainActivity.kt ---'
-          nl -ba app/src/main/java/com/kimo/floating/MainActivity.kt | sed -n '1,180p'
-          echo '--- Android manifest ---'
-          cat app/src/main/AndroidManifest.xml
-
-      - name: Fix Activity Result host
-        working-directory: extracted/KimoAndroid
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          p = Path("app/src/main/java/com/kimo/floating/MainActivity.kt")
-          lines = p.read_text().splitlines()
-          lines = [line for line in lines if line.strip() not in (
-              "import android.app.Activity",
-              "import androidx.activity.ComponentActivity"
-          )]
-          package_index = next(i for i, line in enumerate(lines) if line.startswith("package "))
-          lines.insert(package_index + 1, "")
-          lines.insert(package_index + 2, "import androidx.activity.ComponentActivity")
-          source = chr(10).join(lines) + chr(10)
-          source = source.replace("class MainActivity : Activity()", "class MainActivity : ComponentActivity()")
-          if "class MainActivity : ComponentActivity()" not in source:
-              raise SystemExit("Could not switch MainActivity to ComponentActivity")
-          p.write_text(source)
-          g = Path("app/build.gradle")
-          build = g.read_text()
-          dep = 'implementation "androidx.activity:activity-ktx:1.10.1"'
-          if dep not in build:
-              pos = build.find("dependencies {")
-              if pos < 0:
-                  raise SystemExit("No dependencies block in app/build.gradle")
-              pos += len("dependencies {")
-              build = build[:pos] + chr(10) + "    " + dep + build[pos:]
-              g.write_text(build)
-          PY
-
-      - name: Align Java and Kotlin JVM targets
-        working-directory: extracted/KimoAndroid
-        shell: bash
-        run: |
-          cat >> app/build.gradle <<'GRADLE'
-
-          // Set Android Java bytecode compatibility to match Kotlin JVM 17.
-          android {
-              compileOptions {
-                  sourceCompatibility JavaVersion.VERSION_17
-                  targetCompatibility JavaVersion.VERSION_17
-              }
-          }
-          GRADLE
-
       - name: Build debug APK
-        working-directory: extracted/KimoAndroid
         run: gradle --no-daemon --stacktrace assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: kimo-debug-apk
-          path: extracted/KimoAndroid/app/build/outputs/apk/debug/*.apk
+          name: kimo-android-apk
+          path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
           retention-days: 14
